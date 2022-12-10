@@ -1,4 +1,10 @@
+--create database
+USE master
+GO
+
 CREATE DATABASE Layers_Office
+USE Layers_Office
+GO
 
 --create tables
 
