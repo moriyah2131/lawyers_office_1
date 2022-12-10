@@ -1,0 +1,94 @@
+<div class="body">
+  <h1 class="mrgin-left" id="bagName">{{ bag?.bagName }}</h1>
+</div>
+<div class="row">
+  <div class="container col">
+    <h2 class="titles">פעולות</h2>
+    <button matTooltip="מסמכים" mat-button (click)="openFilesDialog()">
+      <span class="material-icons" style="font-size: 150px">
+        drive_folder_upload
+      </span>
+    </button>
+  </div>
+
+  <div class="container col">
+    <h2 class="titles">משימות</h2>
+    <div class="row">
+      <div class="col">
+        <div class="tasks-container">
+          <app-tasks-list
+            [allowSensitiveActions]="true"
+            [person]="currentPerson"
+            [participants]="participants"
+          ></app-tasks-list>
+        </div>
+      </div>
+      <div class="quarter col">
+        <div class="row">
+          <mat-card>
+            <mat-card-header>משימות לב"כ</mat-card-header>
+            <br />
+            <mat-card-content>
+              <button
+                class="task-button"
+                mat-raised-button
+                (click)="tasksList?.onPersonChange()"
+              >
+                {{ "הבלין - ולר" }}
+              </button>
+              <button
+                class="task-button"
+                mat-raised-button
+                (click)="tasksList?.onPersonChange(bag?.agent)"
+              >
+                {{ bag?.agent?.firstName + " " + bag?.agent?.lastName }}
+              </button>
+            </mat-card-content>
+          </mat-card>
+
+          <br />
+          <div><br /></div>
+          <mat-divider></mat-divider>
+          <div><br /></div>
+          <br />
+
+          <mat-card>
+            <mat-card-header>משימות לקונים</mat-card-header>
+            <br />
+            <mat-card-content>
+              <button
+                class="task-button"
+                mat-raised-button
+                *ngFor="let buyer of bag?.buyers"
+                (click)="tasksList?.onPersonChange(buyer)"
+              >
+                {{ buyer.firstName + " " + buyer.lastName }}
+              </button>
+            </mat-card-content>
+          </mat-card>
+
+          <br />
+          <div><br /></div>
+          <mat-divider></mat-divider>
+          <div><br /></div>
+          <br />
+
+          <mat-card>
+            <mat-card-header>משימות למוכרים</mat-card-header>
+            <br />
+            <mat-card-content>
+              <button
+                class="task-button"
+                mat-raised-button
+                *ngFor="let seller of bag?.sellers"
+                (click)="tasksList?.onPersonChange(seller)"
+              >
+                {{ seller.firstName + " " + seller.lastName }}
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

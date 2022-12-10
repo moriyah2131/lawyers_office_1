@@ -1,0 +1,14 @@
+.container{
+    margin-top: 20px;
+}
+
+.a{
+    color: var(--bs-link-color);
+    text-decoration: underline;
+    font-size: 12px;
+}
+.a:hover{
+    text-decoration: none;
+    opacity: 50%;
+    cursor: pointer;
+}

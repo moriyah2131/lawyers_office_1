@@ -1,0 +1,9 @@
+<div class="container" dir="rtl">
+  <h1 mat-dialog-title>{{ "פרטי נכס" }}</h1>
+  <div mat-dialog-content>
+    <app-asset-info [asset]="data.asset"></app-asset-info>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" cdkFocusInitial>סיום</button>
+  </div>
+</div>

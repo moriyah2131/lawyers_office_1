@@ -1,0 +1,44 @@
+<div class="container">
+  <li>
+    <div class="navbar-login">
+      <div class="row">
+        <div class="col-lg-4">
+          <p class="text-center">
+            <i
+              class="fa-solid fa-user-large icon-size"
+              style="color: rgb(17, 95, 190)"
+            ></i>
+          </p>
+        </div>
+        <div class="col">
+          <p class="text-left s" *ngIf="person?.firstName || person?.lastName">
+            <strong>{{ person?.firstName + " " + person?.lastName }}</strong>
+          </p>
+          <p class="text-left small" *ngIf="person?.tz">
+            {{ person?.tz }}
+          </p>
+
+          <p class="text-left s" *ngIf="person?.email">
+            {{ person?.email
+            }}<span class="icon"><mat-icon> email</mat-icon></span>
+          </p>
+          <p class="text-left s" *ngIf="person?.phone">
+            {{ person?.phone }}
+            <span class="icon"><mat-icon>phone_iphone</mat-icon></span>
+          </p>
+          <p *ngIf="person?.secondPhone" class="text-left small">
+            {{ person?.secondPhone
+            }}<span class="icon"><mat-icon> phone</mat-icon></span>
+          </p>
+          <p *ngIf="person?.livingAddress" class="text-left small">
+            {{ person?.livingAddress
+            }}<span class="icon"><mat-icon>home</mat-icon></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </li>
+  <mat-divider></mat-divider>
+  <li class="divider"></li>
+  <a (click)="logout()" id="warning">נתק מהמערכת</a>
+</div>

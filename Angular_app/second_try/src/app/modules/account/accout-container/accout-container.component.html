@@ -1,0 +1,12 @@
+<div *ngIf="!authorized">
+  <app-login
+    *ngIf="!register"
+    (goToRegisterEvent)="switchToRegister()"
+    (authorizedEvent)="authorized = true"
+  ></app-login>
+  <app-register
+    *ngIf="register"
+    (goToLoginEvent)="switchToLogin()"
+    (authorizedEvent)="authorized = true"
+  ></app-register>
+</div>

@@ -1,0 +1,167 @@
+<div class="container" dir="rtl">
+  <form [formGroup]="assetForm" (ngSubmit)="onSubmit()">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">פרטי נכס</h6>
+        <br />
+        <div class="form-row">
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">מספר בלוק / ספר</label>
+            <input
+              type="text"
+              formControlName="blockOrBook"
+              class="form-control"
+              placeholder="📖"
+              [ngClass]="{
+                'is-invalid': submitted && f['blockOrBook'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['blockOrBook'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['blockOrBook'].errors['required']">שדה זה חובה</div>
+            </div>
+          </div>
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">מספר חלקה / דף</label>
+            <input
+              type="text"
+              formControlName="plotOrPage"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['plotOrPage'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['plotOrPage'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['plotOrPage'].errors['required']">שדה זה חובה</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-5" dir="rtl">
+            <label class="card-subtitle mb-2 text-muted">מספר תת חלקה</label>
+            <input
+              type="text"
+              formControlName="subPlot"
+              placeholder="אופציונאלי"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['subPlot'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['subPlot'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['subPlot'].errors['required']">שדה זה חובה</div>
+              <div
+                *ngIf="!f['subPlot'].errors['required'] && f['subPlot'].errors"
+              >
+                על מספר הזיהוי להכיל 9 מספרים.
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">מספר תיק מנהל</label>
+            <div class="input-group mb-15" dir="ltr">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-folder"></i
+                ></span>
+              </div>
+              <input
+                type="text"
+                formControlName="tikMinhal"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                [ngClass]="{ 'is-invalid': submitted && f['tikMinhal'].errors }"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-10" dir="rtl">
+            <label class="card-subtitle mb-2 text-muted">כתובת הנכס</label>
+            <input
+              type="text"
+              formControlName="assetAddress"
+              class="form-control"
+              placeholder="🏡"
+              dir="ltr"
+              [ngClass]="{
+                'is-invalid': submitted && f['assetAddress'].errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && f['assetAddress'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['assetAddress'].errors['required']">
+                שדה זה חובה
+              </div>
+              <div
+                *ngIf="
+                  !f['assetAddress'].errors['required'] &&
+                  f['assetAddress'].errors
+                "
+              >
+                המספר אינו תקין
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-10">
+            <label class="card-subtitle mb-2 text-muted">פרטים נוספים</label>
+            <div class="input-group mb-15" dir="ltr">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa fa-pencil" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                formControlName="otherDetails"
+                placeholder="אופציונאלי"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                [ngClass]="{
+                  'is-invalid': submitted && f['otherDetails'].errors
+                }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-dialog-actions align="end">
+      <!-- <div
+          class="spinner-border text-primary loading"
+          role="status"
+          *ngIf="loading"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+        <button mat-flat-button color="primary" type="submit">צור</button> -->
+      <button mat-flat-button type="reset" (click)="onReset()">נקה</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+
+<div
+  class="spinner-border text-primary middle"
+  role="status"
+  *ngIf="loading == true"
+>
+  <span class="sr-only">Loading...</span>
+</div>
+
+<div class="alert alert-danger" *ngIf="errorMessage">
+  <strong>Error!</strong> {{ errorMessage }}
+</div>

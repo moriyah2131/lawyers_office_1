@@ -1,0 +1,311 @@
+<div class="body">
+  <h1 class="mrgin-left">תיקי המשרד</h1>
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="standard" class="mrgin-left">
+        <mat-label>סנן טבלה</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="חיפוש"
+          dir="rtl"
+          #input
+        />
+      </mat-form-field>
+
+      <div class="mat-elevation-z8 table">
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="loading"
+        ></mat-progress-bar>
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          multiTemplateDataRows
+        >
+          <!-- bagState Column -->
+          <ng-container matColumnDef="bagState">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>מצב התיק</th>
+            <td mat-cell *matCellDef="let row">
+              <span
+                *ngIf="row.bagState == 0"
+                matTooltip="בתהליך"
+                [matTooltipPosition]="'before'"
+                class="material-icons green-color state"
+                >circle</span
+              >
+              <span
+                *ngIf="row.bagState == 1"
+                matTooltip="נסגר"
+                [matTooltipPosition]="'before'"
+                class="material-icons gray-color state"
+                >circle</span
+              >
+              <span
+                *ngIf="row.bagState == 2"
+                matTooltip="תקוע"
+                [matTooltipPosition]="'before'"
+                class="material-icons red-color state"
+                >circle</span
+              >
+              <span
+                *ngIf="row.bagState == 4"
+                matTooltip="ממתין"
+                [matTooltipPosition]="'before'"
+                class="material-icons orange-color state"
+                >circle</span
+              >
+            </td>
+          </ng-container>
+
+          <!-- bagName Column -->
+          <ng-container matColumnDef="bagName">
+            <th
+              class="col-space"
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+            >
+              שם
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.bagName }}
+            </td>
+          </ng-container>
+          <!-- sellers Column -->
+          <ng-container matColumnDef="sellers">
+            <th
+              class="col-space"
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+            >
+              מוכרים
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span *ngFor="let s of row.sellers">
+                <a (click)="openPersonInfoDialog(s)">{{
+                  s?.firstName + " " + s?.lastName
+                }}</a
+                ><br />
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- buyers Column -->
+          <ng-container matColumnDef="buyers">
+            <th
+              class="col-space"
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+            >
+              קונים
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span *ngFor="let b of row.buyers">
+                <a (click)="openPersonInfoDialog(b)">{{
+                  b?.firstName + " " + b?.lastName
+                }}</a
+                ><br />
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- agent Column -->
+          <ng-container matColumnDef="agent">
+            <th
+              class="col-space"
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+            >
+              ב"כ
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <a (click)="openPersonInfoDialog(row.agent)">{{
+                row.agent
+                  ? row.agent.firstName + " " + row.agent.lastName
+                  : "אין"
+              }}</a>
+            </td>
+          </ng-container>
+
+          <!-- lastOpen Column -->
+          <ng-container matColumnDef="lastOpen">
+            <th
+              class="col-space"
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+            >
+              נפתח לאחרונה
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span>{{ row.lastOpen | date: "shortDate" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- openDate Column -->
+          <ng-container matColumnDef="openDate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              class="col-space"
+            >
+              תאריך יצירה
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span>{{ row.openDate | date: "shortDate" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- closeDate Column -->
+          <ng-container matColumnDef="closeDate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              class="col-space"
+            >
+              תאריך סגירה
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span>{{ row.closeDate | date: "shortDate" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- asset Column -->
+          <ng-container matColumnDef="asset">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              class="col-space"
+            >
+              כתובת נכס
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <a (click)="openAssetInfoDialog(row.asset)"
+                >{{ row.asset?.assetAddress }}
+              </a>
+            </td>
+          </ng-container>
+
+          <!-- button Column -->
+          <ng-container matColumnDef="button">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              class="col-space"
+            ></th>
+            <td mat-cell *matCellDef="let row">
+              <button
+                mat-raised-button
+                class="open-bag-button"
+                (click)="
+                  chooseBag(
+                    row.id,
+                    row?.asset,
+                    row?.buyers,
+                    row?.sellers,
+                    row.bagName
+                  )
+                "
+              >
+                <mat-icon *ngIf="chosenBagID == row.id">cancel</mat-icon>
+                <span *ngIf="chosenBagID != row.id">בחר</span>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let element; columns: displayedColumns"
+            class="example-element-row"
+          ></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              No data matching the filter "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator
+          [pageSize]="pageSize"
+          aria-label="Select page of reports"
+          (page)="pageChanged($event)"
+          aria-label="Select page"
+        ></mat-paginator>
+      </div>
+
+      <div class="alert alert-danger" *ngIf="error">
+        <svg
+          class="bi flex-shrink-0 me-2"
+          width="24"
+          height="24"
+          role="img"
+          aria-label="Danger:"
+        >
+          <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        <strong>Error!</strong> {{ error }}
+      </div>
+    </div>
+    <div class="col">
+      <button
+        mat-fab
+        color="primary"
+        matTooltip="צור תיק חדש"
+        (click)="openCreateBagDialog(true)"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="col">
+      <div class="card actions" style="width: 19rem">
+        <div class="card-body">
+          <h5 class="card-title">פעולות על תיק</h5>
+          <p class="card-text">בחר את התיק שעליו ברצונך לבצע את הפעולה.</p>
+          <a
+            [routerLink]="['/bags-lawyer/bag-info', chosenBagID]"
+            class="button"
+          >
+            <button
+              mat-stroked-button
+              class="bag-action"
+              id="open-button"
+              [disabled]="chosenBagID == -1"
+            >
+              <mat-icon>open_in_new</mat-icon></button
+            >&nbsp;&nbsp;<label for="open-button">פתח</label><br /> </a
+          ><button
+            mat-stroked-button
+            class="bag-action"
+            id="edit-button"
+            [disabled]="chosenBagID == -1"
+            (click)="openCreateBagDialog(false)"
+          >
+            <mat-icon>edit</mat-icon></button
+          >&nbsp;&nbsp;<label for="edit-button">ערוך</label><br />
+          <button
+            mat-stroked-button
+            class="bag-action"
+            color="warn"
+            id="trash-button"
+            [disabled]="chosenBagID == -1"
+            (click)="deleteBag()"
+          >
+            <mat-icon>restore_from_trash</mat-icon></button
+          >&nbsp;&nbsp;<label for="trash-button">מחק</label><br />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

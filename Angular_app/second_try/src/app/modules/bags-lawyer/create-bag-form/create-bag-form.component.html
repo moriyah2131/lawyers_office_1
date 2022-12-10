@@ -1,0 +1,127 @@
+<div class="container" dir="rtl">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">צד {{ userType + " " + index }}</h6>
+        <a class="card-subtitle" (click)="showEmailOnly = !showEmailOnly">
+          <span class="a" *ngIf="!showEmailOnly"
+            >אם משתמש זה כבר רשום במערכת, נא לחץ כאן</span
+          >
+          <span class="a" *ngIf="showEmailOnly">חזרה</span>
+        </a>
+        <br />
+        <div class="form-row" *ngIf="!showEmailOnly">
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">שם פרטי</label>
+            <input
+              type="text"
+              formControlName="firstName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['firstName'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['firstName'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['firstName'].errors['required']">שדה זה חובה</div>
+            </div>
+          </div>
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">שם משפחה</label>
+            <input
+              value="text"
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['lastName'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['lastName'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['lastName'].errors['required']">שדה זה חובה</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" *ngIf="!showEmailOnly">
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">מספר זהות</label>
+            <input
+              type="text"
+              formControlName="IDnumber"
+              placeholder="#"
+              dir="ltr"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['IDnumber'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['IDnumber'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['IDnumber'].errors['required']">שדה זה חובה</div>
+              <div
+                *ngIf="
+                  !f['IDnumber'].errors['required'] && f['IDnumber'].errors
+                "
+              >
+                על מספר הזיהוי להכיל 9 מספרים.
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-5">
+            <label class="card-subtitle mb-2 text-muted">טלפון</label>
+            <input
+              type="text"
+              formControlName="phone"
+              class="form-control"
+              placeholder="📞"
+              dir="ltr"
+              [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+            />
+
+            <div
+              *ngIf="submitted && f['phone'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['phone'].errors['required']">שדה זה חובה</div>
+              <div *ngIf="!f['phone'].errors['required'] && f['phone'].errors">
+                המספר אינו תקין
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-10">
+            <label class="card-subtitle mb-2 text-muted">אימייל</label>
+            <div class="input-group mb-15" dir="ltr">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div>
+              <input
+                type="text"
+                formControlName="email"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-dialog-actions align="end">
+      <button mat-flat-button type="reset" (click)="onReset()">נקה</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+
+<div class="alert alert-danger" *ngIf="errorMessage">
+  <strong>Error!</strong> {{ errorMessage }}
+</div>

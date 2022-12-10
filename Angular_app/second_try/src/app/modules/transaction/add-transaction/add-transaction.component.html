@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="card m-3" *ngIf="!showSuccess">
+    <h5 class="card-header">Transaction</h5>
+    <div class="card-body col-9 center">
+      <div>
+        <h6 class="card-header">Transfer money to another account:</h6>
+        <br />
+      </div>
+      <form [formGroup]="transactionForm" (submit)="addNewTransaction()">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text input-span" id="basic-addon1">#</span>
+            <input
+              type="number"
+              formControlName="accountId"
+              class="form-control"
+              placeholder="Account ID"
+              aria-label="accountId"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text input-span" id="basic-addon1"
+              ><i class="fas fa-dollar-sign"></i
+            ></span>
+            <input
+              type="number"
+              formControlName="amount"
+              class="form-control"
+              placeholder="Amount"
+              aria-label="amount"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+        </div>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <svg
+            class="bi flex-shrink-0 me-2"
+            width="24"
+            height="24"
+            role="img"
+            aria-label="Warning:"
+          >
+            <use xlink:href="#exclamation-triangle-fill" />
+          </svg>
+          <div><strong>Note:</strong> This action is irreversible.</div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="transactionForm.errors"
+        >
+          Transfer
+        </button>
+      </form>
+    </div>
+  </div>
+  <div
+    class="alert alert-danger d-flex align-items-center"
+    role="alert"
+    *ngIf="error"
+  >
+    <svg
+      class="bi flex-shrink-0 me-2"
+      width="24"
+      height="24"
+      role="img"
+      aria-label="Danger:"
+    >
+      <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    <div><strong>Error!</strong> {{ error }}</div>
+  </div>
+  <div *ngIf="showSuccess">
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+      <svg
+        class="bi flex-shrink-0 me-2"
+        width="24"
+        height="24"
+        role="img"
+        aria-label="Success:"
+      >
+        <use xlink:href="#check-circle-fill" />
+      </svg>
+      <div><strong>Success!</strong> Your application is being processed.</div>
+    </div>
+    <a routerLink="transaction/add-transaction" (click)="transferNext()"
+      >To transfer next >></a
+    >
+    &nbsp;&nbsp;
+    <a routerLink="/">Home >></a>
+  </div>
+  <div
+    class="spinner-border text-primary middle"
+    role="status"
+    *ngIf="loading == true"
+  >
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

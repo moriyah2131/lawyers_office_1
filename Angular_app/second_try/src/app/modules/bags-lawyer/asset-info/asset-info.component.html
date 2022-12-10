@@ -1,0 +1,38 @@
+<div class="container" dir="rtl">
+  <div class="row">
+    <div class="col">
+      <p class="text-right s" *ngIf="asset?.blockOrBook">
+        <strong>{{ " בלוק/ ספר: " + asset?.blockOrBook }}</strong>
+      </p>
+      <p class="text-right s" *ngIf="asset?.plotOrPage">
+        {{ " חלקה/ עמוד: " + asset?.plotOrPage }}
+      </p>
+
+      <p class="text-right small" *ngIf="asset?.subPlot">
+        {{ " תת- חלקה: " + asset?.subPlot }}
+      </p>
+      <br /><br />
+      <p class="text-right small" *ngIf="asset?.assetAddress">
+        <span class="icon"
+          ><i class="fa fa-map-marker" aria-hidden="true"></i
+        ></span>
+        {{ asset?.assetAddress }}
+      </p>
+      <p class="text-right small" *ngIf="asset?.tikMinhal">
+        <span class="icon"><i class="fa fa-archive"></i></span>
+        {{ "תיק מנהל: " + asset?.tikMinhal }}
+      </p>
+      <p class="text-right small" *ngIf="asset?.otherDetails">
+        <span class="icon"
+          ><i class="fa fa-info-circle" aria-hidden="true"></i
+        ></span>
+        {{ asset?.otherDetails }}
+      </p>
+    </div>
+    <div class="col-lg-4">
+      <p class="text-center">
+        <i class="fas fa-landmark main-icon" aria-hidden="true"></i>
+      </p>
+    </div>
+  </div>
+</div>

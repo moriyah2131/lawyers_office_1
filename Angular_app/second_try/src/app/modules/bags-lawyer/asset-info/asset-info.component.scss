@@ -1,0 +1,59 @@
+.container
+{
+    min-width: 335px;
+    width: fit-content;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-right{
+    max-width: 305px;
+}
+
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
+
+.s{
+    margin: 0px;
+}
+
+small{
+    color: var(--bs-link-color);
+}
+
+small:hover{
+    opacity: 50%;
+    cursor: pointer;
+}
+
+li {
+    list-style-type: none;
+}
+
+.btn{
+    color: white;
+}
+
+.icon{
+    position: relative;
+    top: 2px;
+    margin-left: 20px;
+}
+
+.main-icon{
+    font-size: 100px;
+    color: orange;
+    position: relative;
+    top: -10px;
+    left:30px
+}

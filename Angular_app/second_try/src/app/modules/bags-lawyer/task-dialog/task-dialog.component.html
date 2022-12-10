@@ -1,0 +1,52 @@
+<div class="container" dir="rtl">
+  <h1 mat-dialog-title *ngIf="!data.task">{{ "צור משימה" }}</h1>
+  <h1 mat-dialog-title *ngIf="data.task">{{ "ערוך את המשימה" }}</h1>
+  <p>{{ data.task?.actionPatternName }}</p>
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>שם המשימה</mat-label>
+      <input matInput [(ngModel)]="curTask.actionPatternName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>הערות</mat-label>
+      <input matInput [(ngModel)]="curTask.comments" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>תאריך אחרון</mat-label>
+      <input type="date" matInput [(ngModel)]="curTask.deadLine" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content *ngIf="!data.task">
+    <p>בחר למי מיועדת המשימה:</p>
+    <mat-selection-list #participants [multiple]="false">
+      <mat-list-option
+        *ngFor="let participant of data.participants"
+        [value]="participants"
+        (click)="setWhomFor(participant.id)"
+      >
+        <span *ngIf="participant" class="listOptionTitle">{{
+          participant.firstName
+        }}</span>
+        <span *ngIf="participant" class="listOptionLine">
+          {{ getType(participant.userType) }}
+        </span>
+      </mat-list-option>
+      <div class="space"></div>
+    </mat-selection-list>
+
+    <!-- <p>
+      Option selected:
+      {{
+        participants.selectedOptions.hasValue()
+          ? participants.selectedOptions.selected[0].value
+          : "None"
+      }}
+    </p> -->
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">ביטול</button>
+    <button mat-button [mat-dialog-close]="data.result" cdkFocusInitial>
+      אישור
+    </button>
+  </div>
+</div>

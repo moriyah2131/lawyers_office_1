@@ -1,0 +1,115 @@
+<div class="container">
+  <div mat-dialog-title>
+    <div id="x">
+      <button
+        mat-icon-button
+        mat-dialog-close
+        aria-label="Example icon button with a vertical three dot icon"
+      >
+        x
+      </button>
+    </div>
+
+    <form class="example-form" [formGroup]="nameForm">
+      <span id="main-title">צור תיק:</span>&nbsp;
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>שם</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="nameFormControl"
+          [errorStateMatcher]="matcher"
+          placeholder="מוכר-קונה"
+        />
+        <!-- <mat-hint>שגיאות מופיעות באופן מיידי!</mat-hint> -->
+        <mat-error
+          *ngIf="
+            nameForm.errors?.['minlength'] &&
+            !nameForm.hasError('required')
+          "
+        >
+          יש להקליד לפחות 5 תויים
+        </mat-error>
+        <mat-error
+          *ngIf="
+          nameForm.errors?.['pattern'] &&
+            !nameForm.errors?.['minlength'] &&
+            !nameForm.hasError('required')
+          "
+        >
+          השם אינו תקין. (אולי שכחת '-'?)
+        </mat-error>
+        <mat-error *ngIf="nameForm.hasError('required')">
+          שדה זה הינו <strong>חובה</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <mat-dialog-actions id="bag-dialog-actions">
+      <div
+        class="spinner-border text-primary loading"
+        role="status"
+        *ngIf="loading"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <button
+        mat-flat-button
+        color="primary"
+        class="bag-dialog-button"
+        (click)="
+          forms.push({
+            index: buyersIndex,
+            userType: 'קונה'
+          });
+          buyersIndex = buyersIndex + 1
+        "
+      >
+        הוסף קונה
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        class="bag-dialog-button"
+        (click)="
+          forms.push({
+            index: sellersIndex,
+            userType: 'מוכר'
+          });
+          sellersIndex = sellersIndex + 1
+        "
+      >
+        הוסף מוכר
+      </button>
+    </mat-dialog-actions>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <div *ngFor="let form of forms">
+          <app-create-bag-form
+            #child
+            (onSubmitEvent)="pushDetails($event)"
+            userType="{{ form.userType }}"
+            index="{{ form.index }}"
+            [person]="form.person"
+          ></app-create-bag-form>
+        </div>
+      </div>
+      <div class="col">
+        <app-asset-form
+          #child
+          (onSubmitEvent)="setAsset($event)"
+          [asset]="data.asset"
+        ></app-asset-form>
+      </div>
+    </div>
+    <mat-dialog-actions align="end">
+      <button mat-flat-button color="primary" type="submit" (click)="submit()">
+        {{ data.asset ? "עדכן" : "צור" }}
+      </button>
+      <button mat-flat-button type="reset" (click)="onReset()">אתחל</button>
+    </mat-dialog-actions>
+  </div>
+</div>

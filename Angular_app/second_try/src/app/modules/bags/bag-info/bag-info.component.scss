@@ -1,0 +1,44 @@
+.cards {
+    margin-top: 20px; 
+    mat-card + mat-card {
+      margin-top: 20px;
+    }
+  }
+
+.container{
+  direction: rtl;
+  margin: 25px;
+}
+
+.main-checkbox{
+  position: absolute;
+  left: 30px;
+}
+
+.task-details{
+  font-size: small;
+  color: gray;
+}
+
+.tasks-list mat-list-option {
+  height: auto !important;
+  padding: 5px;
+}
+
+.marker{
+  background-color: yellow;
+}
+
+.bold-text{
+  font-weight: bold;
+}
+
+.task-container{
+  border-color: gray;
+  border-width: 5px;
+  border-radius: 5px;
+}
+
+.complete-task{
+  text-decoration: line-through;
+}

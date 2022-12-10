@@ -1,0 +1,96 @@
+.middle{
+    padding: auto;
+    margin-left: 48%;
+    margin-bottom: 20px;
+}
+
+.table{
+     width: fit-content;
+    padding: 10px;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+  
+.example-element-row td {
+    border-bottom-width: 0;
+}
+  
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+  
+.example-element-diagram {
+    height: 155px;
+}
+
+.body{
+    margin: 20px;
+    direction: rtl;
+}
+  
+mat-progress-bar{
+    height: 10px;
+}
+
+.green-color{
+  color:green;
+}
+
+.orange-color{
+  color:orange;
+}
+
+.gary-color{
+  color:gray;
+}
+
+.red-color{
+  color:red;
+}
+
+.state{
+  margin-top: 11px;
+  margin-right: 11px;
+}
+
+.open-bag-button{
+  margin-top: 6px;
+  &:hover{
+    opacity: 0.8;
+    font-weight: bold;
+  }
+}
+
+.col-space{
+  padding-left: 100px;
+}
+
+.actions{
+  margin-top: 80px;
+}
+
+.bag-action{
+  margin-top: 10px;
+}
+
+#edit-button{
+  color: orange;
+  &:disabled{
+      color: gray;
+      opacity: 0.5;
+  }
+}
+
+a{
+  &:hover{
+      opacity: 50%;
+      cursor: pointer;
+  }
+  &.button{
+    all:unset
+  }
+}
+

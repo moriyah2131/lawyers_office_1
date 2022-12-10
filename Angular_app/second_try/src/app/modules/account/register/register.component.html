@@ -1,0 +1,217 @@
+<div class="container" dir="rtl">
+  <div class="card m-3">
+    <h5 class="card-header">טופס רישום</h5>
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">פרטים אופציונאליים</h6>
+            <div class="form-row">
+              <div class="form-group col-5">
+                <label class="card-subtitle mb-2 text-muted">מספר פקס</label>
+                <input
+                  type="text"
+                  formControlName="fax"
+                  placeholder="📠"
+                  dir="ltr"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['fax'].errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f['fax'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['fax'].errors['required']">שדה זה חובה</div>
+                  <div *ngIf="!f['fax'].errors['required'] && f['fax'].errors">
+                    על מספר הפקס להכיל 9 מספרים.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-5">
+                <label class="card-subtitle mb-2 text-muted">טלפון נוסף</label>
+                <input
+                  type="text"
+                  formControlName="phone"
+                  class="form-control"
+                  placeholder="📞"
+                  dir="ltr"
+                  [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+                />
+
+                <div
+                  *ngIf="submitted && f['phone'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['phone'].errors['required']">שדה זה חובה</div>
+                  <div
+                    *ngIf="!f['phone'].errors['required'] && f['phone'].errors"
+                  >
+                    המספר אינו תקין
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">כתובת</h6>
+            <div class="form-row">
+              <div class="form-group col-3">
+                <label class="card-subtitle mb-2 text-muted">עיר</label>
+                <input
+                  type="text"
+                  formControlName="city"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['city'].errors }"
+                />
+
+                <div
+                  *ngIf="submitted && f['city'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['city'].errors['required']">שדה זה חובה</div>
+                </div>
+              </div>
+              <div class="form-group col-3">
+                <label class="card-subtitle mb-2 text-muted">רחוב</label>
+                <input
+                  type="text"
+                  formControlName="street"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['street'].errors }"
+                />
+
+                <div
+                  *ngIf="submitted && f['street'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['street'].errors['required']">שדה זה חובה</div>
+                </div>
+              </div>
+              <br />
+              <div class="form-group col-3">
+                <label class="card-subtitle mb-2 text-muted">מספר בית</label>
+                <input
+                  type="number"
+                  formControlName="houseNumber"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['houseNumber'].errors
+                  }"
+                />
+
+                <div
+                  *ngIf="submitted && f['houseNumber'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['houseNumber'].errors['required']">
+                    שדה זה חובה
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-row">
+          <div class="form-group col">
+            <label class="card-subtitle mb-2 text-muted">סיסמא חדשה</label>
+            <input
+              type="password"
+              formControlName="password"
+              placeholder="🔑"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['password'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['password'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['password'].errors['required']">שדה זה חובה</div>
+              <div *ngIf="f['password'].errors['minlength']">
+                על הסיסמא להיות באורך של 5 תווים לפחות.
+              </div>
+            </div>
+          </div>
+          <div class="form-group col">
+            <label class="card-subtitle mb-2 text-muted">אימות סיסמא</label>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f['confirmPassword'].errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f['confirmPassword'].errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f['confirmPassword'].errors['required']">
+                שדה זה חובה
+              </div>
+              <div *ngIf="f['confirmPassword'].errors['mustMatch']">
+                על הסיסמאות להיות זהות
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            formControlName="acceptTerms"
+            id="acceptTerms"
+            class="form-check-input"
+            [ngClass]="{
+              'is-invalid': submitted && f['acceptTerms'].errors
+            }"
+          />
+          <label for="acceptTerms" class="form-check-label"
+            >___אני מסכים לתנאים
+          </label>
+          <div
+            *ngIf="submitted && f['acceptTerms'].errors"
+            class="invalid-feedback"
+          >
+            שדה זה חובה
+          </div>
+        </div>
+        <br />
+
+        <div class="alert alert-danger" *ngIf="showError">
+          <strong>Error!</strong> Something got wrong with email input. Try
+          another one.
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-warning mr-1">הרשם</button>&nbsp;
+          <button class="btn btn-secondary" type="reset" (click)="onReset()">
+            נקה
+          </button>
+          <!-- <br />
+          <a (click)="goToLogin()">
+            <small>כבר יש לך חשבון? הכנס עכשיו</small>
+          </a> -->
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div
+    class="spinner-border text-primary middle"
+    role="status"
+    *ngIf="loading == true"
+  >
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    <strong>Error!</strong> {{ errorMessage }}
+  </div>
+</div>

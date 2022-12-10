@@ -1,0 +1,66 @@
+<div class="container">
+  <div mat-dialog-title>
+    <div id="x">
+      <button
+        mat-icon-button
+        mat-dialog-close
+        aria-label="Example icon button with a vertical three dot icon"
+      >
+        x
+      </button>
+    </div>
+    <h2>מסמכים</h2>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    <span class="folder" *ngFor="let file of files">
+      <button mat-button class="file-button">
+        <i class="fa fa-file-text-o" style="font-size: 60px"></i>
+
+        <span
+          *ngIf="isNew(file.uploadingDate)"
+          class="badge badge-pill badge-primary state-badge"
+          >חדש</span
+        >
+        <i
+          class="fa fa-arrow-down download-icon"
+          (click)="download(file)"
+          aria-hidden="true"
+          matTooltip="הורדה"
+          [matTooltipPosition]="'left'"
+        ></i>
+
+        <i
+          class="fa fa-trash-o trash-icon"
+          (click)="removeFile(file)"
+          aria-hidden="true"
+          matTooltip="מחיקה"
+          [matTooltipPosition]="'left'"
+        ></i>
+
+        <span
+          class="material-icons edit-icon"
+          (click)="editFileName(file)"
+          matTooltip="עריכה"
+          [matTooltipPosition]="'left'"
+          >mode_edit</span
+        >
+
+        <br />
+        <label>{{ file.fileName }}</label>
+      </button>
+    </span>
+  </div>
+  <mat-dialog-actions align="end">
+    <div
+      class="spinner-border text-primary loading"
+      role="status"
+      *ngIf="loading"
+    >
+      <span class="sr-only">Loading...</span>
+    </div>
+    <span class="text-center">
+      <input class="form-control" type="file" (change)="onChange($event)" />
+    </span>
+  </mat-dialog-actions>
+</div>

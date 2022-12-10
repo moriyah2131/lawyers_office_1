@@ -1,0 +1,119 @@
+<nav
+  class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark padding"
+  dir="rtl"
+>
+  <a class="navbar-brand" routerLink="/">הבלין-ולר ⚖</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">
+          <i class="fa fa-home"></i>
+          בית
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">
+          <i class="fa fa-envelope-o">
+            <span class="badge badge-primary">{{ messagesCount }}</span>
+          </i>
+          הודעות
+        </a>
+      </li>
+
+      <span *ngIf="userType == ('customer' || 'CUSTOMER')">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="bags/view-bags">
+            <i class="fa fa-solid fa-folder-open"></i>
+            התיקים שלי
+          </a>
+        </li>
+      </span>
+      <span *ngIf="userType == ('lawyer' || 'LAWYER')">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="bags-lawyer/view-bags">
+            <i class="fa fa-solid fa-folder-open"></i>
+            התיקים שלי
+          </a>
+        </li>
+      </span>
+
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          routerLink="bags/view-bags"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fa fa-solid fa-folder-open"></i>
+          פעולות
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="transaction/add-transaction"
+            >Transaction</a
+          >
+          <a class="dropdown-item" routerLink="/">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="operation/operations-history"
+            >Operations history</a
+          >
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" routerLink="/">
+          <i class="fa fa-envelope-o"> </i>
+          פרימיום
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">
+          <i class="fa fa-bell">
+            <span class="badge badge-info">3</span>
+          </i>
+          התראות
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">
+          <i class="fa fa-globe">
+            <span class="badge badge-success">2</span>
+          </i>
+          עדכונים
+        </a>
+      </li>
+    </ul>
+    <!-- <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a routerLink="/" class="dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-user"></span> 
+          <strong>{{ "החשבון שלי" }}</strong>
+          <span class="glyphicon glyphicon-chevron-down"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <app-account-info
+            [accountID]="accountID"
+            [private]="true"
+          ></app-account-info>
+        </ul>
+      </li>
+    </ul> -->
+  </div>
+</nav>

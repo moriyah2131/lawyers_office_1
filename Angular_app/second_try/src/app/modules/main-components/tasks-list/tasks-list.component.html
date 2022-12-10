@@ -1,0 +1,79 @@
+<mat-card>
+  <mat-card-title
+    ><span *ngIf="forName">{{ forName + "עבור: " }}</span
+    >משימות</mat-card-title
+  >
+  <mat-card-subtitle
+    >סמן משימות שהושלמו:<mat-checkbox
+      matTooltip="סמן הכול"
+      [matTooltipPosition]="'above'"
+      *ngIf="!allChecked"
+      class="main-checkbox"
+      (change)="tasksList.selectAll(); allChecked = true"
+    ></mat-checkbox>
+    <mat-checkbox
+      matTooltip="סמן הכול"
+      [matTooltipPosition]="'above'"
+      *ngIf="allChecked"
+      [color]="'primary'"
+      [(indeterminate)]="allChecked"
+      class="main-checkbox"
+      (change)="tasksList.deselectAll(); allChecked = false"
+    ></mat-checkbox>
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <mat-selection-list class="tasks-list" #tasksList>
+      <mat-list-option
+        class="fit-content"
+        *ngFor="let task of tasks"
+        (selectedChange)="onsSlectedChange(task)"
+      >
+        <div class="task-container">
+          <div class="task-title">
+            <h5 *ngIf="task.actionState == 'done'" class="complete-task">
+              {{ task.actionPatternName }}
+              <small class="task-details marker" *ngIf="task.deadLine">
+                {{ " (עד: " + (task.deadLine | date: "shortDate") + ")" }}
+              </small>
+            </h5>
+            <h5 *ngIf="task.actionState == 'waiting'">
+              {{ task.actionPatternName }}
+              <small class="task-details marker" *ngIf="task.deadLine">
+                {{ " (עד: " + (task.deadLine | date: "shortDate") + ")" }}
+              </small>
+            </h5>
+          </div>
+          <div class="task-content">
+            <small class="task-details">
+              {{ "נוצר בתאריך: " + (task.createdDate | date: "shortDate") }}
+            </small>
+          </div>
+          <div class="task-more">
+            <small
+              class="task-details"
+              *ngIf="task.linkName && task.siteAddress"
+            >
+              <br />
+              <a href="{{ task.siteAddress }}">{{ task.linkName }}</a>
+            </small>
+
+            <small class="task-details" *ngIf="task.comments">
+              <br />
+              <i>{{ "הערות: " + task.comments }}</i>
+            </small>
+          </div>
+          <hr />
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="setAsCompleted(); tasksList.deselectAll()">
+      בוצע
+    </button>
+    <button mat-button (click)="setAsNotCompleted(); tasksList.deselectAll()">
+      ביטול
+    </button>
+  </mat-card-actions>
+</mat-card>

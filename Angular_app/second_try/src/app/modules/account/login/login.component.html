@@ -1,0 +1,68 @@
+<div class="container" dir="rtl">
+  <div class="card m-3">
+    <h5 class="card-header">התחבר</h5>
+    <br />
+    <div class="card-body col-8 center">
+      <div class="input-group mb-3" dir="ltr">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">@</span>
+        </div>
+        <input
+          dir="rtl"
+          type="email"
+          class="form-control"
+          placeholder="אימייל"
+          aria-label="Email"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="email"
+        />
+      </div>
+      <div class="input-group mb-3" dir="ltr">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">**</span>
+        </div>
+        <input
+          dir="rtl"
+          type="password"
+          class="form-control"
+          placeholder="סיסמא"
+          aria-label="Password"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="password"
+        />
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-warning mr-1" (click)="Signin()">התחבר</button>
+      <!-- <br />
+      <a (click)="goToRegister()">
+        <small>אין לך חשבון? צור עכשיו</small>
+      </a> -->
+    </div>
+
+    <br />
+  </div>
+</div>
+<div
+  class="alert alert-danger middle"
+  *ngIf="errorMessage && !loading"
+  dir="rtl"
+>
+  <svg
+    class="bi flex-shrink-0 me-2"
+    width="24"
+    height="24"
+    role="img"
+    aria-label="Danger:"
+  >
+    <use xlink:href="#exclamation-triangle-fill" />
+  </svg>
+  <strong>שגיאה!</strong> {{ errorMessage }}
+</div>
+<div
+  class="spinner-border text-primary middle"
+  role="status"
+  *ngIf="loading == true"
+>
+  <span class="sr-only">Loading...</span>
+</div>

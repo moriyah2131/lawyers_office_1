@@ -1,0 +1,73 @@
+.cards {
+    margin-top: 20px; 
+    mat-card + mat-card {
+      margin-top: 20px;
+    }
+  }
+
+.container{
+  direction: rtl;
+  // margin: 25px;
+  width: 100%;
+  padding: 20px;
+}
+
+.body{
+  margin: 20px;
+  direction: rtl;
+}
+
+#bagName{
+  color: orange;
+  // background-color: rgb(37, 37, 37);
+  // padding: 20px;
+}
+
+.titles{
+  color: rgb(255, 253, 251);
+  background-color: rgb(37, 37, 37);
+  padding: 15px;
+}
+
+.main-checkbox{
+  position: absolute;
+  left: 30px;
+}
+
+.task-details{
+  font-size: small;
+  color: gray;
+}
+
+.tasks-list mat-list-option {
+  height: auto !important;
+  padding: 5px;
+}
+
+.marker{
+  background-color: yellow;
+}
+
+.bold-text{
+  font-weight: bold;
+}
+
+.task-container{
+  border-color: gray;
+  border-width: 5px;
+  border-radius: 5px;
+}
+
+.complete-task{
+  text-decoration: line-through;
+}
+
+.quarter{
+  max-width: 30%;
+  margin-left: 15px;
+}
+
+.task-button{
+  margin-left: 15px;
+  margin-top: 20px;
+}

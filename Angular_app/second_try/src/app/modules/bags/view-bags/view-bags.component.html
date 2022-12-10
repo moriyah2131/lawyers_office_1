@@ -1,0 +1,28 @@
+<div class="spinner-border text-primary middle" role="status" *ngIf="loading">
+  <span class="sr-only">Loading...</span>
+</div>
+
+<div class="container">
+  <span class="folder" *ngFor="let bag of bags">
+    <a [routerLink]="['/bags/bag-info', bag.id]">
+      <button mat-button>
+        <i class="fa fa-bell">
+          <span class="badge badge-info">3</span>
+        </i>
+        הודעות
+        <br />
+        <i class="fa-regular fa-folder-open fa-10x"></i>
+
+        <span
+          *ngIf="isNew(bag.openDate)"
+          class="badge badge-pill badge-primary state-badge"
+          >חדש</span
+        >
+        <h4>{{ bag.bagName }}</h4>
+        <label id="date-label">{{
+          (bag.lastOpen | date: "shortDate") + " : " + "נפתח לאחרונה"
+        }}</label>
+      </button>
+    </a>
+  </span>
+</div>
