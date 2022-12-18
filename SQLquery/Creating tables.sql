@@ -80,7 +80,7 @@ bag_id int CONSTRAINT FK_Files_Bags FOREIGN KEY REFERENCES Bags(id) NOT NULL,
 file_pattern_id int CONSTRAINT FK_Files_File_patterns FOREIGN KEY REFERENCES File_patterns(id) NOT NULL,
 document varbinary(max) NOT NULL,
 file_name nvarchar(60) NULL,
-creator_id int CONSTRAINT FK_Files_creator_01142BA1 FOREIGN KEY REFERENCES Bags(id) NOT NULL,
+creator_id int CONSTRAINT FK_Files_creator_01142BA1 FOREIGN KEY REFERENCES People(id) NOT NULL,
 uploading_date datetime NULL,
 file_type nchar(10) NULL
 )
