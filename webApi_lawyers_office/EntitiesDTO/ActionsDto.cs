@@ -2,7 +2,7 @@
 
 namespace EntitiesDTO
 {
-    public class ActionsDto
+    public class ActionsDTO
     {
         public int Id { get; set; }
         /* ActionPattern */
@@ -10,6 +10,7 @@ namespace EntitiesDTO
         public string? ActionPatternName { get; set; }
         public string? Discription { get; set; }
         /* Link */
+        public int? LinkID { get; set; }
         public string? LinkName { get; set; }
         public string? SiteAddress { get; set; }
         /* Action details */

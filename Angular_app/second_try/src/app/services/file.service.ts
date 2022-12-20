@@ -37,7 +37,6 @@ export class FileService {
       filePatternId: 4,
       uploadingDate: new Date(),
     };
-    console.log(newFile);
     return this.http.post<void>(`${this.base}/post`, JSON.stringify(newFile), {
       headers: { 'Content-Type': 'application/json' },
     });

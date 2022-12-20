@@ -42,8 +42,6 @@ export class LoginComponent {
       (res: User) => {
         this.userService.setUser(res);
         this.loading = false;
-        console.log(res);
-        debugger;
         this.router.navigate(['/']);
         if (res.isFirstVisit) this.goToRegister();
         else this.userService.setPersonID(res.personId);

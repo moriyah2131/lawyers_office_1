@@ -10,7 +10,7 @@ namespace BLL.interfaces
 {
     public interface IlinksBll
     {
-        public List<LinksDto> GetAll();
+        public Task<List<LinksDto>> GetAllAsync();
         public LinksDto GetById(int id);
         public LinksDto post(LinksDto obj);
         public LinksDto put(LinksDto obj);

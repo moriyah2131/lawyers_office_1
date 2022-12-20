@@ -92,7 +92,6 @@ export class RegisterComponent implements OnInit {
       () => {
         if (personID) {
           this.userService.setPersonID(personID);
-          console.log(this.userService.getUser());
         }
       },
       (err) => {
@@ -112,7 +111,6 @@ export class RegisterComponent implements OnInit {
   }
 
   // sendEmail() {
-  //   debugger;
   //   this.verificationLoading = true;
   //   this.emailVerificationService
   //     .sendVerificationCode(this.f['email'].value)

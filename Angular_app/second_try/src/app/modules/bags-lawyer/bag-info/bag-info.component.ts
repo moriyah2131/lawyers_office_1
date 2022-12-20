@@ -6,7 +6,6 @@ import { Bag } from 'src/app/models/Bag';
 import { BagsService } from 'src/app/services/bags.service';
 import { NewUser } from 'src/app/models/new-user';
 import { TasksListComponent } from '../../shared/tasks-list/tasks-list.component';
-import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 
 @Component({
   selector: 'app-bag-info',

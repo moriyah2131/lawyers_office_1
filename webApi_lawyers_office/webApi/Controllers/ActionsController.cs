@@ -17,7 +17,7 @@ namespace webApi.Controllers
         }
 
         [HttpGet("getAll")]
-        public ActionResult<List<ActionsDto>> getAll()
+        public ActionResult<List<ActionsDTO>> getAll()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace webApi.Controllers
         }
 
         [HttpGet("getById/{id}")]
-        public ActionResult<ActionsDto> getById(int id)
+        public ActionResult<ActionsDTO> getById(int id)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace webApi.Controllers
         }
 
         [HttpGet("getListById/{bagID}/{userID}")]
-        public async Task<ActionResult<List<ActionsDto>>> getTasksById(int bagID, int userID)
+        public async Task<ActionResult<List<ActionsDTO>>> getTasksById(int bagID, int userID)
         {
             try
             {
@@ -55,12 +55,12 @@ namespace webApi.Controllers
             }
         }
 
-        [HttpPost("post")]
-        public ActionResult<ActionsDto> post([FromBody] ActionsDto obj)
+        [HttpPost("post/{bagID}")]
+        public async Task<ActionResult<int>> postAsync([FromBody] PostActionDTO obj, int bagID)
         {
             try
             {
-                return Ok(bll.post(obj));
+                return Ok(await bll.postAsync(obj, bagID));
             }
             catch
             {
@@ -70,11 +70,11 @@ namespace webApi.Controllers
 
 
         [HttpPut("put")]
-        public ActionResult<ActionsDto> put([FromBody] ActionsDto obj)
+        public async Task<ActionResult<ActionsDTO>> putAsync([FromBody] ActionsDTO obj)
         {
             try
             {
-                return Ok(bll.put(obj));
+                return Ok(await bll.putAsync(obj));
             }
             catch
             {
@@ -83,7 +83,7 @@ namespace webApi.Controllers
         }
 
         [HttpPut("putList/{bagID}/{userType}")]
-        public async Task<ActionResult<List<ActionsDto>>> putList(int bagID, string userType,[FromBody] List<ActionsDto> objs)
+        public async Task<ActionResult<List<ActionsDTO>>> putList(int bagID, string userType,[FromBody] List<ActionsDTO> objs)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace webApi.Controllers
 
 
         [HttpDelete("delete/{id}")]
-        public ActionResult<ActionsDto> delete(int id)
+        public ActionResult<ActionsDTO> delete(int id)
         {
             try
             {

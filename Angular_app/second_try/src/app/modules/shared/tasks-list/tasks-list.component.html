@@ -54,19 +54,22 @@
             <h5 *ngIf="task.actionState == 'done'" class="complete-task">
               {{ task.actionPatternName }}
               <small class="task-details marker" *ngIf="task.deadLine">
-                {{ " (עד: " + (task.deadLine | date: "shortDate") + ")" }}
+                {{ " (עד: " + (task.deadLine | date : "shortDate") + ")" }}
               </small>
             </h5>
             <h5 *ngIf="task.actionState == 'waiting'">
               {{ task.actionPatternName }}
               <small class="task-details marker" *ngIf="task.deadLine">
-                {{ " (עד: " + (task.deadLine | date: "shortDate") + ")" }}
+                {{ " (עד: " + (task.deadLine | date : "shortDate") + ")" }}
               </small>
             </h5>
           </div>
           <div class="task-content">
+            <p class="task-details" *ngIf="task.discription">
+              {{ task.discription }}
+            </p>
             <small class="task-details">
-              {{ "נוצר בתאריך: " + (task.createdDate | date: "shortDate") }}
+              {{ "נוצר בתאריך: " + (task.createdDate | date : "shortDate") }}
             </small>
           </div>
           <div class="task-more">

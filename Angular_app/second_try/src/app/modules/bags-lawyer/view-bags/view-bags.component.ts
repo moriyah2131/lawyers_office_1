@@ -63,7 +63,6 @@ export class ViewBagsComponent implements AfterViewInit {
     if (personID)
       this.bagsService.getAllBags(this.currentPage, this.pageSize).subscribe(
         (res) => {
-          console.log(res);
           this.bagsData = [...this.bagsData, ...res];
           this.dataSource = new MatTableDataSource(this.bagsData);
           this.dataSource.paginator = this.paginator;

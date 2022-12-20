@@ -15,8 +15,6 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     //this.accountID = this.userService.getAccountID();
-    debugger;
     this.userType = this.userService.getUser()?.userType;
-    console.log(this.userType);
   }
 }

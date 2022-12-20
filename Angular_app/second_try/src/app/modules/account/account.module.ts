@@ -5,13 +5,13 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccoutContainerComponent } from './accout-container/accout-container.component';
 import { AccountInfoComponent } from './account-info/account-info.component';
-import localeHe from '@angular/common/locales/he';
+// import localeHe from '@angular/common/locales/he';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from 'src/app/services/user.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 
-registerLocaleData(localeHe);
+// registerLocaleData(localeHe);
 
 @NgModule({
   declarations: [
@@ -28,7 +28,10 @@ registerLocaleData(localeHe);
     MatDividerModule,
     MatIconModule,
   ],
-  providers: [UserService, { provide: LOCALE_ID, useValue: 'he_IL' }],
+  providers: [
+    UserService,
+    //  { provide: LOCALE_ID, useValue: 'he_IL' }
+  ],
   exports: [AccoutContainerComponent, AccountInfoComponent],
 })
 export class AccountModule {}

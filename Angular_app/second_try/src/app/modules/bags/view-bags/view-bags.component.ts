@@ -21,7 +21,6 @@ export class ViewBagsComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     let IDs = this.userService.getUser()?.bagsIDs;
-    debugger;
     if (IDs && IDs.length > 0)
       this.bagsService.getBagsByIDs(IDs).subscribe(
         (res: Bag[]) => {

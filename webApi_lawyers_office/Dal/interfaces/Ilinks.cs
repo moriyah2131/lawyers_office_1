@@ -10,11 +10,10 @@ namespace Dal.interfaces
 {
     public interface Ilinks
     {
-        public List<LinksDto> GetAll();
+        public Task<List<LinksDto>> GetAllAsync();
         public LinksDto GetById(int id);
         public LinksDto post(LinksDto obj);
         public LinksDto put(LinksDto obj);
         public LinksDto delete(int id);
-
     }
 }

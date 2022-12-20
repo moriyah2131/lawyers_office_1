@@ -35,4 +35,24 @@ export class TaskService {
       }
     );
   }
+
+  postTask(
+    task: Task,
+    whomForIDs: number[],
+    bagID: number
+  ): Observable<number[]> {
+    return this.http.post<number[]>(
+      `${this.base}/post/${bagID}`,
+      JSON.stringify({ action: task, whomForIDs: whomForIDs }),
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  putTask(task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.base}/put/`, JSON.stringify(task), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }

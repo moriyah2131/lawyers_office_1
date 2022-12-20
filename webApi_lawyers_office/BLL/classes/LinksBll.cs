@@ -19,9 +19,9 @@ namespace BLL.classes
             dal = _dal;
         }
 
-        public List<LinksDto> GetAll()
+        public async Task<List<LinksDto>> GetAllAsync()
         {
-            return dal.GetAll();
+            return await dal.GetAllAsync();
         }
 
         public LinksDto GetById(int id)

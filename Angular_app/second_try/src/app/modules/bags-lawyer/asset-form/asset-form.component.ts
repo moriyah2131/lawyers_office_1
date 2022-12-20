@@ -31,8 +31,6 @@ export class AssetFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    console.log(this.asset);
-
     this.assetForm = this.formBuilder.group({
       blockOrBook: [this.asset?.blockOrBook ?? '', Validators.required],
       plotOrPage: [this.asset?.plotOrPage ?? '', Validators.required],

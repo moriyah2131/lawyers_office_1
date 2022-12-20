@@ -18,7 +18,7 @@ namespace Dal.functions
             db = _db;
         }
 
-        public List<LinksDto> GetAll()
+        public async Task<List<LinksDto>> GetAllAsync()
         {
             return LinksConverter.toDtoList(db.Links.ToList());
         }

@@ -10,3 +10,15 @@
 .space{
     min-height: 20px;
 }
+
+.halfWidth{
+    width: 50%;
+}
+
+.sixty-percent-width{
+    width: 64%;
+}
+
+.redText{
+    color: red;
+}

@@ -6,13 +6,13 @@ namespace Dal.interfaces
 {
     public interface Iactions
     {
-        public List<ActionsDto> GetAll();
-        public ActionsDto GetById(int id);
-        public ActionsDto post(ActionsDto obj);
-        public ActionsDto put(ActionsDto obj);
-        public ActionsDto delete(int id);
-        Task<List<ActionsDto>> GetTasksByIdAsync(int bagID, int userID);
-        Task<List<ActionsDto>> PutListAsync(int bagID, string userType, List<ActionsDto> objs);
+        public List<ActionsDTO> GetAll();
+        public ActionsDTO GetById(int id);
+        Task<List<int>> postAsync(PostActionDTO obj, int bagID);
+        public Task<ActionsDTO> putAsync(ActionsDTO obj);
+        public ActionsDTO delete(int id);
+        Task<List<ActionsDTO>> GetTasksByIdAsync(int bagID, int userID);
+        Task<List<ActionsDTO>> PutListAsync(int bagID, string userType, List<ActionsDTO> objs);
         Task DeleteListAsync(List<int> tasksIDs);
     }
 }

@@ -45,7 +45,6 @@ export class TasksListComponent implements OnInit {
   }
 
   onsSlectedChange(task: Task): void {
-    debugger;
     let index: number = this.selectedTasks.indexOf(task);
     if (index == -1 && task.actionState) this.selectedTasks.push(task);
     else this.selectedTasks.splice(index, 1);
@@ -115,10 +114,11 @@ export class TasksListComponent implements OnInit {
       data: {
         task: task,
         participants: this.participants,
+        bagID: this.bagId,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (!result) this.loadTasks();
+      if (result == undefined) this.loadTasks();
     });
   }
 }

@@ -3,7 +3,6 @@ using Dal.interfaces;
 using Dal.models;
 using EntitiesDTO;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,12 +18,12 @@ namespace Dal.functions
             db = _db;
         }
 
-        public List<ActionsDto> GetAll()
+        public List<ActionsDTO> GetAll()
         {
             return ActionsConverter.toDtoList(db.Actions.ToList());
         }
 
-        public ActionsDto GetById(int id)
+        public ActionsDTO GetById(int id)
         {
             try
             {
@@ -36,7 +35,7 @@ namespace Dal.functions
             }
         }
         
-        public async Task<List<ActionsDto>> GetTasksByIdAsync(int bagID, int userID)
+        public async Task<List<ActionsDTO>> GetTasksByIdAsync(int bagID, int userID)
         {
             Bag bag = await db.Bags.Include(b => b.ActionsToBags).Include(b => b.BagsToPeople).FirstOrDefaultAsync(obj => obj.Id == bagID);
             ICollection<BagsToPerson> btp = bag.BagsToPeople;
@@ -47,7 +46,7 @@ namespace Dal.functions
                     userType = b.PersonType;
             }
             List<ActionsToBag> atbs = await db.ActionsToBags.Where(item => item.BagId == bagID).ToListAsync();
-            List<ActionsDto> actions = new();
+            List<ActionsDTO> actions = new();
 
             foreach (ActionsToBag atb in bag.ActionsToBags)
             {
@@ -61,37 +60,68 @@ namespace Dal.functions
             }
             return actions;
         }
-        public ActionsDto post(ActionsDto obj)
+
+        public async Task<List<int>> postAsync(PostActionDTO obj, int bagID)
         {
-            try
+            Link link = null;
+            if(obj.Action.LinkID != null && obj.Action.LinkID > 0)
             {
-                models.Action newObj = db.Actions.Add(ActionsConverter.toDal(obj)).Entity;
-                db.SaveChanges();
-                return ActionsConverter.toDto(newObj);
+                link = await db.Links.FirstOrDefaultAsync(l=>l.Id == obj.Action.LinkID);
             }
-            catch
+            else if (obj.Action.LinkName != null && obj.Action.SiteAddress != null)
             {
-                throw;
+                link = db.Links.Add(new () { LinkName = obj.Action.LinkName, SiteAddress = obj.Action.SiteAddress }).Entity;
+                await db.SaveChangesAsync();
             }
+
+            ActionPattern ap = db.ActionPatterns.Add(new () { ActionPatternName = obj.Action.ActionPatternName, Discription = obj.Action.Discription, LinkId = link?.Id }).Entity;
+            await db.SaveChangesAsync();   
+                
+            List<int> IDs = new();
+
+            foreach (int whom_for_id in obj.WhomForIDs)
+            {
+                 Action action = db.Actions.Add(new () { Comments = obj.Action.Comments, DeadLine = obj.Action.DeadLine, ActionState = obj.Action.ActionState, ActionPriority = obj.Action.ActionPriority, ActionPatternId = ap.Id, whom_for_id = whom_for_id }).Entity;
+                 await db.SaveChangesAsync();
+                
+                 await db.ActionsToBags.AddAsync(new () { ActionId = action.Id, BagId = bagID });
+                 await db.SaveChangesAsync();
+
+                 IDs.Add(action.Id);
+            }
+            return IDs;
 
         }
 
-        public ActionsDto put(ActionsDto obj)
+        public async Task<ActionsDTO> putAsync(ActionsDTO obj)
         {
             try
             {
-                models.Action objToUpdate = db.Actions.First(item => item.Id == obj.Id);
+                Action objToUpdate = db.Actions.First(item => item.Id == obj.Id);
                 
-                objToUpdate.Id = obj.Id;
-                objToUpdate.ActionPatternId = obj.ActionPatternId;
                 objToUpdate.Comments = obj.Comments;
                 objToUpdate.DeadLine = obj.DeadLine;
-                objToUpdate.ActionState = obj.ActionState;
-                objToUpdate.ActionFileId = obj.ActionFileId;
                 objToUpdate.ActionPriority = obj.ActionPriority;
-                objToUpdate.CreatedDate = obj.CreatedDate;
 
-                db.SaveChanges();
+                /* Link */
+                Link link = null;
+                if(obj.LinkID != null && obj.LinkID > 0)
+                {
+                    link = await db.Links.FirstOrDefaultAsync(l => l.Id == obj.LinkID);
+                }
+                else if ((obj.LinkID == null || obj.LinkID <= 0) && (obj.LinkName != null && obj.SiteAddress != null))
+                {
+                    link = db.Links.Add(new() { LinkName = obj.LinkName, SiteAddress = obj.SiteAddress }).Entity;
+                    await db.SaveChangesAsync();
+                }
+
+                /* ActionPattern */
+                ActionPattern ap = await db.ActionPatterns.FirstOrDefaultAsync(a => a.Id == obj.ActionPatternId);
+                ap.ActionPatternName = obj.ActionPatternName;
+                ap.Discription = obj.Discription;
+                ap.LinkId = link?.Id;
+
+                await db.SaveChangesAsync();
                 return ActionsConverter.toDto(objToUpdate);
             }
             catch
@@ -100,7 +130,7 @@ namespace Dal.functions
             }
         }
 
-        public async Task<List<ActionsDto>> PutListAsync(int bagID, string userType, List<ActionsDto> objs)
+        public async Task<List<ActionsDTO>> PutListAsync(int bagID, string userType, List<ActionsDTO> objs)
         {
             List<Action> updatedActions = new();
             foreach (var obj in objs)
@@ -132,7 +162,7 @@ namespace Dal.functions
             return ActionsConverter.toDtoList(updatedActions);
         }
 
-        public ActionsDto delete(int id)
+        public ActionsDTO delete(int id)
         {
             try
             {

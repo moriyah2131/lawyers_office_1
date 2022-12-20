@@ -34,11 +34,9 @@ export class TasksListComponent implements OnInit {
   }
 
   onsSlectedChange(task: Task): void {
-    debugger;
     let index: number = this.selectedTasks.indexOf(task);
     if (index == -1 && task.actionState) this.selectedTasks.push(task);
     else this.selectedTasks.splice(index, 1);
-    console.log(this.selectedTasks);
   }
 
   setAsCompleted(): void {

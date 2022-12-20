@@ -9,6 +9,7 @@ import { MainComponentsModule } from './modules/main-components/main-components.
 import { TransactionModule } from './modules/transaction/transaction.module';
 import { NavBarComponent } from './modules/main-components/nav-bar/nav-bar.component';
 import { MyFooterComponent } from './modules/main-components/my-footer/my-footer.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, MyFooterComponent],

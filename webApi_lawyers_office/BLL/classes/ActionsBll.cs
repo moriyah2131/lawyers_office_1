@@ -16,37 +16,37 @@ namespace BLL.classes
             dal = _dal;
         }
 
-        public List<ActionsDto> GetAll()
+        public List<ActionsDTO> GetAll()
         {
             return dal.GetAll();
         }
 
-        public ActionsDto GetById(int id)
+        public ActionsDTO GetById(int id)
         {
             return dal.GetById(id);
         }
 
-        public async Task<List<ActionsDto>> GetTasksByIdAsync(int id, int userID)
+        public async Task<List<ActionsDTO>> GetTasksByIdAsync(int id, int userID)
         {
             return await dal.GetTasksByIdAsync(id, userID);
         }
 
-        public ActionsDto post(ActionsDto obj)
+        public async Task<List<int>> postAsync(PostActionDTO obj, int bagID)
         {
-            return dal.post(obj);
+            return await dal.postAsync(obj, bagID);
         }
 
-        public ActionsDto put(ActionsDto obj)
+        public async Task<ActionsDTO> putAsync(ActionsDTO obj)
         {
-            return dal.put(obj);
+            return await dal.putAsync(obj);
         }
 
-        public async Task<List<ActionsDto>> putListAsync(int bagID, string userType, List<ActionsDto> objs)
+        public async Task<List<ActionsDTO>> putListAsync(int bagID, string userType, List<ActionsDTO> objs)
         {
             return await dal.PutListAsync(bagID, userType, objs);
         }
 
-        public ActionsDto delete(int id)
+        public ActionsDTO delete(int id)
         {
             return dal.delete(id);
         }

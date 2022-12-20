@@ -5,27 +5,45 @@
   <div mat-dialog-content>
     <mat-form-field appearance="fill">
       <mat-label>שם המשימה</mat-label>
-      <input matInput [(ngModel)]="curTask.actionPatternName" />
+      <input matInput [(ngModel)]="curTask.actionPatternName" required />
+      <mat-hint *ngIf="validationsErr" class="redText">שדה זה חובה</mat-hint>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>הערות</mat-label>
-      <input matInput [(ngModel)]="curTask.comments" />
+      <mat-label>תאור</mat-label>
+      <input matInput [(ngModel)]="curTask.discription" />
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" style="width: fit-content">
       <mat-label>תאריך אחרון</mat-label>
-      <input type="date" matInput [(ngModel)]="curTask.deadLine" />
+      <input matInput [matDatepicker]="picker" [(ngModel)]="curTask.deadLine" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
-  <div mat-dialog-content *ngIf="!data.task">
+  <div mat-dialog-content *ngIf="!data.task" class="halfWidth">
     <p>בחר למי מיועדת המשימה:</p>
-    <mat-selection-list #participants [multiple]="false">
+    <mat-selection-list #participants [multiple]="true">
+      <mat-list-option
+        [value]="participants"
+        (click)="setWhomFor(-1)"
+        [selected]="true"
+      >
+        <span class="listOptionTitle">{{ "עבורך" }}</span>
+        <span class="listOptionLine">
+          {{ "משרד הבלין-ולר" }}
+        </span>
+      </mat-list-option>
+      <div class="space"></div>
       <mat-list-option
         *ngFor="let participant of data.participants"
         [value]="participants"
         (click)="setWhomFor(participant.id)"
       >
         <span *ngIf="participant" class="listOptionTitle">{{
-          participant.firstName
+          participant.firstName + " " + participant.lastName
         }}</span>
         <span *ngIf="participant" class="listOptionLine">
           {{ getType(participant.userType) }}
@@ -43,10 +61,82 @@
       }}
     </p> -->
   </div>
+  <p>צרף קישור:</p>
+  <div mat-dialog-content>
+    <mat-expansion-panel #panel class="halfWidth">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{
+          shoes.selectedOptions.hasValue()
+            ? shoes.selectedOptions.selected[0].value
+            : "בחר --"
+        }}</mat-panel-title>
+        <!-- <mat-panel-description>
+          This is a summary of the content
+        </mat-panel-description> -->
+      </mat-expansion-panel-header>
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option
+          (click)="clickOtherLink(); panel.expanded = false"
+          [value]="'-- אחר --'"
+          >-- אחר --</mat-list-option
+        >
+        <mat-list-option
+          (click)="
+            showAddLink = false;
+            curTask.linkID = link.id;
+            panel.expanded = false
+          "
+          *ngFor="let link of links"
+          [value]="link.linkName"
+          [selected]="link.linkName == curTask.linkName"
+        >
+          {{ link.linkName }}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-expansion-panel>
+    <br />
+    <mat-form-field appearance="fill" *ngIf="showAddLink">
+      <mat-label>שם היעד</mat-label>
+      <input matInput [(ngModel)]="curTask.linkName" /> </mat-form-field
+    >&nbsp;&nbsp;
+    <mat-form-field
+      appearance="fill"
+      class="sixty-percent-width"
+      *ngIf="showAddLink"
+    >
+      <mat-label>כתובת היעד</mat-label>
+      <input matInput [(ngModel)]="curTask.siteAddress" />
+    </mat-form-field>
+    <br />
+    <p>פרטים נוספים:</p>
+    <mat-form-field appearance="fill">
+      <mat-label>דרג את רמת הדחיפות</mat-label>
+      <input
+        matInput
+        maxlength="2"
+        max="10"
+        min="0"
+        type="number"
+        [(ngModel)]="curTask.actionPriority"
+      />
+      <mat-hint> כאשר 0- ללא דחיפות</mat-hint> </mat-form-field
+    >&nbsp;&nbsp;
+    <mat-form-field appearance="fill" class="sixty-percent-width">
+      <mat-label>הערות</mat-label>
+      <textarea matInput [(ngModel)]="curTask.comments"></textarea>
+    </mat-form-field>
+  </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">ביטול</button>
-    <button mat-button [mat-dialog-close]="data.result" cdkFocusInitial>
-      אישור
+    <button mat-button (click)="submit()" cdkFocusInitial>אישור</button>
+    <button mat-button [mat-dialog-close]="data.result" (click)="onNoClick()">
+      ביטול
     </button>
+    <div
+      class="spinner-border text-primary loading"
+      role="status"
+      *ngIf="loading"
+    >
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
 </div>

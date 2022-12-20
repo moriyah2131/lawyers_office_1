@@ -122,7 +122,6 @@ export class CreateBagDialogComponent implements OnInit {
           )
           .subscribe(
             (res) => {
-              console.log(res);
               alert(res);
               this.loading = false;
               this.data.posted = true;
@@ -142,7 +141,6 @@ export class CreateBagDialogComponent implements OnInit {
           )
           .subscribe(
             (res) => {
-              console.log(res);
               alert(res);
               this.loading = false;
               this.data.posted = true;

@@ -5,6 +5,7 @@ export interface Task {
   discription?: string;
   comments?: string;
   deadLine?: Date;
+  linkID?: number;
   linkName?: string;
   siteAddress?: string;
   actionState: string;

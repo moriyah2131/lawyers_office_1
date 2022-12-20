@@ -20,11 +20,11 @@ namespace webApi.Controllers
         }
 
         [HttpGet("getAll")]
-        public ActionResult<List<LinksDto>> getAll()
+        public async Task<ActionResult<List<LinksDto>>> getAllAsync()
         {
             try
             {
-                return Ok(bll.GetAll());
+                return Ok(await bll.GetAllAsync());
             }
             catch
             {

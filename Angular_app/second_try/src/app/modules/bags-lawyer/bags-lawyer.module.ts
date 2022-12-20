@@ -27,6 +27,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MainComponentsModule } from '../main-components/main-components.module';
 import { SharedModule } from '../shared/shared.module';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const routes: Routes = [
   {
@@ -73,6 +76,10 @@ const routes: Routes = [
     MatListModule,
     MatCheckboxModule,
     MatListModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule,
 
     //MainComponentsModule,
     SharedModule,

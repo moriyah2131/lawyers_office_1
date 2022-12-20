@@ -5,9 +5,9 @@ namespace Dal.converters
 {
     public class ActionsConverter
     {
-        public static ActionsDto toDto(models.Action obj)
+        public static ActionsDTO toDto(models.Action obj)
         {
-            return new ActionsDto { 
+            return new ActionsDTO { 
                 Id= obj.Id,
                 ActionPatternId= obj.ActionPatternId,
                 Comments= obj.Comments,
@@ -22,7 +22,7 @@ namespace Dal.converters
                 SiteAddress = obj.ActionPattern?.Link?.SiteAddress,
             };
         }
-        public static models.Action toDal(ActionsDto obj)
+        public static models.Action toDal(ActionsDTO obj)
         {
             return new models.Action {
                 Id = obj.Id,
@@ -36,19 +36,19 @@ namespace Dal.converters
                 //ActionPattern = new() { ActionPatternName = obj.ActionPatternName },
             };
         }
-        public static List<ActionsDto> toDtoList(List<models.Action> objList)
+        public static List<ActionsDTO> toDtoList(List<models.Action> objList)
         {
-            List<ActionsDto> l = new List<ActionsDto>();
+            List<ActionsDTO> l = new List<ActionsDTO>();
             foreach (models.Action item in objList)
             {
                 l.Add(toDto(item));
             }
             return l;
         }
-        public static List<models.Action> toDalList(List<ActionsDto> objList)
+        public static List<models.Action> toDalList(List<ActionsDTO> objList)
         {
             List<models.Action> l = new List<models.Action>();
-            foreach (ActionsDto item in objList)
+            foreach (ActionsDTO item in objList)
             {
                 l.Add(toDal(item));
             }

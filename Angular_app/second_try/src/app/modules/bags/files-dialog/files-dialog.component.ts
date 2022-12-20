@@ -136,8 +136,6 @@ export class FilesDialogComponent implements OnInit {
     }
     console.log(suffix);
 
-    debugger;
-
     let dialogRef = this.dialog.open(DiaolgComponent, {
       height: '280px',
       width: '280px',
@@ -152,7 +150,6 @@ export class FilesDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res) => {
       result = res;
       this.loading = true;
-      debugger;
       if (res && res != 'false') {
         file.fileName = result + suffix;
         debugger;
