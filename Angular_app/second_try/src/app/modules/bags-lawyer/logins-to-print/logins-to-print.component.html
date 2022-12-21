@@ -1,0 +1,32 @@
+<div class="container">
+  <h4>פרטי ההתחברות לאתר</h4>
+  <h6 class="grayColor">
+    למשתתפים בתיק <span class="orangeColor">{{ bagName }}</span>
+  </h6>
+  <br />
+  <div *ngFor="let login of loginsRes; let i = index">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>משתמש {{ i + 1 }}: </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <span>
+          <span class="bold-text"> שם משתמש: </span>
+          {{ login.email }}</span
+        >
+        <br />
+        <span>
+          <span class="bold-text"> סיסמה: </span>
+          {{ login.password }}</span
+        >
+        <br />
+      </mat-card-content>
+    </mat-card>
+    <br />
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button (click)="onPrint()">
+      <i class="material-icons">print</i>
+    </button>
+  </mat-dialog-actions>
+</div>

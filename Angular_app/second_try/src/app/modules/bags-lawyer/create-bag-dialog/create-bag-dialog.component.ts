@@ -13,6 +13,7 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { Asset } from 'src/app/models/asset';
+import { Login } from 'src/app/models/Login';
 import { NewUser } from 'src/app/models/new-user';
 import { BagsService } from 'src/app/services/bags.service';
 import { FilesDialogComponent } from '../../bags/files-dialog/files-dialog.component';
@@ -27,6 +28,7 @@ import { CreateBagFormComponent } from '../create-bag-form/create-bag-form.compo
 export class CreateBagDialogComponent implements OnInit {
   loading: boolean = false;
   submitted: boolean = false;
+  loginsRes: Login[] = [];
   forms: { index: number; userType: string; person?: NewUser }[] = [
     { index: 1, userType: 'קונה' },
     { index: 1, userType: 'מוכר' },
@@ -122,14 +124,10 @@ export class CreateBagDialogComponent implements OnInit {
           )
           .subscribe(
             (res) => {
-              alert(res);
-              this.loading = false;
-              this.data.posted = true;
-              this.onNoClick();
+              this.onRes(res);
             },
             (err) => {
-              console.error(err);
-              this.loading = false;
+              this.onErr(err);
             }
           );
       else
@@ -141,17 +139,28 @@ export class CreateBagDialogComponent implements OnInit {
           )
           .subscribe(
             (res) => {
-              alert(res);
-              this.loading = false;
-              this.data.posted = true;
-              this.onNoClick();
+              this.onRes(res);
             },
             (err) => {
-              console.error(err);
-              this.loading = false;
+              this.onErr(err);
             }
           );
     }
+  }
+
+  onRes(res: any) {
+    this.loginsRes = res;
+    this.loading = false;
+    this.data.posted = true;
+    // this.onNoClick();
+  }
+  onErr(err: any) {
+    console.error(err);
+    this.loading = false;
+  }
+
+  onPrint() {
+    window.print();
   }
 
   onReset() {

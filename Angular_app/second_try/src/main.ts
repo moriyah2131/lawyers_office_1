@@ -6,6 +6,9 @@ import { environment } from './environments/environment';
 
 import 'hammerjs';
 
+enableProdMode();
+platformBrowserDynamic().bootstrapModule(AppModule);
+
 if (environment.production) {
   enableProdMode();
 }

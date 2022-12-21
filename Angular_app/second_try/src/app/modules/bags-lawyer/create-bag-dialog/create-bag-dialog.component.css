@@ -1,4 +1,4 @@
-.container{
+.container, .print-container{
     direction: rtl;
 }
 
@@ -24,3 +24,13 @@
 #main-title{
     font-size: 25px;
 }
+
+@media print {
+    .print-container > app-logins-to-print  {
+        display: block;
+      }
+
+    .container {
+      display: none;
+    }
+  }

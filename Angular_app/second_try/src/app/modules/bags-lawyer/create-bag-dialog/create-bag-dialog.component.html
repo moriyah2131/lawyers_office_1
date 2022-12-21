@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!this.data.posted">
   <div mat-dialog-title>
     <div id="x">
       <button
@@ -112,4 +112,13 @@
       <button mat-flat-button type="reset" (click)="onReset()">אתחל</button>
     </mat-dialog-actions>
   </div>
+</div>
+<div class="print-container" *ngIf="this.data.posted">
+  <app-logins-to-print
+    [loginsRes]="loginsRes"
+    [bagName]="this.nameForm.get('nameFormControl')?.value ?? 'זה'"
+  ></app-logins-to-print>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button (click)="onNoClick()">סגור</button>
+  </mat-dialog-actions>
 </div>
