@@ -1,0 +1,51 @@
+<div class="container">
+  <h4>סטטוס</h4>
+  <h6>מצב התיק</h6>
+  <div class="statusOptions">
+    <button mat-button *ngIf="bagState != 0" (click)="bagState = 0">
+      <span matTooltip="בתהליך" class="material-icons green-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-raised-button *ngIf="bagState == 0">
+      <span matTooltip="בתהליך" class="material-icons green-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-button *ngIf="bagState != 1" (click)="bagState = 1">
+      <span matTooltip="סגור" class="material-icons gray-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-raised-button *ngIf="bagState == 1">
+      <span matTooltip="סגור" class="material-icons gray-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-button *ngIf="bagState != 2" (click)="bagState = 2">
+      <span matTooltip="ממתין" class="material-icons orange-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-raised-button *ngIf="bagState == 2">
+      <span matTooltip="ממתין" class="material-icons orange-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-button *ngIf="bagState != 4" (click)="bagState = 4">
+      <span matTooltip="תקוע" class="material-icons red-color state"
+        >circle</span
+      >
+    </button>
+    <button mat-raised-button *ngIf="bagState == 4">
+      <span matTooltip="תקוע" class="material-icons red-color state"
+        >circle</span
+      >
+    </button>
+  </div>
+  <br />
+  <div mat-dialog-actions>
+    <button mat-button (click)="submit()" cdkFocusInitial>אישור</button>
+    <button mat-button (click)="onNoClick()">ביטול</button>
+  </div>
+</div>

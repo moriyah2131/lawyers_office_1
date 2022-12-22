@@ -41,14 +41,19 @@ namespace BLL.classes
             return await dal.GetAllAsync(currentPage, pageSize);
         }
 
+        public async Task<List<LogInDTO>> GetLoginsByIDAsync(int bagID, ICollection<ShortPersonDTO> participans)
+        {
+            return await postOrGetParticipants(false, bagID, participans);
+        }
+
         public async Task<List<LogInDTO>> post(string bagName, PostBagDTO postBagDTO)
         {
             int assetId = await assetsDal.PostAsync(postBagDTO.Asset);
             int bagId = await dal.PostAsync(bagName, assetId);
-            return await postParticipants(bagId, postBagDTO.Participants);
+            return await postOrGetParticipants(true, bagId, postBagDTO.Participants);
         }
 
-        private  async Task<List<LogInDTO>> postParticipants(int bagId, ICollection<ShortPersonDTO> participants)
+        private  async Task<List<LogInDTO>> postOrGetParticipants(bool toPostBag, int bagId, ICollection<ShortPersonDTO> participants)
         {
             List<LogInDTO> logIns = new();
             foreach (ShortPersonDTO participant in participants)
@@ -66,10 +71,10 @@ namespace BLL.classes
                 {
                     personId = await peopleDal.PostAsync(participant);
                     password = GenerateToken(6);
-                    await usersDal.PostAsync(new() { PersonId = personId, UserPassword = password, UserType = "CUSTOMER" });
+                    await usersDal.PostAsync(new() { PersonId = personId, UserPassword = password, UserType = participant.UserType == "lawyer" ? "LAWYER" : "CUSTOMER" });
                 }
-
-                await bagsToPersonDal.PostAsync(personId, participant.UserType, bagId);
+                if(toPostBag)
+                    await bagsToPersonDal.PostAsync(personId, participant.UserType, bagId);
                 logIns.Add(new() { Email = participant.Email, Password = password });
             }
             return logIns;
@@ -93,7 +98,7 @@ namespace BLL.classes
         public async Task<List<LogInDTO>> PutAsync(int bagId, string bagName, PostBagDTO postBagDTO)
         {
             await assetsDal.PutAsync(bagId, postBagDTO.Asset);
-            await dal.PutAsync(bagId, bagName);
+            await dal.PutAsync(bagId, bagName, null);
             List<LogInDTO> logins = new();
             List<ShortPersonDTO> existingParticipant = new(), notExistingParticipant = new();
             foreach (var participant in postBagDTO.Participants)
@@ -104,9 +109,14 @@ namespace BLL.classes
                     notExistingParticipant.Add(participant);
             }
 
-            logins.AddRange(await postParticipants(bagId, notExistingParticipant));
+            logins.AddRange(await postOrGetParticipants(true, bagId, notExistingParticipant));
             logins.AddRange(await peopleDal.PutListAsync(existingParticipant));
             return logins;
+        }
+
+        public async Task PutBagStateAsync(int bagId, int status)
+        {
+            await dal.PutAsync(bagId, null, status);
         }
     }
 }

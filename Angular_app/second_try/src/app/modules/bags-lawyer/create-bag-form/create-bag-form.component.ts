@@ -73,6 +73,22 @@ export class CreateBagFormComponent implements OnInit {
       return;
     }
 
+    let userTypeToPost: 'buyer' | 'seller' | 'lawyer' = 'buyer';
+    switch (this.userType) {
+      case 'קונה': {
+        userTypeToPost = 'buyer';
+        break;
+      }
+      case 'מוכר': {
+        userTypeToPost = 'seller';
+        break;
+      }
+      case 'בא כוח': {
+        userTypeToPost = 'lawyer';
+        break;
+      }
+    }
+
     if (this.f['email'].value) {
       let newUser: NewUser = {
         id: this.person?.id,
@@ -83,7 +99,7 @@ export class CreateBagFormComponent implements OnInit {
           ? undefined
           : this.f['IDnumber'].value ?? undefined,
         phone: this.f['phone'].value ?? undefined,
-        userType: this.userType == 'קונה' ? 'buyer' : 'seller',
+        userType: userTypeToPost,
       };
       this.onSubmitEvent.emit(newUser);
     }

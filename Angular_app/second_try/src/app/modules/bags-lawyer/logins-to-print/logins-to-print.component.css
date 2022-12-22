@@ -12,3 +12,7 @@
     padding: 5px;
     border-radius: 20%;
 }
+
+.container{
+    direction: rtl;
+}

@@ -33,10 +33,14 @@ export class CreateBagDialogComponent implements OnInit {
     { index: 1, userType: 'קונה' },
     { index: 1, userType: 'מוכר' },
   ];
+  agentForms: { index: number; userType: string; person?: NewUser }[] = [
+    { index: 1, userType: 'בא כוח' },
+  ];
   participants: NewUser[] = [];
   asset?: Asset;
   sellersIndex = 2;
   buyersIndex = 2;
+  agentsIndex = 2;
 
   nameForm = new FormGroup({
     nameFormControl: new FormControl(this.data.bagName ?? '', [
@@ -58,6 +62,7 @@ export class CreateBagDialogComponent implements OnInit {
       posted: boolean;
       bagId: number;
       asset?: Asset;
+      agents?: NewUser[];
       buyers?: NewUser[];
       sellers?: NewUser[];
       bagName?: string;
@@ -86,6 +91,19 @@ export class CreateBagDialogComponent implements OnInit {
       this.buyersIndex = this.data.buyers.length + 1;
       this.sellersIndex = this.data.sellers.length + 1;
     }
+
+    if (this.data.agents) {
+      this.agentForms = [];
+      for (let index = 0; index < this.data.agents.length; index++) {
+        this.agentForms.push({
+          index: index + 1,
+          userType: 'בא כוח',
+          person: this.data.agents[index],
+        });
+      }
+
+      this.agentsIndex = this.data.agents.length + 1;
+    }
   }
 
   onNoClick(): void {
@@ -112,7 +130,7 @@ export class CreateBagDialogComponent implements OnInit {
       !this.submitted &&
       this.asset &&
       this.nameForm?.get('nameFormControl')?.value &&
-      this.participants.length == this.forms.length
+      this.participants.length == this.forms.length + this.agentForms.length
     ) {
       this.submitted = true;
       this.loading = true;
@@ -152,7 +170,6 @@ export class CreateBagDialogComponent implements OnInit {
     this.loginsRes = res;
     this.loading = false;
     this.data.posted = true;
-    // this.onNoClick();
   }
   onErr(err: any) {
     console.error(err);
@@ -168,9 +185,11 @@ export class CreateBagDialogComponent implements OnInit {
       { index: 1, userType: 'קונה' },
       { index: 1, userType: 'מוכר' },
     ];
+    this.agentForms = [{ index: 1, userType: 'בא כוח' }];
     this.children?.forEach((child) => child.onReset());
     this.buyersIndex = 2;
     this.sellersIndex = 2;
+    this.agentsIndex = 2;
     this.participants = [];
   }
 }

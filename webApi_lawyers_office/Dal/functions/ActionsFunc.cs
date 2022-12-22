@@ -39,20 +39,22 @@ namespace Dal.functions
         {
             Bag bag = await db.Bags.Include(b => b.ActionsToBags).Include(b => b.BagsToPeople).FirstOrDefaultAsync(obj => obj.Id == bagID);
             ICollection<BagsToPerson> btp = bag.BagsToPeople;
-            string userType = "";
-            foreach (BagsToPerson b in btp)
-            {
-                if (b.PersonId == userID)
-                    userType = b.PersonType;
-            }
-            List<ActionsToBag> atbs = await db.ActionsToBags.Where(item => item.BagId == bagID).ToListAsync();
+            //string userType = "";
+            //foreach (BagsToPerson b in btp)
+            //{
+            //    if (b.PersonId == userID)
+            //        userType = b.PersonType;
+            //}
+            //List<ActionsToBag> atbs = await db.ActionsToBags.Where(item => item.BagId == bagID).ToListAsync();
             List<ActionsDTO> actions = new();
 
             foreach (ActionsToBag atb in bag.ActionsToBags)
             {
                 Action actionToAdd = await db.Actions.Select(a => a)
                     .Include(a => a.ActionPattern).Include(a => a.ActionPattern.Link)
-                    .Where(a => a.Id == atb.ActionId && (a.whom_for_id == null && a.ActionPattern.WhomFor == userType || a.whom_for_id == userID))
+                    .Where(a => a.Id == atb.ActionId && a.whom_for_id == userID
+                        //a.whom_for_id == null && a.ActionPattern.WhomFor == userType || 
+                       )
                     .FirstOrDefaultAsync();
 
                 if (actionToAdd != null)

@@ -31,6 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LoginsToPrintComponent } from './logins-to-print/logins-to-print.component';
+import { StatusDialogComponent } from './status-dialog/status-dialog.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
     AssetInfoDialogComponent,
     TaskDialogComponent,
     LoginsToPrintComponent,
+    StatusDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -10,6 +10,6 @@ export interface Bag {
   dateClose?: Date;
   buyers?: NewUser[];
   sellers?: NewUser[];
-  agent?: NewUser;
+  agents?: NewUser[];
   asset?: Asset;
 }

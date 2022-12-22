@@ -43,6 +43,19 @@ namespace webApi.Controllers
             }
         }
 
+        [HttpPost("getLoginsByID/{bagID}")]
+        public async Task<ActionResult<List<LogInDTO>>> getLoginsByIDAsync([FromBody] ICollection<ShortPersonDTO> participants, int bagID)
+        {
+            try
+            {
+                return Ok(await bll.GetLoginsByIDAsync(bagID, participants));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost("getListByIDs/")]
         public async Task<ActionResult<List<GetBagDTO>>> getListByIDs([FromBody] int[] IDs)
         {
@@ -89,6 +102,20 @@ namespace webApi.Controllers
             try
             {
                 return Ok(await bll.PutAsync(bagId, bagName, postBagDTO));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("putBagState/{bagId}/{status}")]
+        public async Task<ActionResult> putBagState(int bagId, int status, [FromBody] object obj)
+        {
+            try
+            {
+                await bll.PutBagStateAsync(bagId, status);
+                return Ok();
             }
             catch
             {

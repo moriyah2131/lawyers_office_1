@@ -15,9 +15,10 @@ namespace Dal.converters
                 LastOpen = obj.LastOpen,
                 BagState = obj.BagState switch
                 {
-                    1 => EBagState.PENDING,
-                    2 => EBagState.STUCK,
-                    3 => EBagState.CLOSED,
+                    0 => EBagState.IN_PROCCESS,
+                    1 => EBagState.CLOSED,
+                    2 => EBagState.PENDING,
+                    4 => EBagState.STUCK,
                     _ => EBagState.IN_PROCCESS
                 },
                 OpenDate = obj.open_date,

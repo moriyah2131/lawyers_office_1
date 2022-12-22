@@ -1,0 +1,19 @@
+.green-color{
+    color:green;
+  }
+  
+  .orange-color{
+    color:orange;
+  }
+  
+  .gary-color{
+    color:gray;
+  }
+  
+  .red-color{
+    color:red;
+  }
+  
+  .container{
+    direction: rtl;
+  }

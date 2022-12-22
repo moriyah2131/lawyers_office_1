@@ -80,6 +80,20 @@
       >
         הוסף מוכר
       </button>
+      <button
+        mat-flat-button
+        color="primary"
+        class="bag-dialog-button"
+        (click)="
+          agentForms.push({
+            index: agentsIndex,
+            userType: 'בא כוח'
+          });
+          agentsIndex = agentsIndex + 1
+        "
+      >
+        הוסף ב"כ
+      </button>
     </mat-dialog-actions>
   </div>
   <mat-divider></mat-divider>
@@ -103,6 +117,15 @@
           (onSubmitEvent)="setAsset($event)"
           [asset]="data.asset"
         ></app-asset-form>
+        <div *ngFor="let agentForm of agentForms">
+          <app-create-bag-form
+            #child
+            (onSubmitEvent)="pushDetails($event)"
+            userType="{{ agentForm.userType }}"
+            index="{{ agentForm.index }}"
+            [person]="agentForm.person"
+          ></app-create-bag-form>
+        </div>
       </div>
     </div>
     <mat-dialog-actions align="end">

@@ -6,6 +6,8 @@ import { Bag } from 'src/app/models/Bag';
 import { BagsService } from 'src/app/services/bags.service';
 import { NewUser } from 'src/app/models/new-user';
 import { TasksListComponent } from '../../shared/tasks-list/tasks-list.component';
+import { LoginsToPrintComponent } from '../logins-to-print/logins-to-print.component';
+import { StatusDialogComponent } from '../status-dialog/status-dialog.component';
 
 @Component({
   selector: 'app-bag-info',
@@ -31,7 +33,9 @@ export class BagInfoComponent implements OnInit {
       (res: Bag) => {
         this.bag = res;
         this.loading = false;
-        if (this.bag?.agent) this.participants.push(this.bag?.agent);
+        this.bag?.agents?.forEach((agent) => {
+          if (agent) this.participants.push(agent);
+        });
         this.bag?.buyers?.forEach((buyer) => {
           if (buyer) this.participants.push(buyer);
         });
@@ -54,7 +58,50 @@ export class BagInfoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log('The dialog was closed');
+      console.log('The dialog {FilesDialogComponent} was closed');
+    });
+  }
+
+  openLogins(): void {
+    this.bagsService
+      .getLoginsByID(this.bagId, [
+        ...(this.bag?.buyers || []),
+        ...(this.bag?.sellers || []),
+        ...(this.bag?.agents || []),
+      ])
+      .subscribe(
+        (res) => {
+          const dialogRef = this.dialog.open(LoginsToPrintComponent, {
+            width: '850px',
+            data: { bagName: this.bag?.bagName, logins: res },
+          });
+
+          dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog {LoginsToPrintComponent} was closed');
+          });
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+  }
+
+  openStatus(): void {
+    const dialogRef = this.dialog.open(StatusDialogComponent, {
+      width: '550px',
+      data: { status: this.bag?.bagState },
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      console.log('The dialog was closed, with res = ' + res);
+      this.bagsService.putBagState(this.bagId, res).subscribe(
+        () => {
+          alert('הסטטוס עודכן בהצלחה!');
+        },
+        (err) => {
+          alert('שגיאה. הסטטוס לא עודכן.');
+        }
+      );
     });
   }
 }

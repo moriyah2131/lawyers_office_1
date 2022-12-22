@@ -29,7 +29,7 @@ export class ViewBagsComponent implements AfterViewInit {
     'bagName',
     'buyers',
     'sellers',
-    'agent',
+    'agents',
     'lastOpen',
     'openDate',
     'closeDate',
@@ -45,6 +45,7 @@ export class ViewBagsComponent implements AfterViewInit {
   asset?: Asset;
   buyers?: NewUser[];
   sellers?: NewUser[];
+  agents?: NewUser[];
   bagName?: string;
 
   constructor(
@@ -120,6 +121,7 @@ export class ViewBagsComponent implements AfterViewInit {
         posted: posted,
         bagId: this.chosenBagID,
         asset: this.asset,
+        agents: this.agents,
         buyers: this.buyers,
         sellers: this.sellers,
         bagName: this.bagName,
@@ -134,6 +136,7 @@ export class ViewBagsComponent implements AfterViewInit {
   chooseBag(
     bagID: number,
     asset?: Asset,
+    agents?: NewUser[],
     buyers?: NewUser[],
     sellers?: NewUser[],
     bagName?: string
@@ -141,6 +144,7 @@ export class ViewBagsComponent implements AfterViewInit {
     if (this.chosenBagID != bagID) {
       this.chosenBagID = bagID;
       this.asset = asset;
+      this.agents = agents;
       this.buyers = buyers;
       this.sellers = sellers;
       this.bagName = bagName;
@@ -184,6 +188,7 @@ export class ViewBagsComponent implements AfterViewInit {
   resetProperties() {
     this.chosenBagID = -1;
     this.asset = undefined;
+    this.agents = undefined;
     this.buyers = undefined;
     this.sellers = undefined;
     this.bagName = undefined;

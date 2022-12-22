@@ -44,16 +44,16 @@
               >
               <span
                 *ngIf="row.bagState == 2"
-                matTooltip="תקוע"
+                matTooltip="ממתין"
                 [matTooltipPosition]="'before'"
-                class="material-icons red-color state"
+                class="material-icons orange-color state"
                 >circle</span
               >
               <span
                 *ngIf="row.bagState == 4"
-                matTooltip="ממתין"
+                matTooltip="תקוע"
                 [matTooltipPosition]="'before'"
-                class="material-icons orange-color state"
+                class="material-icons red-color state"
                 >circle</span
               >
             </td>
@@ -73,6 +73,7 @@
               {{ row.bagName }}
             </td>
           </ng-container>
+
           <!-- sellers Column -->
           <ng-container matColumnDef="sellers">
             <th
@@ -114,7 +115,7 @@
           </ng-container>
 
           <!-- agent Column -->
-          <ng-container matColumnDef="agent">
+          <ng-container matColumnDef="agents">
             <th
               class="col-space"
               mat-header-cell
@@ -124,11 +125,17 @@
               ב"כ
             </th>
             <td mat-cell *matCellDef="let row">
-              <a (click)="openPersonInfoDialog(row.agent)">{{
+              <!-- <a (click)="openPersonInfoDialog(row.agent)">{{
                 row.agent
                   ? row.agent.firstName + " " + row.agent.lastName
                   : "אין"
-              }}</a>
+              }}</a> -->
+              <span *ngFor="let a of row.agents">
+                <a (click)="openPersonInfoDialog(a)">{{
+                  a?.firstName + " " + a?.lastName
+                }}</a
+                ><br />
+              </span>
             </td>
           </ng-container>
 
@@ -143,7 +150,7 @@
               נפתח לאחרונה
             </th>
             <td mat-cell *matCellDef="let row">
-              <span>{{ row.lastOpen | date: "shortDate" }} </span>
+              <span>{{ row.lastOpen | date : "shortDate" }} </span>
             </td>
           </ng-container>
 
@@ -158,7 +165,7 @@
               תאריך יצירה
             </th>
             <td mat-cell *matCellDef="let row">
-              <span>{{ row.openDate | date: "shortDate" }} </span>
+              <span>{{ row.openDate | date : "shortDate" }} </span>
             </td>
           </ng-container>
 
@@ -173,7 +180,7 @@
               תאריך סגירה
             </th>
             <td mat-cell *matCellDef="let row">
-              <span>{{ row.closeDate | date: "shortDate" }} </span>
+              <span>{{ row.closeDate | date : "shortDate" }} </span>
             </td>
           </ng-container>
 
@@ -210,6 +217,7 @@
                   chooseBag(
                     row.id,
                     row?.asset,
+                    row?.agents,
                     row?.buyers,
                     row?.sellers,
                     row.bagName

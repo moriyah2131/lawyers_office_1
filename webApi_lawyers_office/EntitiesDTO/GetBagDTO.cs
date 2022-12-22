@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EntitiesDTO
 {
-    public enum EBagState { IN_PROCCESS, CLOSED, STUCK, PENDING = 4}
+    public enum EBagState { IN_PROCCESS = 0, CLOSED = 1, PENDING = 2, STUCK = 4}
     public class GetBagDTO
     {
         public int Id { get; set; }
@@ -14,7 +14,7 @@ namespace EntitiesDTO
         public DateTime? CloseDate { get; set; } = null;
         public List<ShortPersonDTO>? Buyers { get; set; }
         public List<ShortPersonDTO>? Sellers { get; set; }
-        public ShortPersonDTO? Agent { get; set; }
+        public List<ShortPersonDTO>? Agents { get; set; }
         public AssetDTO? Asset { get; set; } = null;
     }
 }

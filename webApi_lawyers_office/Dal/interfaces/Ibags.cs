@@ -13,6 +13,6 @@ namespace Dal.interfaces
         Task<List<GetBagDTO>> GetBagsByIDsAsync(int[] IDs);
         Task<GetBagDTO> GetByIdAsync(int id);
         Task<int> PostAsync(string bagName, int assetId);
-        Task<int> PutAsync(int bagId, string bagName);
+        Task<int> PutAsync(int bagId, string? bagName, int? state);
     }
 }

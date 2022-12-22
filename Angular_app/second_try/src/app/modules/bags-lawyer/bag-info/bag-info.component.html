@@ -9,6 +9,21 @@
         drive_folder_upload
       </span>
     </button>
+    &nbsp;&nbsp;
+    <button matTooltip="פרטי התחברות" mat-button (click)="openLogins()">
+      <i
+        class="fa fa-key"
+        aria-hidden="true"
+        style="font-size: 110px; padding: 18px"
+      ></i>
+    </button>
+    &nbsp;&nbsp;
+    <button matTooltip="סטטוס" mat-button (click)="openStatus()">
+      <i
+        class="fa-solid fa-list-check"
+        style="font-size: 110px; padding: 18px"
+      ></i>
+    </button>
   </div>
 
   <div class="container col">
@@ -37,11 +52,12 @@
                 {{ "הבלין - ולר" }}
               </button>
               <button
+                *ngFor="let agent of bag?.agents"
                 class="task-button"
                 mat-raised-button
-                (click)="tasksList?.onPersonChange(bag?.agent)"
+                (click)="tasksList?.onPersonChange(agent)"
               >
-                {{ bag?.agent?.firstName + " " + bag?.agent?.lastName }}
+                {{ agent.firstName + " " + agent.lastName }}
               </button>
             </mat-card-content>
           </mat-card>

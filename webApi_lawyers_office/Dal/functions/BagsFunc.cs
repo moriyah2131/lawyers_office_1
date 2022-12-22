@@ -43,8 +43,8 @@ namespace Dal.functions
         {
             List<Bag> bags;
             if (currentPage == 0)
-                bags = await db.Bags.Take(pageSize + 1).Include(b => b.BagsToPeople).Include(b => b.Asset).Distinct().ToListAsync();
-            else bags = await db.Bags.Skip(currentPage * pageSize + 1).Take(pageSize).Include(b => b.BagsToPeople).Include(b => b.Asset).Distinct().ToListAsync();
+                bags = await db.Bags.OrderByDescending(b=>b.open_date).Take(pageSize + 1).Include(b => b.BagsToPeople).Include(b => b.Asset).Distinct().OrderByDescending(b => b.open_date).ToListAsync();
+            else bags = await db.Bags.OrderByDescending(b => b.open_date).Skip(currentPage * pageSize + 1).Take(pageSize).Include(b => b.BagsToPeople).Include(b => b.Asset).Distinct().OrderByDescending(b => b.open_date).ToListAsync();
 
             List<GetBagDTO> bagsDTO = new();
             foreach (Bag b in bags)
@@ -57,6 +57,7 @@ namespace Dal.functions
         private async Task<GetBagDTO> fillParticipantsToBagDTO(Bag bag)
         {
             GetBagDTO getBagDTO = BagsConverter.toDto(bag);
+            getBagDTO.Agents = new();
             getBagDTO.Buyers = new();
             getBagDTO.Sellers = new();
 
@@ -68,7 +69,7 @@ namespace Dal.functions
 
                 switch (btp.PersonType)
                 {
-                    case "LAWYER" or "lawyer": getBagDTO.Agent = personDTO; break;
+                    case "LAWYER" or "lawyer": getBagDTO.Agents.Add(personDTO); break;
                     case "BUYER" or "buyer": getBagDTO.Buyers.Add(personDTO); break;
                     case "SELLER" or "seller": getBagDTO.Sellers.Add(personDTO); break;
                 };
@@ -128,10 +129,12 @@ namespace Dal.functions
             await db.SaveChangesAsync();
         }
 
-        public async Task<int> PutAsync(int bagId, string bagName)
+        public async Task<int> PutAsync(int bagId, string? bagName, int? status)
         {
-            Bag bagToUpdate = await db.Bags.FirstOrDefaultAsync(b => b.Id == bagId);
-            bagToUpdate.BagName = bagName;
+            Bag bagToUpdate = await db.Bags.FirstOrDefaultAsync(b => b.Id == bagId) ?? throw new ArgumentException("Bag doesn't exist");
+
+            if(bagName!=null) bagToUpdate.BagName = bagName;
+            if(status != null) bagToUpdate.BagState = (int)status;
 
             db.Bags.Update(bagToUpdate);
             await db.SaveChangesAsync();

@@ -71,3 +71,13 @@
   margin-left: 15px;
   margin-top: 20px;
 }
+
+@media print {
+  app-logins-to-print  {
+      display: block;
+    }
+
+  .body, .row, * {
+    display: none;
+  }
+}
