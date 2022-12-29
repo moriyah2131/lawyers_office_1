@@ -125,6 +125,24 @@ export class CreateBagDialogComponent implements OnInit {
     this.TryToPost();
   }
 
+  removeForm(form: {
+    index: number;
+    userType: string;
+    person?: NewUser | undefined;
+  }) {
+    let index: number = this.forms.indexOf(form);
+    if (index != -1) this.forms.splice(index, 1);
+  }
+
+  removeAgentForm(agentForm: {
+    index: number;
+    userType: string;
+    person?: NewUser | undefined;
+  }) {
+    let index: number = this.agentForms.indexOf(agentForm);
+    if (index != -1) this.agentForms.splice(index, 1);
+  }
+
   TryToPost() {
     if (
       !this.submitted &&

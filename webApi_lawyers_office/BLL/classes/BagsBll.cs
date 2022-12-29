@@ -61,7 +61,7 @@ namespace BLL.classes
                 int personId;
                 string password;
 
-                if (participant.Tz == null)
+                if (participant.Tz == null || toPostBag == false)
                 {
                     personId = await peopleDal.GetByEmailAsync(participant.Email);
                     User exsitingUser = await usersDal.GetByIdAsync(personId);

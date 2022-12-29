@@ -81,6 +81,7 @@ export class FilesDialogComponent implements OnInit {
   }
 
   download(file: MyFile) {
+    debugger;
     console.log(file.document);
     const content = this.dataURItoBlob(file.document);
     const blob = new Blob([content]);

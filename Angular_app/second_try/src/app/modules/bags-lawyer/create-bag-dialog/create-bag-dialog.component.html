@@ -102,6 +102,9 @@
     <div class="row">
       <div class="col">
         <div *ngFor="let form of forms">
+          <button mat-button class="close-icon" (click)="removeForm(form)">
+            <mat-icon>close</mat-icon>
+          </button>
           <app-create-bag-form
             #child
             (onSubmitEvent)="pushDetails($event)"
@@ -118,6 +121,13 @@
           [asset]="data.asset"
         ></app-asset-form>
         <div *ngFor="let agentForm of agentForms">
+          <button
+            mat-button
+            class="close-icon"
+            (click)="removeAgentForm(agentForm)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
           <app-create-bag-form
             #child
             (onSubmitEvent)="pushDetails($event)"
