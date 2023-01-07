@@ -6,10 +6,31 @@
       <mat-label>הקלד כאן</mat-label>
       <input matInput [(ngModel)]="data.result" />
     </mat-form-field>
+    <mat-selection-list [multiple]="false" *ngIf="data.permission">
+      <mat-list-option
+        (click)="
+          currentPermissionID = permission.id;
+          data.result = currentPermissionID.toString()
+        "
+        *ngFor="let permission of permissions"
+        [value]="permission.name"
+        [selected]="permission.id == currentPermissionID"
+      >
+        {{ permission.name }}
+      </mat-list-option>
+    </mat-selection-list>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">ביטול</button>
-    <button mat-button [mat-dialog-close]="data.result" cdkFocusInitial>
+    <button mat-button (click)="onNoClick()">סגור</button>
+    <button
+      mat-button
+      [mat-dialog-close]="data.result"
+      cdkFocusInitial
+      *ngIf="
+        (data.permission != undefined && isPermitted()) ||
+        data.permission == undefined
+      "
+    >
       אישור
     </button>
   </div>

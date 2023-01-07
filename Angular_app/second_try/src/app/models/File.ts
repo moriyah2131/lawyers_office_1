@@ -6,4 +6,5 @@ export interface MyFile {
   fileName: string;
   creatorId: number;
   uploadingDate: Date;
+  access: number;
 }

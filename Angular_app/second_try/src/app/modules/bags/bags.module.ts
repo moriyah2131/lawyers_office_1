@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MainComponentsModule } from '../main-components/main-components.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
     MatDialogModule,
     MatDividerModule,
     MatIconModule,
+    MatExpansionModule,
 
     // MainComponentsModule,
     SharedModule,
