@@ -1,5 +1,7 @@
 ﻿using Dal.interfaces;
 using Dal.models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dal.functions
@@ -16,6 +18,12 @@ namespace Dal.functions
         {
             db.BagsToPeople.RemoveRange(bagToDelete.BagsToPeople);
             await db.SaveChangesAsync();
+        }
+
+        public async Task<string> GetUserType(int bagID, int personID)
+        {
+            BagsToPerson res = await db.BagsToPeople.FirstOrDefaultAsync(obj => obj.BagId == bagID && obj.PersonId == personID);
+            return res.PersonType;
         }
 
         public async Task<int> PostAsync(int personId, string userType, int bagId)

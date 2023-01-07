@@ -2,6 +2,7 @@
 using Dal.interfaces;
 using Dal.models;
 using EntitiesDTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,20 +51,13 @@ namespace Dal.functions
 
         }
 
-        public FilePatternsDto put(FilePatternsDto obj)
+        public async Task<FilePatternsDto> putAsync(FilePatternsDto obj)
         {
-            try
-            {
-                FilePattern objToUpdate = db.FilePatterns.First(item=> item.Id== item.Id);
-                objToUpdate.FilePatternName = obj.Title;
-                objToUpdate.Access = obj.Access;
-                db.SaveChanges();
-                return FilePatternsConverter.toDto(objToUpdate);
-            }
-            catch
-            {
-                throw;
-            }
+            FilePattern objToUpdate = await db.FilePatterns.FirstOrDefaultAsync(item=> item.Id== item.Id);
+            objToUpdate.FilePatternName = obj.Title;
+            objToUpdate.Access = obj.Access;
+            await db.SaveChangesAsync();
+            return FilePatternsConverter.toDto(objToUpdate);
         }
 
         public FilePatternsDto delete(int id)

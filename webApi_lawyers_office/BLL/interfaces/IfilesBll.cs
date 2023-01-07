@@ -7,11 +7,12 @@ namespace BLL.interfaces
     public interface IfilesBll
     {
         public List<FilesDto> GetAll();
-        public FilesDto GetById(int id);
+        Task<FilesDto> GetByIdAsync(int id);
         Task<FilesDto> PutAsync(FilesDto obj);
         Task<List<FilesDto>> GetByBagIdAsync(int bagID, int creatorID);
         Task<List<FilesDto>> GetAllByBagIdAsync(int bagID);
         Task PostAsync(FilesDto obj);
         Task deleteAsync(int fileID, int personID);
+        Task SetPermissionsByIdAsync(int fileID, int accessID);
     }
 }

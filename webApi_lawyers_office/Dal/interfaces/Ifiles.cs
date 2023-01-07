@@ -6,11 +6,11 @@ namespace Dal.interfaces
 {
     public interface Ifiles
     {
-        public List<FilesDto> GetAll();
-        public FilesDto GetById(int id);
+        List<FilesDto> GetAll();
+        Task<FilesDto> GetByIdAsync(int id);
         Task post(FilesDto obj);
         Task<FilesDto> PutAsync(FilesDto obj);
-        Task<List<FilesDto>> GetByBagId(int bagID, int creatorID);
+        Task<List<FilesDto>> GetByBagId(int bagID, int personID, string userType);
         Task<List<FilesDto>> GetAllByBagId(int bagID);
         Task deleteAsync(int fileID, int personID);
     }

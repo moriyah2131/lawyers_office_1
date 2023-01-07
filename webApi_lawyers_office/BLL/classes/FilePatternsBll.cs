@@ -34,9 +34,9 @@ namespace BLL.classes
             return dal.post(obj);
         }
 
-        public FilePatternsDto put(FilePatternsDto obj)
+        public async Task<FilePatternsDto> putAsync(FilePatternsDto obj)
         {
-            return dal.put(obj);
+            return await dal.putAsync(obj);
         }   
 
         public FilePatternsDto delete(int id)

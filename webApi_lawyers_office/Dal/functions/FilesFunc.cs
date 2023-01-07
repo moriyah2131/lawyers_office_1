@@ -25,11 +25,11 @@ namespace Dal.functions
             return FilesConverter.toDtoList(db.Files.ToList());
         }
 
-        public FilesDto GetById(int id)
+        public async Task<FilesDto> GetByIdAsync(int id)
         {
             try
             {
-                return FilesConverter.toDto(db.Files.First(obj => obj.Id == id));
+                return FilesConverter.toDto(await db.Files.FirstOrDefaultAsync(obj => obj.Id == id) ?? throw new Exception("No such a file."));
             }
             catch
             {
@@ -37,9 +37,23 @@ namespace Dal.functions
             }
         }
 
-        public async Task<List<FilesDto>> GetByBagId(int bagID, int creatorID)
+        public async Task<List<FilesDto>> GetByBagId(int bagID, int personID, string userType)
         {
-            return FilesConverter.toDtoList(await db.Files.Select(obj => obj).Include(obj => obj.FilePattern).Where(obj => obj.BagId == bagID && (obj.CreatorId == creatorID || obj.FilePattern.Access == 3)).ToListAsync());
+            return FilesConverter.toDtoList(
+                await db.Files.Select(obj => obj).Include(obj => obj.FilePattern).Where(
+                    obj => obj.BagId == bagID && 
+                    (
+                        obj.Access != 0 && 
+                        (
+                            (obj.CreatorId == personID && obj.Access == 1) || 
+                            (userType == "seller" && obj.Access == 2) ||
+                            (userType == "buyer" && obj.Access == 3) || 
+                            (userType == "lawyer" && obj.Access == 4) || 
+                            obj.Access == 5 
+                       )
+                    )
+                ).ToListAsync()
+            );
         }
 
         public async Task<List<FilesDto>> GetAllByBagId(int bagID)
@@ -63,6 +77,7 @@ namespace Dal.functions
             objToUpdate.CreatorId = obj.CreatorId;
             objToUpdate.FileName = obj.FileName;
             objToUpdate.UploadingDate = obj.UploadingDate;
+            objToUpdate.Access = obj.Access;
             //objToUpdate.FileType = obj.FileType;
                 
             db.Files.Update(objToUpdate);
