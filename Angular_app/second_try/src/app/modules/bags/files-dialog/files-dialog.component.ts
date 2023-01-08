@@ -70,11 +70,13 @@ export class FilesDialogComponent implements OnInit {
 
     if (this.data.bagId && this.file)
       this.file
-        .arrayBuffer()
+        // .arrayBuffer()
+        // .then((res) => {
+        //   doc = new Uint8Array(res)
+        // })
+        .text()
         .then((res) => {
-          //doc = btoa(unescape(encodeURIComponent(res)));
-          debugger;
-          doc = new Uint8Array(res);
+          doc = btoa(unescape(encodeURIComponent(res))); //עובד רק לקבצים פשוטים
         })
         .then(() => {
           if (this.file)
@@ -100,7 +102,6 @@ export class FilesDialogComponent implements OnInit {
   }
 
   download(file: MyFile) {
-    debugger;
     //const content = this.dataURItoBlob(file.document);
     //console.log(typeof file.document);
     /// const blob = new Blob([content]);

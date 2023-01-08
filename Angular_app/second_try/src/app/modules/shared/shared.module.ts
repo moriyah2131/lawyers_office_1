@@ -11,10 +11,25 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { AllTasksListComponent } from './all-tasks-list/all-tasks-list.component';
+import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+
+const routes: Routes = [
+  {
+    path: 'tasks',
+    component: AllTasksListComponent,
+  },
+];
 
 @NgModule({
-  declarations: [TasksListComponent],
+  declarations: [TasksListComponent, AllTasksListComponent],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
     MatInputModule,
     MatFormFieldModule,
@@ -29,6 +44,12 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MatDialogModule,
     MatListModule,
+
+    HttpClientModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
+    MatProgressBarModule,
   ],
   exports: [TasksListComponent],
 })

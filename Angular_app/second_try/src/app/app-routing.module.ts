@@ -28,6 +28,11 @@ const routes: Routes = [
         (m) => m.BagsLawyerModule
       ),
   },
+  {
+    path: 'main',
+    loadChildren: () =>
+      import('./modules/shared/shared.module').then((m) => m.SharedModule),
+  },
 ];
 
 @NgModule({

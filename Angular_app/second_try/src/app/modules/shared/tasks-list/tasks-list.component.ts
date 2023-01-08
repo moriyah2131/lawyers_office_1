@@ -14,8 +14,9 @@ import { TaskDialogComponent } from '../../bags-lawyer/task-dialog/task-dialog.c
 export class TasksListComponent implements OnInit {
   selectedTasks: Task[] = [];
   allChecked: boolean = false;
-  bagId: number = Number(this.route.snapshot.paramMap.get('id'));
   tasks: Task[] = [];
+
+  @Input() bagId?: number = Number(this.route.snapshot.paramMap.get('id'));
   @Input() participants?: NewUser[];
   @Input() person?: NewUser;
   @Input() allowSensitiveActions?: boolean;
