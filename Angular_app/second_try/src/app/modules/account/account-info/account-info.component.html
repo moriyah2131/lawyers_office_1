@@ -22,7 +22,7 @@
             {{ person?.email
             }}<span class="icon"><mat-icon> email</mat-icon></span>
           </p>
-          <p class="text-left s" *ngIf="person?.phone">
+          <p class="text-left s" *ngIf="person?.phone" >
             {{ person?.phone }}
             <span class="icon"><mat-icon>phone_iphone</mat-icon></span>
           </p>
@@ -40,5 +40,6 @@
   </li>
   <mat-divider></mat-divider>
   <li class="divider"></li>
-  <a (click)="logout()" id="warning">נתק מהמערכת</a>
+ <!-- לסדר את זה שאם המשתמש כבר נמחק לא תהיה אפשרות של למחוק אותו שוב -->
+  <a (click)="deleteUser()" id="warning">נתק מהמערכת</a>
 </div>

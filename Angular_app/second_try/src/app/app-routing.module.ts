@@ -28,6 +28,13 @@ const routes: Routes = [
         (m) => m.BagsLawyerModule
       ),
   },
+  {
+    path: 'lawyer-account',
+    loadChildren: () =>
+      import('./modules/lawyer/lawyer.module').then(
+        (m) => m.LawyerModule
+      ),
+  },
 ];
 
 @NgModule({

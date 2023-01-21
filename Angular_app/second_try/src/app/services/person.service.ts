@@ -11,10 +11,13 @@ export class PersonService {
   userID: number = Number(this.userService.getUser()?.personId);
   private base = 'https://localhost:44315/api/Files';
 
+
   constructor(private http: HttpClient, private userService: UserService) {}
 
   getById(): Observable<NewUser> {
     let personID = this.userService.getUser()?.personId;
     return this.http.get<NewUser>(`${this.base}/getById/${personID}`);
   }
+
+
 }
