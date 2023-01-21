@@ -7,5 +7,10 @@ namespace BLL.interfaces
     {
         Task<AccountDTO> LogInAsync(string email, string password);
         Task RegisterAsync(RegisterDto registerDto);
+
+        Task<string> PostLawyerAsync(ShortPersonDTO participant);
+
+        Task<string> DeleteAsync(string email);
+
     }
 }

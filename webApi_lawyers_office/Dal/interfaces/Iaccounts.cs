@@ -7,5 +7,10 @@ namespace Dal.interfaces
     {
         Task<AccountDTO> LogInAsync(string email, string password);
         Task RegisterAsync(RegisterDto registerDto);
+
+        Task<int> PostAsync(ShortPersonDTO participant);
+
+       
+        Task<string> DeleteAsync(string email);
     }
 }

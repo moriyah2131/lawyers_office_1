@@ -18,6 +18,8 @@ namespace Dal.functions
             db = _db;
         }
 
+       
+
         public async Task<AccountDTO> LogInAsync(string email, string password)
         {
             User user = await db.Users.FirstOrDefaultAsync(item => item.UserPassword == password);
@@ -30,6 +32,11 @@ namespace Dal.functions
             bagsIDs = await db.BagsToPeople.Where(item => item.PersonId == person.Id).Select(bag => bag.BagId).ToListAsync();
 
             return new AccountDTO() { PersonId = person.Id, Name = person.FirstName + " " + person.LastName, UserType = user.UserType, BagsIDs = bagsIDs, IsFirstVisit = person.LivingAddress == " " };
+        }
+
+        public Task<int> PostAsync(ShortPersonDTO participant)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task RegisterAsync(RegisterDto registerDto)
@@ -45,6 +52,31 @@ namespace Dal.functions
             db.Users.Update(userToUpdate);
 
             await db.SaveChangesAsync();
+        }
+
+        public async Task<string> DeleteAsync( string email)
+        {
+            try
+            {
+                Person person = await db.People.FirstOrDefaultAsync(item => item.Email  == email);
+                if (person == null) throw new Exception("User doesn't exist.");
+
+                User user = await db.Users.FirstOrDefaultAsync(item => item.PersonId == person.Id);
+                db.Users.Remove(user);
+                await db.SaveChangesAsync();
+                return person.FirstName;
+            }
+            catch
+            {
+                throw new Exception("User doesn't exist.");
+            }
+               
+                
+           
+
+           
+
+         
         }
     }
 }

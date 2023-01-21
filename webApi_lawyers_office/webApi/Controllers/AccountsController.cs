@@ -43,5 +43,34 @@ namespace webApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("postLawyer/")]
+        public async Task<ActionResult<string>> PostLawyerAsync([FromBody] ShortPersonDTO shortPersonDto)
+        {
+            try
+            {
+                return Ok(await bll.PostLawyerAsync(shortPersonDto));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpDelete("deleteUser/")]
+     
+        public async Task<ActionResult> delete(string email)
+        {
+            try
+            {
+                await bll.DeleteAsync(email);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }
