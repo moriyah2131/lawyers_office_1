@@ -61,7 +61,7 @@ namespace BLL.classes
                 int personId;
                 string password;
 
-                if (participant.Tz == null)
+                if (participant.Tz == null || toPostBag == false)
                 {
                     personId = await peopleDal.GetByEmailAsync(participant.Email);
                     User exsitingUser = await usersDal.GetByIdAsync(personId);
@@ -71,7 +71,7 @@ namespace BLL.classes
                 {
                     personId = await peopleDal.PostAsync(participant);
                     password = GenerateToken(6);
-                    await usersDal.PostAsync(new() { PersonId = personId, UserPassword = password, UserType = participant.UserType == "lawyer" ? "LAWYER" : "CUSTOMER" });
+                    await usersDal.PostAsync(new() { PersonId = personId, UserPassword = password, UserType = participant.UserType = "CUSTOMER" });
                 }
                 if(toPostBag)
                     await bagsToPersonDal.PostAsync(personId, participant.UserType, bagId);

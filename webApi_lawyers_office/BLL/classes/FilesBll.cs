@@ -1,5 +1,6 @@
 ﻿using BLL.interfaces;
 using Dal.interfaces;
+using Dal.models;
 using EntitiesDTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,9 +11,11 @@ namespace BLL.classes
     public class FilesBll : IfilesBll
     {  
         public Ifiles dal;
-        public FilesBll(Ifiles _dal)
+        public IbagsToPerson bagsToPersonDal;
+        public FilesBll(Ifiles _dal, IbagsToPerson _bagsToPersonDal)
         {
             dal = _dal;
+            bagsToPersonDal = _bagsToPersonDal; 
         }
 
         public List<FilesDto> GetAll()
@@ -20,14 +23,15 @@ namespace BLL.classes
             return dal.GetAll();
         }
 
-        public FilesDto GetById(int id)
+        public async Task<FilesDto> GetByIdAsync(int id)
         {
-            return dal.GetById(id);
+            return await dal.GetByIdAsync(id);
         }
 
-        public async Task<List<FilesDto>> GetByBagIdAsync(int bagID, int creatorID)
+        public async Task<List<FilesDto>> GetByBagIdAsync(int bagID, int personID)
         {
-            return await dal.GetByBagId(bagID, creatorID);
+            string userType = await bagsToPersonDal.GetUserType(bagID, personID);
+            return await dal.GetByBagId(bagID, personID, userType);
         }
 
         public async Task<List<FilesDto>> GetAllByBagIdAsync(int bagID)
@@ -48,6 +52,13 @@ namespace BLL.classes
         public async Task deleteAsync(int fileID, int personID)
         {
             await dal.deleteAsync(fileID, personID);
+        }
+
+        public async Task SetPermissionsByIdAsync(int fileID, int accessID)
+        {
+            FilesDto file = await dal.GetByIdAsync(fileID);
+            file.Access = accessID;
+            await dal.PutAsync(file);
         }
     }
 }

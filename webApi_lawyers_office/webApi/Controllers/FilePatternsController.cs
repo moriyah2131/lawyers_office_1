@@ -60,11 +60,11 @@ namespace webApi.Controllers
 
 
         [HttpPut("put")]
-        public ActionResult<FilePatternsDto> put([FromBody] FilePatternsDto obj)
+        public async Task<ActionResult<FilePatternsDto>> putAsync([FromBody] FilePatternsDto obj)
         {
             try
             {
-                return Ok(bll.put(obj));
+                return Ok(await bll.putAsync(obj));
             }
             catch
             {

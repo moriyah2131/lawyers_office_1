@@ -11,6 +11,7 @@ namespace EntitiesDTO
         public string? FileName { get; set; }
         public int CreatorId { get; set; }
         public DateTime? UploadingDate { get; set; }
+        public int Access { get; set; }
         //public string? FileType { get; set; }
     }
 }

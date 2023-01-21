@@ -13,7 +13,7 @@ namespace Dal.interfaces
         public List<FilePatternsDto> GetAll();
         public FilePatternsDto GetById(int id);
         public FilePatternsDto post(FilePatternsDto obj);
-        public FilePatternsDto put(FilePatternsDto obj);
+        public Task<FilePatternsDto> putAsync(FilePatternsDto obj);
         public FilePatternsDto delete(int id);
 
     }

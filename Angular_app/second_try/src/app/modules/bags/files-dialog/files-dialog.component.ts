@@ -8,6 +8,7 @@ import * as saveAs from 'file-saver';
 import { MyFile } from 'src/app/models/File';
 import { FileService } from 'src/app/services/file.service';
 import { DiaolgComponent } from 'src/app/modules/main-components/diaolg/diaolg.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-files-dialog',
@@ -18,12 +19,14 @@ export class FilesDialogComponent implements OnInit {
   loading: boolean = false;
   file: File | null = null;
   files: MyFile[] = [];
+  panelOpenState = false;
 
   constructor(
     private fileService: FileService,
     public dialogRef: MatDialogRef<FilesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { bagId: number },
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +34,18 @@ export class FilesDialogComponent implements OnInit {
   }
 
   loadFiles() {
-    this.fileService.getFilesByBagId(this.data.bagId).subscribe(
+    let userType = this.userService.getUser()?.userType;
+    if (userType == 'CUSTOMER')
+      this.fileService.getFilesByBagId(this.data.bagId).subscribe(
+        (res: MyFile[]) => {
+          this.files = res;
+        },
+        (err: any) => {
+          console.error(err);
+        }
+      );
+    else if (userType == 'LAWYER') debugger;
+    this.fileService.getAllFilesByBagId(this.data.bagId).subscribe(
       (res: MyFile[]) => {
         this.files = res;
       },
@@ -52,13 +66,17 @@ export class FilesDialogComponent implements OnInit {
 
   onUpload() {
     this.loading = !this.loading;
-    let doc: string;
+    let doc: any;
 
     if (this.data.bagId && this.file)
       this.file
+        // .arrayBuffer()
+        // .then((res) => {
+        //   doc = new Uint8Array(res)
+        // })
         .text()
         .then((res) => {
-          doc = btoa(unescape(encodeURIComponent(res)));
+          doc = btoa(unescape(encodeURIComponent(res))); //עובד רק לקבצים פשוטים
         })
         .then(() => {
           if (this.file)
@@ -69,7 +87,10 @@ export class FilesDialogComponent implements OnInit {
                   this.loading = false;
                   this.loadFiles();
                 },
-                () => (this.loading = false)
+                (err) => {
+                  this.loading = false;
+                  console.error(err);
+                }
               );
         });
   }
@@ -81,10 +102,15 @@ export class FilesDialogComponent implements OnInit {
   }
 
   download(file: MyFile) {
-    console.log(file.document);
-    const content = this.dataURItoBlob(file.document);
-    const blob = new Blob([content]);
-    saveAs(blob, file.fileName);
+    //const content = this.dataURItoBlob(file.document);
+    //console.log(typeof file.document);
+    /// const blob = new Blob([content]);
+    const byteArray = new Uint8Array(
+      atob(file.document.toString())
+        .split('')
+        .map((char) => char.charCodeAt(0))
+    );
+    saveAs(new Blob([byteArray]), file.fileName);
   }
 
   dataURItoBlob(dataURI: any) {
@@ -154,6 +180,37 @@ export class FilesDialogComponent implements OnInit {
         file.fileName = result + suffix;
         debugger;
         this.fileService.edit(file).subscribe(
+          () => {
+            this.loading = false;
+            this.loadFiles();
+          },
+          () => (this.loading = false)
+        );
+      } else this.loading = false;
+    });
+  }
+
+  setPermissions(file: MyFile) {
+    let result: string = '';
+
+    let dialogRef = this.dialog.open(DiaolgComponent, {
+      height: '580px',
+      width: '580px',
+      data: {
+        title: 'הרשאות',
+        question: 'בחר מי יוכל לצפות ולערוך אתה הקובץ',
+        needInput: false,
+        permission: file.access,
+        result: result,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      result = res;
+      this.loading = true;
+      if (res && res != 'false') {
+        console.log(res);
+        this.fileService.setPermissions(file.id, Number(result)).subscribe(
           () => {
             this.loading = false;
             this.loadFiles();

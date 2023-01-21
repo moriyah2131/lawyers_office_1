@@ -35,6 +35,11 @@ const routes: Routes = [
         (m) => m.LawyerModule
       ),
   },
+  {
+    path: 'main',
+    loadChildren: () =>
+      import('./modules/shared/shared.module').then((m) => m.SharedModule),
+  },
 ];
 
 @NgModule({

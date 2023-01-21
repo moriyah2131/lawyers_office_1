@@ -34,3 +34,9 @@
       display: none;
     }
   }
+
+  .close-icon{
+    position: relative;
+    bottom: -18px;
+    left: 20px;
+  }

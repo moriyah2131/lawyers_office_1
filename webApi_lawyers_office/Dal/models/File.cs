@@ -19,12 +19,13 @@ namespace Dal.models
         public string? FileName { get; set; }
         public int CreatorId { get; set; }
         public DateTime? UploadingDate { get; set; }
+        public int Access { get; set; }
         //public string? FileType { get; set; }
 
         public virtual Bag Bag { get; set; }
         public virtual FilePattern FilePattern { get; set; }
         public virtual ICollection<Action> Actions { get; set; }
         public virtual Person Creator { get; set; }
-
+        
     }
 }

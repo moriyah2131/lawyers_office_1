@@ -25,7 +25,7 @@ export class FileService {
   uploadFile(
     bagID: number,
     fileName: string,
-    encodedContent: string
+    encodedContent: any
   ): Observable<void> {
     let newFile: MyFile;
     newFile = {
@@ -36,6 +36,7 @@ export class FileService {
       document: encodedContent,
       filePatternId: 4,
       uploadingDate: new Date(),
+      access: 1,
     };
     return this.http.post<void>(`${this.base}/post`, JSON.stringify(newFile), {
       headers: { 'Content-Type': 'application/json' },
@@ -52,5 +53,11 @@ export class FileService {
     return this.http.put<MyFile>(`${this.base}/put`, JSON.stringify(file), {
       headers: { 'Content-Type': 'application/json' },
     });
+  }
+
+  setPermissions(fileID: number, permission: number): Observable<void> {
+    return this.http.get<void>(
+      `${this.base}/setPermissions/${fileID}/${permission}`
+    );
   }
 }

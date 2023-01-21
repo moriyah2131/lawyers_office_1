@@ -13,7 +13,7 @@ namespace BLL.interfaces
         public List<FilePatternsDto> GetAll();
         public FilePatternsDto GetById(int id);
         public FilePatternsDto post(FilePatternsDto obj);
-        public FilePatternsDto put(FilePatternsDto obj);
+        Task<FilePatternsDto> putAsync(FilePatternsDto obj);
         public FilePatternsDto delete(int id);
 
     }

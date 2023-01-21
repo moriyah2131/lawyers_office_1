@@ -33,7 +33,7 @@
     margin-left: 30px;
 }
 
-.download-icon, .trash-icon, .edit-icon{
+.download-icon, .trash-icon, .edit-icon, .settings-icon{
     font-size: 20px;
     font-weight: bold;
     position: absolute;
@@ -53,3 +53,12 @@
 .edit-icon{
     top: 75px;
 }
+
+.settings-icon{
+    top: 92px;
+    left:120px
+}
+
+.mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }

@@ -117,6 +117,7 @@ export class ViewBagsComponent implements AfterViewInit {
     }
     let posted = false;
     const dialogRef = this.dialog.open(CreateBagDialogComponent, {
+      width: '1100px',
       data: {
         posted: posted,
         bagId: this.chosenBagID,

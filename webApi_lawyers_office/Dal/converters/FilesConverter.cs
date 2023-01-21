@@ -16,6 +16,7 @@ namespace Dal.converters
                 CreatorId = obj.CreatorId,
                 FileName = obj.FileName,
                 UploadingDate = obj.UploadingDate,
+                Access = obj.Access
                 //FileType = obj.FileType,
             };
         }
@@ -28,6 +29,7 @@ namespace Dal.converters
                 CreatorId = obj.CreatorId,
                 FileName = obj.FileName,
                 UploadingDate = obj.UploadingDate,
+                Access = obj.Access
                 //FileType = obj.FileType,
             };
         }

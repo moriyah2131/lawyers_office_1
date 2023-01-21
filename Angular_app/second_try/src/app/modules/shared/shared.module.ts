@@ -15,14 +15,25 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AllTasksListComponent } from './all-tasks-list/all-tasks-list.component';
+import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
+const routes: Routes = [
+  {
+    path: 'tasks',
+    component: AllTasksListComponent,
+  },
+];
+
 @NgModule({
-  declarations: [TasksListComponent],
+  declarations: [TasksListComponent, AllTasksListComponent],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
     MatInputModule,
     MatFormFieldModule,
@@ -57,6 +68,12 @@ import { MatTableModule } from '@angular/material/table';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+
+    HttpClientModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
+    MatProgressBarModule,
   ],
   exports: [TasksListComponent],
 })

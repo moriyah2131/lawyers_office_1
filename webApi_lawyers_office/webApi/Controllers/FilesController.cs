@@ -34,7 +34,21 @@ namespace webApi.Controllers
         {
             try
             {
-                return Ok(bll.GetById(id));
+                return Ok(bll.GetByIdAsync(id));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("setPermissions/{fileID}/{accessID}")]
+        public async Task<ActionResult> setPermissionsById(int fileID, int accessID)
+        {
+            try
+            {
+                await bll.SetPermissionsByIdAsync(fileID, accessID);
+                return Ok();
             }
             catch
             {
@@ -77,6 +91,8 @@ namespace webApi.Controllers
         {
             try
             {
+                // 80 75 3 ... 33 0 50 - docs
+                // 37 80 68 - pdf
                 await bll.PostAsync(obj);
                 return Ok();
             }
