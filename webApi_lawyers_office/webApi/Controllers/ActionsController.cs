@@ -55,6 +55,19 @@ namespace webApi.Controllers
             }
         }
 
+        [HttpGet("getListByPersonId/{personId}/{userType}")]
+        public async Task<ActionResult<List<ActionsDTO>>> getListByUserId(int personId, string userType)
+        {
+            try
+            {
+                return Ok(await bll.GetTasksByUserIdAsync(personId, userType));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost("post/{bagID}")]
         public async Task<ActionResult<int>> postAsync([FromBody] PostActionDTO obj, int bagID)
         {

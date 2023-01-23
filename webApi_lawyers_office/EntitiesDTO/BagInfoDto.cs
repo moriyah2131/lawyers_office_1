@@ -8,5 +8,7 @@ namespace EntitiesDTO
 {
     public class BagInfoDto
     {
+        public int Id { get; set; }
+        public string BagName { get; set; }
     }
 }

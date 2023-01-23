@@ -20,5 +20,7 @@ namespace EntitiesDTO
         public int? ActionFileId { get; set; }
         public int ActionPriority { get; set; }
         public DateTime CreatedDate { get; set; }
+        /* Bag */
+        public BagInfoDto? Bag { get; set; }
     }
 }

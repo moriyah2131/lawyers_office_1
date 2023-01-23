@@ -31,6 +31,11 @@ namespace BLL.classes
             return await dal.GetTasksByIdAsync(id, userID);
         }
 
+        public async Task<List<ActionsDTO>> GetTasksByUserIdAsync(int personId, string userType)
+        {
+            return await dal.GetTasksByUserIdAsync(personId, userType);
+        }
+
         public async Task<List<int>> postAsync(PostActionDTO obj, int bagID)
         {
             return await dal.postAsync(obj, bagID);

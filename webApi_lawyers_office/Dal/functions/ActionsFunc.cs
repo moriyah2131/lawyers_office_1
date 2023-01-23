@@ -39,12 +39,15 @@ namespace Dal.functions
         {
             Bag bag = await db.Bags.Include(b => b.ActionsToBags).Include(b => b.BagsToPeople).FirstOrDefaultAsync(obj => obj.Id == bagID);
             ICollection<BagsToPerson> btp = bag.BagsToPeople;
-            //string userType = "";
-            //foreach (BagsToPerson b in btp)
-            //{
-            //    if (b.PersonId == userID)
-            //        userType = b.PersonType;
-            //}
+            string userType = "";
+            foreach (BagsToPerson b in btp)
+            {
+                if (b.PersonId == userID)
+                    userType = b.PersonType;
+            }
+            if (userType == "")
+                userType = "lawyer";
+
             //List<ActionsToBag> atbs = await db.ActionsToBags.Where(item => item.BagId == bagID).ToListAsync();
             List<ActionsDTO> actions = new();
 
@@ -52,8 +55,8 @@ namespace Dal.functions
             {
                 Action actionToAdd = await db.Actions.Select(a => a)
                     .Include(a => a.ActionPattern).Include(a => a.ActionPattern.Link)
-                    .Where(a => a.Id == atb.ActionId && a.whom_for_id == userID
-                        //a.whom_for_id == null && a.ActionPattern.WhomFor == userType || 
+                    .Where(a => a.Id == atb.ActionId && (a.whom_for_id == userID
+                        || a.ActionPattern.WhomFor == userType)
                        )
                     .FirstOrDefaultAsync();
 
@@ -63,6 +66,26 @@ namespace Dal.functions
             return actions;
         }
 
+        public async Task<List<ActionsDTO>> GetTasksByUserIdAsync(int personId, string userType)
+        {
+            //This function needs to be updated:
+            // 1. You need to collect all bags this person participates at,
+            // 2. For each bag, save the person's current userType,
+            // 3. Fins person's tasks according to his userType (and not just personID)
+            //Comment: Maybe you thought to obliterate (להכחיד) that optin anyway? 🤔
+
+            List<Action> actions = await db.Actions.Include(a => a.ActionPattern).Where(a => a.whom_for_id == personId || a.ActionPattern.WhomFor == userType).ToListAsync();
+            List<Bag> bags = new List<Bag>();
+            ActionsToBag currentAtb;
+
+            foreach (Action action in actions)
+            {
+                currentAtb = await db.ActionsToBags.FirstOrDefaultAsync(atb => atb.ActionId == action.Id);
+                if (currentAtb != null)
+                    bags.Add(await db.Bags.FirstOrDefaultAsync(b => b.Id == currentAtb.BagId));
+            }
+            return ActionsConverter.toDtoList(actions, bags);
+        }
         public async Task<List<int>> postAsync(PostActionDTO obj, int bagID)
         {
             Link link = null;
@@ -193,6 +216,5 @@ namespace Dal.functions
             db.Actions.RemoveRange(actionsToDelete);
             await db.SaveChangesAsync();
         }
-
     }
 }
