@@ -5,6 +5,7 @@ import { Register } from '../models/Register';
 import { Login } from '../models/Login';
 import { Account } from '../models/Account';
 import { User } from '../models/User';
+import { NewUser } from '../models/new-user';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,18 @@ export class AccountService {
 
   register(newUser: Register): Observable<boolean> {
     return this.http.post<boolean>(`${this.base}/register`, newUser);
+  }
+
+  postLawyer(newUser: NewUser): Observable<string> {
+    return this.http.post<string>(`${this.base}/postLawyer`, JSON.stringify(newUser),
+    {
+      headers: { 'Content-Type': 'application/json' },
+    } );
+  }
+
+  delete(userEmail: string): Observable<void> {
+    debugger
+    return this.http.delete<void>(`${this.base}/deleteUser?email=${userEmail}`);
   }
 
   login(login: Login): Observable<User> {

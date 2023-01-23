@@ -11,6 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { AllTasksListComponent } from './all-tasks-list/all-tasks-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,6 +49,26 @@ const routes: Routes = [
     MatIconModule,
     MatDialogModule,
     MatListModule,
+
+    MatPaginatorModule,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatCardModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule,
 
     HttpClientModule,
     MatPaginatorModule,

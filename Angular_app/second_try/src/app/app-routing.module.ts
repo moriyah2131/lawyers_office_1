@@ -29,6 +29,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'lawyer-account',
+    loadChildren: () =>
+      import('./modules/lawyer/lawyer.module').then(
+        (m) => m.LawyerModule
+      ),
+  },
+  {
     path: 'main',
     loadChildren: () =>
       import('./modules/shared/shared.module').then((m) => m.SharedModule),

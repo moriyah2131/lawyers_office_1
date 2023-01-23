@@ -65,7 +65,7 @@ user_type varchar(50) NOT NULL DEFAULT 'customer' CONSTRAINT BoolCheck Check (us
 )
 create table Bags(
 id int identity CONSTRAINT PK_Bags PRIMARY KEY NOT NULL,
-bag_name int  NOT NULL,
+bag_name varchar(50)  NOT NULL,
 date_close date  NULL,
 bag_state int NOT NULL DEFAULT 0,
 last_open dateTime NOT NULL,

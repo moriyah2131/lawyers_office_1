@@ -201,6 +201,7 @@ export class ViewBagsComponent implements AfterViewInit {
         data: {
           person: person,
         },
+        
       });
   }
 
