@@ -52,13 +52,13 @@
         <div class="task-container">
           <div class="task-title">
             <h5 *ngIf="task.actionState == 'done'" class="complete-task">
-              {{ task.actionPatternName }}
+              {{ task.actionPatternName + getBagName(task) }}
               <small class="task-details marker" *ngIf="task.deadLine">
                 {{ " (עד: " + (task.deadLine | date : "shortDate") + ")" }}
               </small>
             </h5>
             <h5 *ngIf="task.actionState == 'waiting'">
-              {{ task.actionPatternName }}
+              {{ task.actionPatternName + getBagName(task) }}
               <small class="task-details marker" *ngIf="task.deadLine">
                 {{ " (עד: " + (task.deadLine | date : "shortDate") + ")" }}
               </small>
@@ -85,6 +85,27 @@
               <br />
               <i>{{ "הערות: " + task.comments }}</i>
             </small>
+            <li class="nav-item" *ngIf="getUserType() == 'lawyer' && task.bag">
+              <a
+                class="nav-link"
+                routerLink="../../bags-lawyer/bag-info/{{ task.bag.id }}"
+              >
+                <i class="fa fa-solid fa-folder-open"></i>
+                עבור לצפייה בתיק
+              </a>
+            </li>
+            <li
+              class="nav-item"
+              *ngIf="getUserType() == 'customer' && task.bag"
+            >
+              <a
+                class="nav-link"
+                routerLink="../../bags/bag-info/{{ task.bag.id }}"
+              >
+                <i class="fa fa-solid fa-folder-open"></i>
+                עבור לצפייה בתיק
+              </a>
+            </li>
           </div>
           <hr />
         </div>

@@ -121,3 +121,19 @@ a:hover{
 li {
   list-style-type: none;
 }
+
+#right-col{
+  width: 200px;
+  max-width: 30%;
+}
+
+mat-divider{
+  height: 1000px;
+  min-height: 90%;
+  width: 3px !important;
+  position: inherit !important;
+}
+
+.tasks-container{
+  min-width: 750px;
+}
