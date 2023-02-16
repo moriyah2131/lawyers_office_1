@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dal.models;
 using EntitiesDTO;
 
 namespace Dal.converters
@@ -42,6 +43,18 @@ namespace Dal.converters
             foreach (models.Action item in objList)
             {
                 l.Add(toDto(item));
+            }
+            return l;
+        }
+        public static List<ActionsDTO> toDtoList(List<models.Action> objList, List<Bag> expandList)
+        {
+            List<ActionsDTO> l = new List<ActionsDTO>();
+            for (int i = 0; i < objList.Count; i++)
+            {
+                ActionsDTO newAction = toDto(objList[i]);
+                if(i < expandList.Count)
+                    newAction.Bag = new BagInfoDto() { Id = expandList[i].Id, BagName = expandList[i].BagName };
+                l.Add(newAction);
             }
             return l;
         }

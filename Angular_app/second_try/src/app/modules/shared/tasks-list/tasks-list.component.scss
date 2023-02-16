@@ -45,9 +45,26 @@
 
 #BarButton{
   position: absolute;
-  right: 420px;
+  right: 400px;
   top: -38px;
   button{
     margin-left: 10px;
   }
+}
+
+a{
+  color: var(--bs-link-color);
+  text-decoration: underline;
+  font-size: 12px;
+  margin: 10px;
+  margin-top:20px;
+}
+a:hover{
+  text-decoration: none;
+  opacity: 50%;
+  cursor: pointer;
+}
+
+li {
+  list-style-type: none;
 }

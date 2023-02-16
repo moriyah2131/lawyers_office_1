@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NewUser } from 'src/app/models/new-user';
 import { Task } from 'src/app/models/Task';
 import { TaskService } from 'src/app/services/task.service';
+import { UserService } from 'src/app/services/user.service';
 import { TaskDialogComponent } from '../../bags-lawyer/task-dialog/task-dialog.component';
 
 @Component({
@@ -24,6 +25,7 @@ export class TasksListComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
+    private userService: UserService,
     public dialog: MatDialog
   ) {}
 
@@ -31,15 +33,22 @@ export class TasksListComponent implements OnInit {
     this.loadTasks();
   }
 
-  onPersonChange(curPerson?: NewUser) {
-    this.person = curPerson;
-    this.loadTasks();
+  onPersonChange(curPerson?: NewUser, bagId?: number) {
+    if (this.bagId == bagId) {
+      console.log(this.bagId);
+      this.person = curPerson;
+      this.loadTasks();
+    }
   }
 
   loadTasks(): void {
     this.selectedTasks = [];
     this.allChecked = false;
-    if (this.bagId)
+    if (this.bagId == -1)
+      this.taskService
+        .getLawyerTasks(this.person?.id)
+        .subscribe((res: Task[]) => (this.tasks = res));
+    else if (this.bagId)
       this.taskService
         .getTasks(this.bagId, this.person?.id)
         .subscribe((res: Task[]) => (this.tasks = res));
@@ -121,5 +130,20 @@ export class TasksListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result == undefined) this.loadTasks();
     });
+  }
+
+  getBagName(task: Task): string {
+    return task.bag ? ' [ ' + task.bag.bagName + ' ] ' : '';
+  }
+
+  getUserType(): string {
+    let userType = this.userService.getUser()?.userType;
+    switch (userType?.toUpperCase()) {
+      case 'LAWYER':
+        return 'lawyer';
+      case 'CUSTOMER':
+        return 'customer';
+    }
+    return '';
   }
 }

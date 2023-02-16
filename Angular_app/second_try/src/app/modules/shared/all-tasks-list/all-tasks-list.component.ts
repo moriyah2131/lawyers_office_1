@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { Operation } from 'src/app/models/operation';
 import { OperationService } from 'src/app/services/operation.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -43,12 +50,15 @@ export class AllTasksListComponent {
   expandedElement: Bag | undefined | null;
   error: string | undefined;
   dataSource!: MatTableDataSource<Bag>;
+  lawyersList: NewUser[] = [];
+  allowSensitiveActions: boolean = false;
 
   @Output() totalTasks: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(TasksListComponent) tasksList?: TasksListComponent;
+  // @ViewChild(TasksListComponent) mainTasksList!: TasksListComponent;
+  @ViewChildren(TasksListComponent) tasksList!: QueryList<TasksListComponent>;
 
   constructor(
     private bagsService: BagsService,
@@ -56,7 +66,15 @@ export class AllTasksListComponent {
   ) {}
 
   ngAfterViewInit(): void {
+    this.allowSensitiveActions = this.getUserType() == 'lawyer';
     this.loadData();
+  }
+
+  onPersonChange(person?: NewUser, bagId?: number) {
+    this.tasksList.forEach((element) => {
+      element.onPersonChange(person, bagId);
+    });
+    // this.mainTasksList.onPersonChange();
   }
 
   getParticipants(bag: Bag): NewUser[] {
@@ -77,22 +95,42 @@ export class AllTasksListComponent {
     this.loading = true;
     let personID = this.userService.getPersonID();
     if (personID)
-      this.bagsService.getAllBags(this.currentPage, this.pageSize).subscribe(
-        (res) => {
-          this.bagsData = [...this.bagsData, ...res];
-          this.dataSource = new MatTableDataSource(this.bagsData);
-          this.dataSource.paginator = this.paginator;
-          this.paginator.pageIndex = this.currentPage;
-          this.paginator.length = res.length;
-          this.dataSource.sort = this.sort;
-          this.visitedPages.push(this.currentPage);
-          this.loading = false;
-        },
-        (err) => {
-          this.error = err.error;
-          this.loading = false;
-        }
-      );
+      if (this.getUserType() == 'lawyer')
+        this.bagsService.getAllBags(this.currentPage, this.pageSize).subscribe(
+          (res) => {
+            this.bagsData = [...this.bagsData, ...res];
+            this.dataSource = new MatTableDataSource(this.bagsData);
+            this.dataSource.paginator = this.paginator;
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = res.length;
+            this.dataSource.sort = this.sort;
+            this.visitedPages.push(this.currentPage);
+            this.loading = false;
+          },
+          (err) => {
+            this.error = err.error;
+            this.loading = false;
+          }
+        );
+      else
+        this.bagsService
+          .getBagsByIDs(this.userService.getUser()?.bagsIDs ?? [])
+          .subscribe(
+            (res) => {
+              this.bagsData = [...this.bagsData, ...res];
+              this.dataSource = new MatTableDataSource(this.bagsData);
+              this.dataSource.paginator = this.paginator;
+              this.paginator.pageIndex = this.currentPage;
+              this.paginator.length = res.length;
+              this.dataSource.sort = this.sort;
+              this.visitedPages.push(this.currentPage);
+              this.loading = false;
+            },
+            (err) => {
+              this.error = err.error;
+              this.loading = false;
+            }
+          );
   }
 
   applyFilter(event: Event) {

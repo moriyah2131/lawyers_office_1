@@ -12,4 +12,5 @@ export interface Task {
   actionFileId?: number;
   actionPriority: number;
   createdDate: Date;
+  bag?: { id: Number; bagName: string };
 }

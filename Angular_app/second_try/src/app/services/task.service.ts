@@ -16,6 +16,14 @@ export class TaskService {
     return this.http.get<Task[]>(`${this.base}/getListById/${bagID}/${userID}`);
   }
 
+  getLawyerTasks(personId?: number, userType?: string): Observable<Task[]> {
+    if (!personId) personId = this.userService.getUser()?.personId;
+    if (!userType) userType = this.userService.getUser()?.userType;
+    return this.http.get<Task[]>(
+      `${this.base}/getListByPersonId/${personId}/${userType}`
+    );
+  }
+
   updateList(bagID: number, completedTasks: Task[]): Observable<Task[]> {
     return this.http.put<Task[]>(
       `${this.base}/putList/${bagID}/buyer`,
