@@ -1,0 +1,29 @@
+<h1 class="mrgin-left">:עורכי דין</h1>
+<div class="body">
+    
+    <div class="example-button-container">
+        <a  routerLink= "/lawyer-account/account">  <button    mat-fab color="primary" aria-label="Example icon button with a delete icon">
+          <mat-icon>add</mat-icon>
+        </button></a>
+      </div>
+
+    <div class="row">
+        <div class="col">
+           
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef> שם המשתמש </mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element" > <a (click)="openPersonInfoDialog(element)">{{
+                    element.firstName +" "+element.lastName
+                    }}</a><br />   </mat-cell>
+                </ng-container>
+              
+                <mat-header-row *matHeaderRowDef="lawyer"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: lawyer;"></mat-row>
+              </mat-table>
+
+              <a  routerLink= "/lawyer-account/userlist"><button id="but" mat-raised-button color="primary">לרשימת הלקוחות</button></a> 
+
+        </div>
+    </div>
+</div>

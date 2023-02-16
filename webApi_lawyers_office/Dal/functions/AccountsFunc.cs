@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace Dal.functions
 {
@@ -18,7 +20,51 @@ namespace Dal.functions
             db = _db;
         }
 
-       
+
+        public async Task<List<ShortPersonDTO>> GetAllAsync()
+        {
+            List<Person> peoples11 = db.People.ToList();
+            List<User> users = db.Users.ToList();
+            List<ShortPersonDTO> peoples = new List<ShortPersonDTO>();
+            int index;
+            for (int j=0;  j<users.Count; j++)
+            {
+                if (users[j].UserType == "CUSTOMER"| users[j].UserType == "customer")
+                {
+                    index = users[j].PersonId;
+                    Person p = await db.People.FirstOrDefaultAsync(p => p.Id == index);
+                    peoples.Add(PeopleConverter.toDto(p));
+                }
+
+            }
+
+            return peoples;
+        }
+      
+
+
+        public async Task<List<ShortPersonDTO>> GetAllLawyerAsync()
+        {
+            List<Person> peoples11 = db.People.ToList();
+            List<User> users = db.Users.ToList();
+            List<ShortPersonDTO> peoples = new List<ShortPersonDTO>();
+            int index;
+            for (int j = 0; j < users.Count; j++)
+            {
+                if (users[j].UserType == "LAWYER"| users[j].UserType == "lawyer")
+                {
+                    index = users[j].PersonId;
+                    Person p = await db.People.FirstOrDefaultAsync(p => p.Id == index);
+                    peoples.Add(PeopleConverter.toDto(p));
+                }
+
+            }
+
+            return peoples;
+        }
+
+
+
 
         public async Task<AccountDTO> LogInAsync(string email, string password)
         {

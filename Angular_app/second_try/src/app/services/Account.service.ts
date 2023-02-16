@@ -38,4 +38,13 @@ export class AccountService {
   getAccountInfo(accountID: number): Observable<Account> {
     return this.http.get<Account>(`${this.base}/Account/${accountID}`);
   }
+
+  getAllPerson(): Observable<NewUser[]> {
+    return this.http.get<NewUser[]>(`${this.base}/getAllPerson`);
+
+  }
+  getAllLawyer(): Observable<NewUser[]> {
+    return this.http.get<NewUser[]>(`${this.base}/getAllLawyer`);
+
+  }
 }

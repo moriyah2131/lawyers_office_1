@@ -1,4 +1,5 @@
 ﻿using EntitiesDTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BLL.interfaces
@@ -11,6 +12,11 @@ namespace BLL.interfaces
         Task<string> PostLawyerAsync(ShortPersonDTO participant);
 
         Task<string> DeleteAsync(string email);
+
+        public Task<List<ShortPersonDTO>> GetAllAsync();
+        public Task<List<ShortPersonDTO>> GetAllLawyerAsync();
+
+
 
     }
 }

@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System;
 using System.Threading.Tasks;
 using Dal.models;
+using System.Collections.Generic;
 
 namespace BLL.classes
 {
@@ -53,6 +54,14 @@ namespace BLL.classes
         public async Task<string> DeleteAsync(string email)
         {
          return   await dal.DeleteAsync(email);
+        }
+        public async Task<List<ShortPersonDTO>> GetAllAsync()
+        {
+            return await dal.GetAllAsync();
+        }
+        public async Task<List<ShortPersonDTO>> GetAllLawyerAsync()
+        {
+            return await dal.GetAllLawyerAsync();
         }
 
     }
