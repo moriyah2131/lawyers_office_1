@@ -1,10 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NewUser } from 'src/app/models/new-user';
 import { AccountService } from 'src/app/services/Account.service';
 import { PersonService } from 'src/app/services/person.service';
-import { UserService } from 'src/app/services/user.service';
 import { CreateBagFormComponent } from '../../bags-lawyer/create-bag-form/create-bag-form.component';
 import { DiaolgComponent } from '../../main-components/diaolg/diaolg.component';
 
@@ -21,7 +20,7 @@ export class AccountInfoComponent {
   @Input() private?: boolean;
   loading: boolean = false;
   editMode: boolean = false;
-   type?:string;
+  type?: string;
 
   @ViewChild('child')
   private child: CreateBagFormComponent | undefined;
@@ -29,9 +28,9 @@ export class AccountInfoComponent {
   constructor(
     private personService: PersonService,
     private accountService: AccountService,
-    public dialog: MatDialog
-  ,
-     private router: Router) {}
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     if (!this.person && this.private) {
@@ -59,26 +58,49 @@ export class AccountInfoComponent {
         result: result,
       },
     });
-this.type=this.person?.userType
-   
+    this.type = this.person?.userType;
+
     dialogRef.afterClosed().subscribe((res) => {
       result = res;
-      if (res == 'true'&&this.person?.email!=null)
-{
-    this.accountService.delete(this.person.email).subscribe(
-      ()=>{  if(this.type=="lawyer")  
+      if (res == 'true' && this.person?.email != null) {
+        this.accountService.delete(this.person.email).subscribe(
+          () => {
+            if (this.type == 'lawyer')
               // {this.router.navigateByUrl("/lawyer-account/lawyerlist");}
               // else{
               //   this.router.navigateByUrl("/lawyer-account/userlist");
 
               // }
 
-        alert("המשתמש נמחק בהצלחה");
-               
-        },
-        (err) => {
-          console.error(err);
-        }
-      );
+              alert('המשתמש נמחק בהצלחה');
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      }
+    });
+  }
+
+  logOut() {
+    window.location.reload();
+  }
+
+  getPerson() {
+    return this.person;
+  }
+
+  saveChanges() {
+    this.child?.onSubmit();
+  }
+
+  Submit(person: NewUser) {
+    this.personService.putPerson(person).subscribe(
+      (res) => {
+        this.person = res;
+        this.editMode = false;
+      },
+      (err) => console.error(err)
+    );
   }
 }
