@@ -1,17 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewUser } from 'src/app/models/new-user';
 import { AccountService } from 'src/app/services/Account.service';
+import { PersonService } from 'src/app/services/person.service';
 import { UserService } from 'src/app/services/user.service';
+import { CreateBagFormComponent } from '../../bags-lawyer/create-bag-form/create-bag-form.component';
 import { DiaolgComponent } from '../../main-components/diaolg/diaolg.component';
 
 // 1. כשמוחקים אדם שזה ירענן את הדף ויצא מהאפשרות של למחוק
 // 2. שאם זה אדם שהוסר כבר מהמערכת שלא יתן להסיר או שיכתוב שהוא כבר הוסר מהמערכת
 // 3. באופן כללי איך אני מוחקת את כל הנתונים מהדטה בייס?
 // 4. אם התיק מוגדר בסטטוס סגור שיעדכן את התאריך סגירה שלו בטבלה
-
-
-
 
 @Component({
   selector: 'app-account-info',
@@ -20,13 +19,31 @@ import { DiaolgComponent } from '../../main-components/diaolg/diaolg.component';
 })
 export class AccountInfoComponent {
   @Input() person?: NewUser;
+  @Input() private?: boolean;
   loading: boolean = false;
-   
-  
-  constructor(private userService: UserService ,private accountService:AccountService,
-     public dialog: MatDialog) {}
-  
-     ngOnInit(){}
+  editMode: boolean = false;
+
+  @ViewChild('child')
+  private child: CreateBagFormComponent | undefined;
+
+  constructor(
+    private personService: PersonService,
+    private accountService: AccountService,
+    public dialog: MatDialog
+  ) {}
+
+  ngOnInit() {
+    if (!this.person && this.private) {
+      this.personService.getById().subscribe(
+        (res) => {
+          this.person = res;
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
+  }
 
   deleteUser() {
     this.loading = true;
@@ -42,22 +59,44 @@ export class AccountInfoComponent {
       },
     });
 
-   
     dialogRef.afterClosed().subscribe((res) => {
       result = res;
-      if (res == 'true'&&this.person?.email!=null)
-{
-    this.accountService.delete(this.person.email).subscribe(
-      ()=>{
-        alert("המשתמש נמחק בהצלחה")
-       
+      if (res == 'true' && this.person?.email != null) {
+        this.accountService.delete(this.person.email).subscribe(
+          () => {
+            alert('המשתמש נמחק בהצלחה');
+          },
+          (err) => {
+            alert('שגיאה');
+          }
+        );
+      } else this.loading = false;
+    });
+  }
+
+  logOut() {
+    window.location.reload();
+  }
+
+  getPerson(): NewUser | undefined {
+    return this.person;
+  }
+
+  saveChanges() {
+    this.child?.onSubmit();
+  }
+
+  Submit(personToPut: NewUser) {
+    if (personToPut)
+      this.personService.putPerson(personToPut).subscribe(
+        (res) => {
+          this.person = res;
+          this.editMode = false;
+          console.log(res);
         },
         (err) => {
-            alert("שגיאה")
-            
-          }
-          );
+          console.error(err);
+        }
+      );
   }
-else this.loading = false;
-});
-}}
+}

@@ -15,7 +15,6 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -26,15 +25,15 @@
         </a>
       </li>
 
-      <span *ngIf="userType == ('lawyer' || 'LAWYER')">
+      <span *ngIf="getUserType() == 'lawyer'">
         <li class="nav-item">
-      <a class="nav-link" routerLink="/lawyer-account/account">
-        <i class="fa fa-solid fa-gear"></i>
-        ניהול
-        <!-- <span class="sr-only">(current)</span> -->
-      </a>
-    </li>
-        </span>
+          <a class="nav-link" routerLink="/lawyer-account/account">
+            <i class="fa fa-solid fa-gear"></i>
+            ניהול
+            <!-- <span class="sr-only">(current)</span> -->
+          </a>
+        </li>
+      </span>
       <li class="nav-item">
         <a class="nav-link" routerLink="main/tasks">
           <i class="fa fa-list">
@@ -44,7 +43,7 @@
         </a>
       </li>
 
-      <span *ngIf="userType == ('customer' || 'CUSTOMER')">
+      <span *ngIf="getUserType() == 'customer'">
         <li class="nav-item">
           <a class="nav-link" routerLink="bags/view-bags">
             <i class="fa fa-solid fa-folder-open"></i>
@@ -52,16 +51,16 @@
           </a>
         </li>
       </span>
-      <span *ngIf="userType == ('lawyer' || 'LAWYER')">
+      <span *ngIf="getUserType() == 'lawyer'">
         <li class="nav-item">
           <a class="nav-link" routerLink="bags-lawyer/view-bags">
             <i class="fa fa-solid fa-folder-open"></i>
-            התיקים שלי
+            תיקים
           </a>
         </li>
       </span>
 
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
           routerLink="bags/view-bags"
@@ -84,7 +83,7 @@
             >Operations history</a
           >
         </div>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link disabled" routerLink="/">
           <i class="fa fa-envelope-o"> </i>
@@ -112,18 +111,25 @@
     </ul>
     <!-- <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
-        <a routerLink="/" class="dropdown-toggle" data-toggle="dropdown">
+        <a id="dropdown-link" class="dropdown-toggle" data-toggle="dropdown">
           <span class="glyphicon glyphicon-user"></span> 
           <strong>{{ "החשבון שלי" }}</strong>
           <span class="glyphicon glyphicon-chevron-down"></span>
         </a>
-        <ul class="dropdown-menu dropdown-menu-right">
-          <app-account-info
-            [accountID]="accountID"
-            [private]="true"
-          ></app-account-info>
+        <ul class="dropdown-menu dropdown-menu-left">
+          <app-account-info [private]="true"></app-account-info>
         </ul>
       </li>
     </ul> -->
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a id="dropdown-link" (click)="openDropdown = !openDropdown">
+          <strong>{{ "החשבון שלי" }}</strong>
+        </a>
+        <div class="card mb-3" id="dropdown" *ngIf="openDropdown">
+          <app-account-info [private]="true"></app-account-info>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>

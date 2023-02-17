@@ -146,3 +146,21 @@
     top: -7px;
   }
 }
+
+#dropdown-link{
+    color: white;
+    opacity: 60%;
+    &:hover{
+      opacity: 100%;
+      cursor: pointer;
+  }
+}
+
+#dropdown{
+  position: absolute;
+  min-width: 270px;
+  min-height: 300px;
+  left:2px;
+  top: 40px;
+  z-index: 100;
+}

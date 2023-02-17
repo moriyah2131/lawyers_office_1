@@ -13,11 +13,17 @@ export class CreateBagFormComponent implements OnInit {
   errorMessage: string | null = null;
   showEmailOnly: boolean = false;
 
+  password: string = '';
+
   @Input() userType: string = '';
   @Input() index: string = '1';
   @Input() person?: NewUser;
+  @Input() showLivingAddress: boolean = false;
+
+  livingAddressField: string = '';
 
   @Output() onSubmitEvent = new EventEmitter<NewUser>();
+
   registerForm = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -30,11 +36,13 @@ export class CreateBagFormComponent implements OnInit {
       [Validators.required, Validators.minLength(9), Validators.maxLength(10)],
     ],
     email: ['', [Validators.required, Validators.email]],
+    livingAddress: ['', [Validators.minLength(7)]],
   });
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    console.log(this.person);
     this.registerForm = this.formBuilder.group({
       firstName: [this.person?.firstName ?? '', Validators.required],
       lastName: [this.person?.lastName ?? '', Validators.required],
@@ -53,6 +61,10 @@ export class CreateBagFormComponent implements OnInit {
       email: [
         this.person?.email ?? '',
         [Validators.required, Validators.email],
+      ],
+      livingAddress: [
+        this.person?.livingAddress ?? '',
+        [Validators.minLength(7)],
       ],
     });
   }
@@ -100,6 +112,7 @@ export class CreateBagFormComponent implements OnInit {
           : this.f['IDnumber'].value ?? undefined,
         phone: this.f['phone'].value ?? undefined,
         userType: userTypeToPost,
+        livingAddress: this.f['livingAddress'].value ?? undefined,
       };
       this.onSubmitEvent.emit(newUser);
     }

@@ -8,9 +8,7 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class PersonService {
-  userID: number = Number(this.userService.getUser()?.personId);
-  private base = 'https://localhost:44315/api/Files';
-
+  private base = 'https://localhost:44315/api/People';
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -19,5 +17,9 @@ export class PersonService {
     return this.http.get<NewUser>(`${this.base}/getById/${personID}`);
   }
 
-
+  putPerson(person: NewUser): Observable<NewUser> {
+    return this.http.put<NewUser>(`${this.base}/put/`, JSON.stringify(person), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }

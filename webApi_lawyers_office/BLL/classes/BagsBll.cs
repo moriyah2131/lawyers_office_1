@@ -71,7 +71,7 @@ namespace BLL.classes
                 {
                     personId = await peopleDal.PostAsync(participant);
                     password = GenerateToken(6);
-                    await usersDal.PostAsync(new() { PersonId = personId, UserPassword = password, UserType = participant.UserType = "CUSTOMER" });
+                    await usersDal.PostAsync(new() { PersonId = personId, UserPassword = password, UserType = "CUSTOMER" });
                 }
                 if(toPostBag)
                     await bagsToPersonDal.PostAsync(personId, participant.UserType, bagId);

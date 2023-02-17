@@ -1,45 +1,86 @@
 <div class="container">
-  <li>
-    <div class="navbar-login">
-      <div class="row">
-        <div class="col-lg-4">
-          <p class="text-center">
-            <i
-              class="fa-solid fa-user-large icon-size"
-              style="color: rgb(17, 95, 190)"
-            ></i>
-          </p>
-        </div>
-        <div class="col">
-          <p class="text-left s" *ngIf="person?.firstName || person?.lastName">
-            <strong>{{ person?.firstName + " " + person?.lastName }}</strong>
-          </p>
-          <p class="text-left small" *ngIf="person?.tz">
-            {{ person?.tz }}
-          </p>
+  <div *ngIf="!editMode">
+    <li>
+      <div class="navbar-login">
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="text-center">
+              <i
+                class="fa-solid fa-user-large icon-size"
+                style="color: rgb(17, 95, 190)"
+              ></i>
+            </p>
+          </div>
+          <div class="col">
+            <p
+              class="text-left s"
+              *ngIf="person?.firstName || person?.lastName"
+            >
+              <strong>{{ person?.firstName + " " + person?.lastName }}</strong>
+            </p>
+            <p class="text-left small" *ngIf="person?.tz">
+              {{ person?.tz }}
+            </p>
 
-          <p class="text-left s" *ngIf="person?.email">
-            {{ person?.email
-            }}<span class="icon"><mat-icon> email</mat-icon></span>
-          </p>
-          <p class="text-left s" *ngIf="person?.phone" >
-            {{ person?.phone }}
-            <span class="icon"><mat-icon>phone_iphone</mat-icon></span>
-          </p>
-          <p *ngIf="person?.secondPhone" class="text-left small">
-            {{ person?.secondPhone
-            }}<span class="icon"><mat-icon> phone</mat-icon></span>
-          </p>
-          <p *ngIf="person?.livingAddress" class="text-left small">
-            {{ person?.livingAddress
-            }}<span class="icon"><mat-icon>home</mat-icon></span>
-          </p>
+            <p class="text-left s" *ngIf="person?.email">
+              {{ person?.email
+              }}<span class="icon"><mat-icon> email</mat-icon></span>
+            </p>
+            <p class="text-left s" *ngIf="person?.phone">
+              {{ person?.phone }}
+              <span class="icon"><mat-icon>phone_iphone</mat-icon></span>
+            </p>
+            <p *ngIf="person?.secondPhone" class="text-left small">
+              {{ person?.secondPhone
+              }}<span class="icon"><mat-icon> phone</mat-icon></span>
+            </p>
+            <p *ngIf="person?.livingAddress" class="text-left small">
+              {{ person?.livingAddress
+              }}<span class="icon"><mat-icon>home</mat-icon></span>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </li>
-  <mat-divider></mat-divider>
-  <li class="divider"></li>
- <!-- לסדר את זה שאם המשתמש כבר נמחק לא תהיה אפשרות של למחוק אותו שוב -->
-  <a (click)="deleteUser()" id="warning">נתק מהמערכת</a>
+    </li>
+    <mat-divider></mat-divider>
+    <!-- לסדר את זה שאם המשתמש כבר נמחק לא תהיה אפשרות של למחוק אותו שוב -->
+    <br />
+    <a *ngIf="!private" (click)="deleteUser()" id="warning">נתק מהמערכת</a>
+    <button
+      *ngIf="private"
+      mat-stroked-button
+      id="edit-button"
+      (click)="editMode = !editMode"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <a *ngIf="private" (click)="logOut()" id="warning" class="logOut">התנתק</a>
+  </div>
+  <div *ngIf="editMode">
+    <h6 style="text-align: center">ערוך פרטי משתמש</h6>
+    <app-create-bag-form
+      #child
+      (onSubmitEvent)="Submit($event)"
+      userType="main-user"
+      [person]="getPerson()"
+      [showLivingAddress]="true"
+    ></app-create-bag-form>
+    <br /><br />
+    <button
+      id="edit-save-button"
+      mat-stroked-button
+      style="background-color: #fcbf09"
+      (click)="saveChanges()"
+    >
+      שמור
+    </button>
+    &nbsp;
+    <button
+      id="edit-cancel-button"
+      mat-stroked-button
+      (click)="editMode = !editMode"
+    >
+      בטל
+    </button>
+  </div>
 </div>

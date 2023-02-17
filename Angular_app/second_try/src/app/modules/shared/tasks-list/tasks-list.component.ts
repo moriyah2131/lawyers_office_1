@@ -35,7 +35,6 @@ export class TasksListComponent implements OnInit {
 
   onPersonChange(curPerson?: NewUser, bagId?: number) {
     if (this.bagId == bagId) {
-      console.log(this.bagId);
       this.person = curPerson;
       this.loadTasks();
     }

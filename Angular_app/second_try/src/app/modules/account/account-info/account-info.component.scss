@@ -1,6 +1,6 @@
-.navbar-login
+.navbar-login, .container
 {
-    min-width: 355px;
+    min-width: 365px;
     width: fit-content;
     padding: 10px;
     padding-bottom: 0px;
@@ -58,6 +58,19 @@ li {
     margin-right: 20px;
 }
 
-.container{
+.logOut{
+    // margin-top: 5px;
+    padding-right: 247px;
+}
 
+#edit-save-button{
+    position: absolute;
+    right: 22px;
+    bottom: 10px;
+}
+
+#edit-cancel-button{
+    position: absolute;
+    right: 100px;
+    bottom: 10px;
 }

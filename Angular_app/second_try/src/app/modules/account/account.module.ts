@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserService } from 'src/app/services/user.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { BagsLawyerModule } from '../bags-lawyer/bags-lawyer.module';
 
 // registerLocaleData(localeHe);
 
@@ -20,6 +21,11 @@ import { MatIconModule } from '@angular/material/icon';
     AccoutContainerComponent,
     AccountInfoComponent,
   ],
+  providers: [
+    UserService,
+    //  { provide: LOCALE_ID, useValue: 'he_IL' }
+  ],
+  exports: [AccoutContainerComponent, AccountInfoComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,11 +33,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
+    BagsLawyerModule,
+    BagsLawyerModule,
   ],
-  providers: [
-    UserService,
-    //  { provide: LOCALE_ID, useValue: 'he_IL' }
-  ],
-  exports: [AccoutContainerComponent, AccountInfoComponent],
 })
 export class AccountModule {}

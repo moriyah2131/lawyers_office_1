@@ -2,14 +2,17 @@
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title" *ngIf="userType != 'בא כוח'">
+        <h6
+          class="card-title"
+          *ngIf="userType != 'בא כוח' && userType != 'main-user'"
+        >
           צד {{ userType + " " + index }}
         </h6>
         <h6 class="card-title" *ngIf="userType == 'בא כוח'">
           {{ userType + " " + index }}
         </h6>
         <a class="card-subtitle" (click)="showEmailOnly = !showEmailOnly">
-          <span class="a" *ngIf="!showEmailOnly"
+          <span class="a" *ngIf="!showEmailOnly && userType != 'main-user'"
             >אם משתמש זה כבר רשום במערכת, נא לחץ כאן</span
           >
           <span class="a" *ngIf="showEmailOnly">חזרה</span>
@@ -119,6 +122,62 @@
             </div>
           </div>
         </div>
+        <div class="form-row" *ngIf="showLivingAddress">
+          <div class="form-group col-10">
+            <label class="card-subtitle mb-2 text-muted">כתובת מגורים</label>
+            <div class="input-group mb-15" dir="ltr">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">🏠</span>
+              </div>
+              <input
+                type="text"
+                formControlName="livingAddress"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                [ngClass]="{
+                  'is-invalid': submitted && f['livingAddress'].errors
+                }"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-row" *ngIf="livingAddress">
+          <div class="form-group col-10">
+            <label class="card-subtitle mb-2 text-muted">כתובת מגורים</label>
+            <div class="input-group mb-15" dir="ltr">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">🏠</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+              />
+            </div>
+          </div>
+        </div> -->
+        <!-- <label class="card-subtitle mb-2 text-muted">כתובת מגורים</label>
+        <div
+          class="input-group mb-3"
+          dir="ltr"
+          *ngIf="livingAddress.length > 2"
+        >
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2">🏠</span>
+          </div>
+          <input
+            matInput
+            dir="rtl"
+            class="form-control"
+            formControlName="livingAddress"
+            type="text"
+            [placeholder]="livingAddressField"
+            aria-label="livingAddress"
+            [(ngModel)]="livingAddressField"
+            [name]="livingAddress"
+          />
+        </div> -->
       </div>
     </div>
     <mat-dialog-actions align="end">
@@ -126,7 +185,6 @@
     </mat-dialog-actions>
   </form>
 </div>
-
 <div class="alert alert-danger" *ngIf="errorMessage">
   <strong>Error!</strong> {{ errorMessage }}
 </div>
