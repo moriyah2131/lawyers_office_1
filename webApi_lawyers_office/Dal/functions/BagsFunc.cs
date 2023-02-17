@@ -136,8 +136,12 @@ namespace Dal.functions
             if(bagName!=null) bagToUpdate.BagName = bagName;
             if(status != null) bagToUpdate.BagState = (int)status;
 
+          
+            if(bagToUpdate.BagState== 1)
+                bagToUpdate.DateClose= DateTime.Now;
             db.Bags.Update(bagToUpdate);
             await db.SaveChangesAsync();
+
 
             return bagToUpdate.Id;
         }

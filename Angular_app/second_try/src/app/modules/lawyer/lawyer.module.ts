@@ -8,17 +8,31 @@ import { RouterModule, Routes } from "@angular/router";
 import { AccountService } from "src/app/services/Account.service";
 import { SharedModule } from "../shared/shared.module";
 import {  LawyerAccountComponent } from "./lawyer-account/lawyer-account.component";
+import { UserListComponent } from './user-list/user-list.component';
+import {MatTableModule} from '@angular/material/table';
+import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
+
 
 const routes: Routes = [
   {
     path: 'account',
     component: LawyerAccountComponent,
   },
+  {
+    path: 'userlist',
+    component: UserListComponent,
+  },
+  {
+    path: 'lawyerlist',
+    component: LawyerListComponent,
+  },
 ];
 
 @NgModule({
     declarations: [
       LawyerAccountComponent,
+      UserListComponent,
+      LawyerListComponent,
     ],
     imports: [
       RouterModule.forChild(routes),
@@ -29,12 +43,13 @@ const routes: Routes = [
       MatDividerModule,
       MatIconModule,
       SharedModule,
+      MatTableModule,
     ],
     providers: [
       AccountService,
       //  { provide: LOCALE_ID, useValue: 'he_IL' }
     ],
-    exports: [LawyerAccountComponent, ],
+    exports: [LawyerAccountComponent, UserListComponent,LawyerListComponent],
   })
   export class LawyerModule {}
   

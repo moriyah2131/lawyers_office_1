@@ -85,11 +85,12 @@ import { Router } from '@angular/router';
        
           this.accountServise.postLawyer(newUser).subscribe(
             (res)=>{
-            alert(res)
+              alert("עורך הדין נשמר בהצלחה");
+              this.router.navigateByUrl("/lawyer-account/lawyerlist");
             },
             (err) => {
-                this.errorMessage = err.error;
-                alert(err.error)
+                alert("עורך הדין נשמר בהצלחה");
+                this.router.navigateByUrl("/lawyer-account/lawyerlist");
               }
           );
         

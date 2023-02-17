@@ -1,3 +1,6 @@
+<h3 class="mrgin-left">:הוספת עורך דין</h3>
+
+
 <div class="container" dir="rtl">
     <form [formGroup]="newLawyerForm" (ngSubmit)="onSubmit()">
       <div class="card">
@@ -24,7 +27,6 @@
             <div class="form-group col-5">
               <label class="card-subtitle mb-2 text-muted">שם משפחה</label>
               <input
-                value="text"
                 type="text"
                 formControlName="lastName"
                 class="form-control"
@@ -110,8 +112,8 @@
         </div>
       </div>
       <!-- <mat-dialog-actions align="end"> -->
-        <button mat-flat-button type="reset" (click)="onReset()">נקה</button>
-        <button mat-flat-button type="submit">שמור</button>
+       <button mat-raised-button color="primary" type="reset" (click)="onReset()">נקה</button>
+ <button mat-raised-button color="primary" type="submit">שמור</button>
       <!-- </mat-dialog-actions> -->
     </form>
   </div>

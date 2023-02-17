@@ -2,6 +2,7 @@
 using EntitiesDTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace webApi.Controllers
@@ -72,5 +73,33 @@ namespace webApi.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("getAllPerson")]
+        public async Task<ActionResult<List<ShortPersonDTO>>> getAllAsync()
+        {
+            try
+            {
+                return Ok(await bll.GetAllAsync());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpGet("getAllLawyer")]
+        public async Task<ActionResult<List<ShortPersonDTO>>> GetAllLawyerAsync()
+        {
+            try
+            {
+                return Ok(await bll.GetAllLawyerAsync());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

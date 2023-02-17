@@ -1,4 +1,5 @@
 ﻿using EntitiesDTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Dal.interfaces
@@ -12,5 +13,9 @@ namespace Dal.interfaces
 
        
         Task<string> DeleteAsync(string email);
+
+        Task<List<ShortPersonDTO>> GetAllAsync();
+        Task<List<ShortPersonDTO>> GetAllLawyerAsync();
+
     }
 }
