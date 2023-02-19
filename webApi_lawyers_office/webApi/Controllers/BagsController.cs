@@ -90,7 +90,7 @@ namespace webApi.Controllers
                 await bll.DeleteAsync(id);
                 return Ok();
             }
-            catch
+            catch(Exception ex)
             {
                 return NotFound();
             }

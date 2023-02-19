@@ -34,24 +34,34 @@ export class LawyerListComponent implements OnInit {
   
      
     ngOnInit(): void {    
+      this.loadData();
+    }
+
+    loadData(){
       this.accountService.getAllLawyer().subscribe((res) => {
-        this.lawyerData = [...this.lawyerData, ...res];
+        this.lawyerData = res;
             this.dataSource = new MatTableDataSource(this.lawyerData);
       } ,(err) => {
         this.error = err.error;});
-   
-     
     }
   
     openPersonInfoDialog(person?: NewUser): void {
-      if (person)
-        this.dialog.open(PersonInfoDialogComponent, {
+      if (person){
+          let dialogRef = this.dialog.open(PersonInfoDialogComponent, {
           data: {
             person: person,
           },
           
         });
+
+        dialogRef.afterClosed().subscribe(() => {
+          this.loadData();
+        })
+      }
+    
+
     }
+    
 
    
   

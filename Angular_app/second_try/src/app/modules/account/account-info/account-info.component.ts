@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
 import { NewUser } from 'src/app/models/new-user';
@@ -20,9 +20,8 @@ import { DiaolgComponent } from '../../main-components/diaolg/diaolg.component';
 export class AccountInfoComponent {
   @Input() person?: NewUser;
   loading: boolean = false;
-   type?:string;
-   
-  
+  @Output() onDeleteSuccess = new EventEmitter<boolean>();
+
   constructor(private userService: UserService ,private accountService:AccountService,
      public dialog: MatDialog,
      private router: Router) {}
@@ -42,22 +41,15 @@ export class AccountInfoComponent {
         result: result,
       },
     });
-this.type=this.person?.userType
    
     dialogRef.afterClosed().subscribe((res) => {
       result = res;
       if (res == 'true'&&this.person?.email!=null)
 {
     this.accountService.delete(this.person.email).subscribe(
-      ()=>{  if(this.type=="lawyer")  
-              // {this.router.navigateByUrl("/lawyer-account/lawyerlist");}
-              // else{
-              //   this.router.navigateByUrl("/lawyer-account/userlist");
-
-              // }
-
+      ()=>{  
         alert("המשתמש נמחק בהצלחה");
-               
+            this.onDeleteSuccess.emit(true);
         },
         (err) => {
             alert("שגיאה")
