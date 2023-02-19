@@ -88,5 +88,6 @@ const routes: Routes = [
     //MainComponentsModule,
     SharedModule,
   ],
+  exports: [CreateBagFormComponent],
 })
 export class BagsLawyerModule {}

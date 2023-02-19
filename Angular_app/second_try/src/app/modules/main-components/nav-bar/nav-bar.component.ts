@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
-
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -9,13 +8,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NavBarComponent implements OnInit {
   messagesCount: number = 11;
-  userType?: string | undefined;
-  //accountID?: number;
+  openDropdown: boolean = false;
 
   constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    //this.accountID = this.userService.getAccountID();
-    this.userType = this.userService.getUser()?.userType;
+  ngOnInit(): void {}
+
+  getUserType(): string {
+    let userType = this.userService.getUser()?.userType;
+    switch (userType?.toUpperCase()) {
+      case 'LAWYER':
+        return 'lawyer';
+      case 'CUSTOMER':
+        return 'customer';
+    }
+    return '';
   }
 }

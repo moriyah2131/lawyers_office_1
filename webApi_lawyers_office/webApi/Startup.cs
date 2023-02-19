@@ -59,6 +59,7 @@ namespace webApi
             services.AddScoped(typeof(IbagsToPerson), typeof(BagsToPersonFunc));
 
             services.AddScoped(typeof(Ipeople), typeof(PeopleFunc));
+            services.AddScoped(typeof(IpeopleBll), typeof(PeopleBll));
 
             services.AddScoped(typeof(Iusers), typeof(UsersFunc));
 

@@ -57,8 +57,8 @@ export class AllTasksListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  // @ViewChild(TasksListComponent) mainTasksList!: TasksListComponent;
   @ViewChildren(TasksListComponent) tasksList!: QueryList<TasksListComponent>;
+  // @ViewChild(TasksListComponent) mainTasksList!: TasksListComponent;
 
   constructor(
     private bagsService: BagsService,
@@ -74,7 +74,6 @@ export class AllTasksListComponent {
     this.tasksList.forEach((element) => {
       element.onPersonChange(person, bagId);
     });
-    // this.mainTasksList.onPersonChange();
   }
 
   getParticipants(bag: Bag): NewUser[] {

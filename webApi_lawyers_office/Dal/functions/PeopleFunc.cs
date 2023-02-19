@@ -1,4 +1,5 @@
-﻿using Dal.interfaces;
+﻿using Dal.converters;
+using Dal.interfaces;
 using Dal.models;
 using EntitiesDTO;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,11 @@ namespace Dal.functions
         public PeopleFunc(Layers_OfficeContext _db)
         {
             db= _db;
+        }
+        public async Task<ShortPersonDTO> GetByID(int id)
+        {
+            Person person = await db.People.FirstOrDefaultAsync(p => p.Id == id) ?? throw new Exception("Person doesn't exist.");
+            return PeopleConverter.toDto(person);
         }
 
         public async Task<int> GetByEmailAsync(string email)
@@ -61,5 +67,24 @@ namespace Dal.functions
             await db.SaveChangesAsync();
             return list;
         }
+
+        public async Task<ShortPersonDTO> PutAsync(ShortPersonDTO person)
+        {
+            Person personToUpdate = await db.People.FirstOrDefaultAsync(b => b.Id == person.Id) ?? throw new ArgumentException("Person doesn't exist");
+
+            personToUpdate.Tz = person.Tz;
+            personToUpdate.Email = person.Email;
+            personToUpdate.Phone = person.Phone;
+            personToUpdate.FirstName = person.FirstName;
+            personToUpdate.LastName = person.LastName;
+            personToUpdate.SecondPhone = person.SecondPhone ?? personToUpdate.SecondPhone;
+            personToUpdate.LivingAddress = person.LivingAddress ?? personToUpdate.LivingAddress;  
+
+            db.People.Update(personToUpdate);
+            await db.SaveChangesAsync();
+
+            return PeopleConverter.toDto(await db.People.FirstOrDefaultAsync(b => b.Id == person.Id));
+        }
+
     }
 }
