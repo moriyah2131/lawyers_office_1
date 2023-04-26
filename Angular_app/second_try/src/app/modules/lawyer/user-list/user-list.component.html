@@ -1,22 +1,26 @@
 <div class="body">
-    <h1 class="mrgin-left">לקוחות:</h1>
+  <h1 class="mrgin-left">לקוחות</h1>
+  <a routerLink="/lawyer-account/lawyerlist" id="router-button">
+    <button mat-raised-button color="primary">לצפייה בעורכי הדין</button>
+  </a>
+  <div class="row">
+    <div class="col">
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <mat-header-cell mat-header-cell *matHeaderCellDef>
+            שם המשתמש
+          </mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let element">
+            <a (click)="openPersonInfoDialog(element)">{{
+              element.firstName + " " + element.lastName
+            }}</a
+            ><br />
+          </mat-cell>
+        </ng-container>
 
-    <div class="row">
-        <div class="col">
-
-            <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                <ng-container matColumnDef="name">
-                  <mat-header-cell mat-header-cell *matHeaderCellDef> שם המשתמש </mat-header-cell>
-                  <mat-cell mat-cell *matCellDef="let element" > <a (click)="openPersonInfoDialog(element)">{{
-                    element.firstName +" "+element.lastName
-                    }}</a><br />   </mat-cell>
-                </ng-container>
-              
-                <mat-header-row *matHeaderRowDef="user"></mat-header-row>
-                <mat-row matRipple *matRowDef="let row; columns: user;"></mat-row>
-              </mat-table>
-              <a  routerLink= "/lawyer-account/lawyerlist">   <button mat-raised-button color="primary">לצפייה בעורכי הדין</button></a> 
-
-        </div>
+        <mat-header-row *matHeaderRowDef="user"></mat-header-row>
+        <mat-row matRipple *matRowDef="let row; columns: user"></mat-row>
+      </mat-table>
     </div>
+  </div>
 </div>

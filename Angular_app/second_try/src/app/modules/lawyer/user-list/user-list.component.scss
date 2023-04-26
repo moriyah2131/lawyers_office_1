@@ -43,9 +43,6 @@ tr.example-detail-row {
     width: 20%;
     text-align: center;
     margin-left: 40%;
-    
-   
-
 }
   
 mat-progress-bar{
@@ -108,7 +105,10 @@ a{
   }
   &.button{
     all:unset
-    
   }
 }
 
+#router-button{
+  position: absolute;
+  min-width: 400px;
+}
