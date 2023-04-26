@@ -22,6 +22,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { AccountModule } from '../account/account.module';
 
 const routes: Routes = [
   {
@@ -34,11 +37,13 @@ const routes: Routes = [
   declarations: [TasksListComponent, AllTasksListComponent],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule,
-    MatInputModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
+
+    CommonModule,
+
+    MatInputModule,
+    MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -46,36 +51,43 @@ const routes: Routes = [
     MatListModule,
     MatTooltipModule,
     MatIconModule,
-    MatDialogModule,
-    MatListModule,
-
     MatPaginatorModule,
     MatTableModule,
-    MatButtonModule,
     MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatIconModule,
     MatProgressBarModule,
     MatTooltipModule,
-    MatDialogModule,
     MatDividerModule,
-    MatCardModule,
-    MatListModule,
-    MatCheckboxModule,
-    MatListModule,
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+  ],
+  exports: [
+    TasksListComponent,
+    ReactiveFormsModule,
+    FormsModule,
 
-    HttpClientModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatListModule,
+    MatTooltipModule,
+    MatIconModule,
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
+    MatIconModule,
     MatProgressBarModule,
+    MatTooltipModule,
     MatDividerModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule,
   ],
-  exports: [TasksListComponent],
 })
 export class SharedModule {}

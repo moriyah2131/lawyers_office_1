@@ -15,6 +15,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedModule } from '../shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -31,20 +34,12 @@ const routes: Routes = [
     TasksListComponent,
   ],
   imports: [
-    CommonModule,
-    AccountModule,
     RouterModule.forChild(routes),
-
-    MatInputModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatListModule,
-    MatTooltipModule,
+    CommonModule,
+    SharedModule,
+    AccountModule,
+    // BrowserModule,
+    // BrowserAnimationsModule,
   ],
   exports: [TasksListComponent],
 })

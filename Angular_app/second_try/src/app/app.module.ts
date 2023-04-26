@@ -10,10 +10,12 @@ import { TransactionModule } from './modules/transaction/transaction.module';
 import { NavBarComponent } from './modules/main-components/nav-bar/nav-bar.component';
 import { MyFooterComponent } from './modules/main-components/my-footer/my-footer.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, MyFooterComponent],
   imports: [
+    // CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

@@ -5,11 +5,13 @@
     <div class="row text-center text-md-left mt-3 pb-3">
       <!-- Grid column -->
       <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-        <h6 class="text-uppercase mb-3 font-weight-bold">הבלין - ולר</h6>
+        <h6 class="text-uppercase mb-3 font-weight-bold">אודותינו</h6>
         <p>
-          Open Banking is more secure than screen scraping because, for example,
-          you don’t have to share your password or login details with anyone
-          other than your bank or building society.
+          בראש משרד עורכי הדין הבלין-ולר ושות' עומדים שני שותפים אשר כל אחד מהם
+          צבר ניסיון רב בתחומו. המשרד מעמיד את שרותיו בתחום עסקאות הנדל"ן
+          והמקרקעין. בין לקוחות המשרד נמנים חברות פרטיות, עמותות, נבחרי-ציבור
+          ואזרחים מן השורה. המשרד מעניק גם שירותי ליווי משפטי צמוד, ייעוץ משפטי
+          ועבודה בשיתוף פעולה עם גורמי מקצוע חיצוניים.
         </p>
       </div>
       <!-- Grid column -->
@@ -18,18 +20,24 @@
 
       <!-- Grid column -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">שירותים</h6>
+        <h6 class="text-uppercase mb-4 font-weight-bold">לינקים שימושיים</h6>
         <p>
-          <a href="#!">MDBootstrap</a>
+          <a href="https://www.court.gov.il/ngcs.web.site/homepage.aspx"
+            >נט המשפט</a
+          >
         </p>
         <p>
-          <a href="#!">MDWordPress</a>
+          <a href="https://supreme.court.gov.il/Pages/HomePage.aspx"
+            >בית המשפט העליון</a
+          >
         </p>
         <p>
-          <a href="#!">BrandFlow</a>
+          <a href="https://www.israelbar.org.il/index.asp"
+            >לשכת עורכי הדין בישראל</a
+          >
         </p>
         <p>
-          <a href="#!">Bootstrap Angular</a>
+          <a href="https://www.psakdin.co.il">PsakDin - אתר המשפט הישראלי</a>
         </p>
       </div>
       <!-- Grid column -->
@@ -38,18 +46,21 @@
 
       <!-- Grid column -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">לינקים שימושיים</h6>
+        <h6 class="text-uppercase mb-4 font-weight-bold">שירותים</h6>
         <p>
-          <a href="#!">Your Account</a>
+          <a routerLink="/">דף הבית</a>
+        </p>
+        <p *ngIf="getUserType() == 'customer'">
+          <a routerLink="bags/view-bags"> התיקים שלי </a>
+        </p>
+        <p *ngIf="getUserType() == 'lawyer'">
+          <a routerLink="bags-lawyer/view-bags"> תיקים </a>
         </p>
         <p>
-          <a href="#!">Become an Affiliate</a>
+          <a routerLink="main/tasks">המשימות שלי</a>
         </p>
         <p>
-          <a href="#!">Shipping Rates</a>
-        </p>
-        <p>
-          <a href="#!">Help</a>
+          <a href="#!">עזרה</a>
         </p>
       </div>
 
@@ -61,8 +72,16 @@
         <h6 class="text-uppercase mb-4 font-weight-bold">צור קשר</h6>
         <p><i class="fas fa-home mr-3"></i> אלפנדרי 36 ירושלים</p>
         <!-- <p><i class="fa fa-map-marker mr-3"></i> 9435341 :מיקוד</p> -->
-        <p><i class="fas fa-envelope mr-3"></i> havlin.law@gmail.com</p>
-        <p><i class="fas fa-phone mr-3"></i> + 02 673 71 86</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i>
+          <a href="mailto:havlin.law@gmail.com" style="color: white"
+            >havlin.law@gmail.com</a
+          >
+        </p>
+        <p>
+          <i class="fas fa-phone mr-3"></i>
+          <a href="tel:026-737-186" style="color: white">+ 02 673 71 86</a>
+        </p>
         <p><i class="fas fa-print mr-3"></i> + 02 538 13 69</p>
       </div>
       <!-- Grid column -->
@@ -77,9 +96,9 @@
       <div class="col-md-7 col-lg-8">
         <!--Copyright-->
         <p class="text-center text-md-left">
-          © 2020 Copyright:
+          © 2023 Copyright:
           <a href="/">
-            <strong>&nbsp; Esther Weller</strong>
+            <strong>&nbsp; Esther Weller & Moriyah Hury</strong>
           </a>
         </p>
       </div>

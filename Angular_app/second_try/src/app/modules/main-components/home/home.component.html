@@ -1,4 +1,34 @@
-<div class="home" dir="rtl">
+<div id="bigImg" class="container"></div>
+<div id="bitTitle" dir="auto">
+  <h1 style="font-weight: bold">ברוך הבא!</h1>
+  <h3 id="firstSubTitle">משרד עו"ד הבלין- ולר</h3>
+  <h5 id="secondSubTitle">אתר האינטרנט לשירות מקוון אונליין</h5>
+</div>
+<hr />
+<div class="buttons-menu">
+  <a mat-raised-button id="tasks-button" routerLink="main/tasks"
+    >לניהול משימות</a
+  >
+  <a
+    mat-raised-button
+    color="primary"
+    id="bags-button"
+    *ngIf="getUserType() == 'customer'"
+    routerLink="bags/view-bags"
+  >
+    לצפייה ברשימת התיקים
+  </a>
+  <a
+    mat-raised-button
+    color="primary"
+    id="bags-button"
+    *ngIf="getUserType() == 'lawyer'"
+    routerLink="bags-lawyer/view-bags"
+  >
+    לצפייה ברשימת התיקים
+  </a>
+</div>
+<!-- <div class="home" dir="rtl">
   <div class="row">
     <div class="col Welcome">
       <div class="card" style="width: 18rem">
@@ -42,4 +72,4 @@
       <a href="#" class="btn btn-primary">ראה עוד</a>
     </div>
   </div>
-</div>
+</div> -->
