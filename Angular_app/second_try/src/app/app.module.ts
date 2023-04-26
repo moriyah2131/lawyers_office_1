@@ -11,6 +11,7 @@ import { NavBarComponent } from './modules/main-components/nav-bar/nav-bar.compo
 import { MyFooterComponent } from './modules/main-components/my-footer/my-footer.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, MyFooterComponent],
@@ -23,6 +24,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     MainComponentsModule,
     TransactionModule,
+    // SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -90,12 +90,8 @@ export class ViewBagsComponent implements AfterViewInit {
   }
 
   applyFilter(event: Event) {
-    debugger;
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    this.dataSource.filterPredicate = (data, filter) =>
-      JSON.stringify(data).includes(filter);
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

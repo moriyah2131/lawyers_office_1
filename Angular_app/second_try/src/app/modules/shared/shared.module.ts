@@ -16,15 +16,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AllTasksListComponent } from './all-tasks-list/all-tasks-list.component';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { AccountModule } from '../account/account.module';
+import { BagNameComponent } from './bag-name/bag-name.component';
 
 const routes: Routes = [
   {
@@ -34,12 +31,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TasksListComponent, AllTasksListComponent],
+  declarations: [TasksListComponent, AllTasksListComponent, BagNameComponent],
   imports: [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     FormsModule,
-
     CommonModule,
 
     MatInputModule,
@@ -54,9 +50,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
-    MatIconModule,
     MatProgressBarModule,
-    MatTooltipModule,
     MatDividerModule,
     MatExpansionModule,
     MatDatepickerModule,
@@ -65,6 +59,7 @@ const routes: Routes = [
   ],
   exports: [
     TasksListComponent,
+    BagNameComponent,
     ReactiveFormsModule,
     FormsModule,
 
@@ -80,9 +75,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
-    MatIconModule,
     MatProgressBarModule,
-    MatTooltipModule,
     MatDividerModule,
     MatExpansionModule,
     MatDatepickerModule,

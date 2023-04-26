@@ -1,0 +1,24 @@
+#bagImg {  
+    direction: rtl;
+    background-image: url("../../../../../../../images/bagName.jpg");  
+    background-size: cover;  
+    min-height: 220px;
+    padding: 20px;
+    text-align: center;
+}
+
+  #bagName{
+    line-height: 180px;
+    height: 220px;
+    color:  #fcbf09 ;
+    border-color: white;
+    border-width: 5px;
+    border-style: double;
+    border-radius: 2px;
+    padding: 10px;
+    &:hover{
+        opacity: 0.7;
+        border-style: groove;
+        border-radius: 4px;
+    }
+  }

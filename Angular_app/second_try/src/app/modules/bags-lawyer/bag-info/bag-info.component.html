@@ -1,9 +1,8 @@
-<div class="body">
-  <h1 class="mrgin-left" id="bagName">{{ bag?.bagName }}</h1>
-</div>
-<div class="row">
-  <div class="container col">
-    <h2 class="titles">פעולות</h2>
+<app-bag-name bagName="{{ bag?.bagName }}"></app-bag-name>
+
+<div class="row mm">
+  <div class="container col mm">
+    <h2 class="titles">| פעולות</h2>
     <button matTooltip="מסמכים" mat-button (click)="openFilesDialog()">
       <span class="material-icons" style="font-size: 150px">
         drive_folder_upload
@@ -25,9 +24,9 @@
     </button>
   </div>
 
-  <div class="container col">
+  <div class="container col mm">
     <h2 class="titles">משימות</h2>
-    <div class="row">
+    <div class="row" style="margin-right: 0px">
       <div class="col">
         <div class="tasks-container">
           <app-tasks-list
