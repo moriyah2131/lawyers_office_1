@@ -3,7 +3,16 @@
 
     <div class="row">
         <div class="col">
-
+            <mat-form-field appearance="standard" class="mrgin-left">
+                <mat-label>סנן טבלה</mat-label>
+                <input
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  placeholder="חיפוש"
+                  dir="rtl"
+                  #input
+                />
+              </mat-form-field>
             <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container matColumnDef="name">
                   <mat-header-cell mat-header-cell *matHeaderCellDef> שם המשתמש </mat-header-cell>

@@ -26,13 +26,11 @@ user:  string[] = ['name'];
     private accountService: AccountService,
     public dialog: MatDialog
   ) { }
- 
-
-
    
   ngOnInit(): void {    
   this.loadData(); 
   }
+  
   loadData(){
     this.accountService.getAllPerson().subscribe((res) => {
       this.userData =res;
@@ -53,7 +51,15 @@ user:  string[] = ['name'];
         this.loadData();
       })
   }
-  
- 
 }
+
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  if (this.dataSource.paginator) {
+    this.dataSource.paginator.firstPage();
+  }
+}
+
 }

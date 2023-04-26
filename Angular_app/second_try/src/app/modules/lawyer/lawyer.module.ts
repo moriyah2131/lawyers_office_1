@@ -11,6 +11,8 @@ import {  LawyerAccountComponent } from "./lawyer-account/lawyer-account.compone
 import { UserListComponent } from './user-list/user-list.component';
 import {MatTableModule} from '@angular/material/table';
 import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 
 const routes: Routes = [
@@ -44,6 +46,10 @@ const routes: Routes = [
       MatIconModule,
       SharedModule,
       MatTableModule,
+      MatInputModule,
+      MatFormFieldModule,
+
+      SharedModule
     ],
     providers: [
       AccountService,
