@@ -102,7 +102,6 @@ namespace Dal.functions
             {
                 actionsToRemove.Add(await db.Actions.FirstOrDefaultAsync(a => a.Id == atb.ActionId));
             }
-
             db.ActionsToBags.RemoveRange(bagToRemove.ActionsToBags);
             db.BagsToPeople.RemoveRange(bagToRemove.BagsToPeople);
             db.Files.RemoveRange(bagToRemove.Files);

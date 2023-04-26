@@ -31,24 +31,29 @@ user:  string[] = ['name'];
 
    
   ngOnInit(): void {    
+  this.loadData(); 
+  }
+  loadData(){
     this.accountService.getAllPerson().subscribe((res) => {
-      this.userData = [...this.userData, ...res];
+      this.userData =res;
           this.dataSource = new MatTableDataSource(this.userData);
     } ,(err) => {
       this.error = err.error;});
- 
-   
   }
 
   openPersonInfoDialog(person?: NewUser): void {
-    if (person)
-      this.dialog.open(PersonInfoDialogComponent, {
+    if (person){
+    let dialogRef=  this.dialog.open(PersonInfoDialogComponent, {
         data: {
           person: person,
         },
         
       });
+      dialogRef.afterClosed().subscribe(() => {
+        this.loadData();
+      })
   }
-
+  
  
+}
 }

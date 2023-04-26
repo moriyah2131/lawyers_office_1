@@ -1,7 +1,7 @@
 <div class="container" dir="rtl">
   <h1 mat-dialog-title>{{ "פרטים" }}</h1>
   <div mat-dialog-content>
-    <app-account-info [person]="data.person"></app-account-info>
+    <app-account-info [person]="data.person" (onDeleteSuccess)="onNoClick()"></app-account-info>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()" cdkFocusInitial>סיום</button>

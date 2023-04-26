@@ -34,7 +34,6 @@ import { BagsLawyerModule } from '../bags-lawyer/bags-lawyer.module';
     MatDividerModule,
     MatIconModule,
     BagsLawyerModule,
-    BagsLawyerModule,
-  ],
+    ],
 })
 export class AccountModule {}

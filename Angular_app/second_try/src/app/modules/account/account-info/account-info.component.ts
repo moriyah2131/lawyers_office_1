@@ -1,9 +1,10 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NewUser } from 'src/app/models/new-user';
 import { AccountService } from 'src/app/services/Account.service';
 import { PersonService } from 'src/app/services/person.service';
+import { UserService } from 'src/app/services/user.service';
 import { CreateBagFormComponent } from '../../bags-lawyer/create-bag-form/create-bag-form.component';
 import { DiaolgComponent } from '../../main-components/diaolg/diaolg.component';
 
@@ -18,14 +19,19 @@ import { DiaolgComponent } from '../../main-components/diaolg/diaolg.component';
 export class AccountInfoComponent {
   @Input() person?: NewUser;
   @Input() private?: boolean;
-  loading: boolean = false;
+    loading: boolean = false;
+
+  @Output() onDeleteSuccess = new EventEmitter<boolean>();
+
+
+  
   editMode: boolean = false;
   type?: string;
 
   @ViewChild('child')
   private child: CreateBagFormComponent | undefined;
 
-  constructor(
+    constructor(private userService: UserService,
     private personService: PersonService,
     private accountService: AccountService,
     public dialog: MatDialog,
@@ -58,26 +64,21 @@ export class AccountInfoComponent {
         result: result,
       },
     });
-    this.type = this.person?.userType;
-
+   
     dialogRef.afterClosed().subscribe((res) => {
       result = res;
-      if (res == 'true' && this.person?.email != null) {
-        this.accountService.delete(this.person.email).subscribe(
-          () => {
-            if (this.type == 'lawyer')
-              // {this.router.navigateByUrl("/lawyer-account/lawyerlist");}
-              // else{
-              //   this.router.navigateByUrl("/lawyer-account/userlist");
-
-              // }
-
-              alert('המשתמש נמחק בהצלחה');
-          },
-          (err) => {
-            console.error(err);
+      if (res == 'true'&&this.person?.email!=null)
+{
+    this.accountService.delete(this.person.email).subscribe(
+      ()=>{  
+        alert("המשתמש נמחק בהצלחה");
+            this.onDeleteSuccess.emit(true);
+        },
+        (err) => {
+            alert("שגיאה")
+            
           }
-        );
+          );
       }
     });
   }
