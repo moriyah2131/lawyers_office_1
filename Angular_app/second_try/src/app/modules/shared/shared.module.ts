@@ -16,12 +16,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AllTasksListComponent } from './all-tasks-list/all-tasks-list.component';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
+import { BagNameComponent } from './bag-name/bag-name.component';
 
 const routes: Routes = [
   {
@@ -31,14 +31,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TasksListComponent, AllTasksListComponent],
+  declarations: [TasksListComponent, AllTasksListComponent, BagNameComponent],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule,
-    MatInputModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
+
+    MatInputModule,
+    MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -46,36 +47,40 @@ const routes: Routes = [
     MatListModule,
     MatTooltipModule,
     MatIconModule,
-    MatDialogModule,
-    MatListModule,
-
     MatPaginatorModule,
     MatTableModule,
-    MatButtonModule,
     MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     MatProgressBarModule,
-    MatTooltipModule,
-    MatDialogModule,
     MatDividerModule,
-    MatCardModule,
-    MatListModule,
-    MatCheckboxModule,
-    MatListModule,
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+  ],
+  exports: [
+    TasksListComponent,
+    BagNameComponent,
+    ReactiveFormsModule,
+    FormsModule,
 
-    HttpClientModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatListModule,
+    MatTooltipModule,
+    MatIconModule,
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
     MatProgressBarModule,
     MatDividerModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRippleModule,
   ],
-  exports: [TasksListComponent],
 })
 export class SharedModule {}

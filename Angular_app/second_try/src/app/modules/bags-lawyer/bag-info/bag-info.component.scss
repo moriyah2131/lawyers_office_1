@@ -7,20 +7,24 @@
 
 .container{
   direction: rtl;
-  // margin: 25px;
   width: 100%;
-  padding: 20px;
-}
-
-.body{
-  margin: 20px;
-  direction: rtl;
+  padding-top: 0px;
 }
 
 #bagName{
-  color: orange;
-  // background-color: rgb(37, 37, 37);
-  // padding: 20px;
+  line-height: 180px;
+  height: 220px;
+  color:  #fcbf09 ;
+  border-color: white;
+  border-width: 5px;
+  border-style: double;
+  border-radius: 2px;
+  padding: 10px;
+  &:hover{
+      opacity: 0.7;
+      border-style: groove;
+      border-radius: 4px;
+  }
 }
 
 .titles{
@@ -64,7 +68,7 @@
 
 .quarter{
   max-width: 30%;
-  margin-left: 15px;
+  padding-left: 15px;
 }
 
 .task-button{
@@ -80,4 +84,20 @@
   .body, .row, * {
     display: none;
   }
+}
+
+#bagImg {  
+  direction: rtl;
+  background-image: url("../../../../../../../images/bagName.jpg");  
+  background-size: cover;  
+  min-height: 220px;
+  padding: 20px;
+  text-align: center;
+}
+
+.mm{
+  margin-right:0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }

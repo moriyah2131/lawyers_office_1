@@ -10,10 +10,13 @@ import { TransactionModule } from './modules/transaction/transaction.module';
 import { NavBarComponent } from './modules/main-components/nav-bar/nav-bar.component';
 import { MyFooterComponent } from './modules/main-components/my-footer/my-footer.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, MyFooterComponent],
   imports: [
+    // CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -21,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     HttpClientModule,
     MainComponentsModule,
     TransactionModule,
+    // SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
