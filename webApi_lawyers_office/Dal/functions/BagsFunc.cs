@@ -36,6 +36,9 @@ namespace Dal.functions
         {
             Bag bag = await db.Bags.Include(b => b.BagsToPeople).Include(b => b.Asset).FirstOrDefaultAsync(item => item.Id == id);
             if (bag == null) throw new Exception("Bag doesn't exist.");
+            bag.LastOpen = DateTime.Now;
+            db.Bags.Update(bag);
+            await db.SaveChangesAsync();
             return await fillParticipantsToBagDTO(bag);
         }
 

@@ -26,3 +26,17 @@ small:hover{
 .alert{
     width: 100%;
 }
+
+#bigImg {  
+    background-image: url("../../../../../../../images/favicon.png");  
+    width: 110px;
+    height: 110px;
+    margin: auto;
+    margin-bottom: 50px;
+    border-width: 1px;
+    border-color: rgb(177, 177, 177);
+    border-radius: 100%;
+    border-style: solid;
+    background-repeat: no-repeat;
+    background-position: center;
+}

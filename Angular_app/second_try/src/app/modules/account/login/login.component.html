@@ -1,4 +1,5 @@
 <div class="container" dir="rtl">
+  <div id="bigImg"></div>
   <div class="card m-3">
     <h5 class="card-header">התחבר</h5>
     <br />
@@ -33,7 +34,13 @@
       </div>
     </div>
     <div class="text-center">
-      <button class="btn btn-warning mr-1" (click)="Signin()">התחבר</button>
+      <button
+        class="btn btn mr-1"
+        (click)="Signin()"
+        style="background-color: rgb(216, 188, 46); color: white"
+      >
+        התחבר
+      </button>
       <!-- <br />
       <a (click)="goToRegister()">
         <small>אין לך חשבון? צור עכשיו</small>

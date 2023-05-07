@@ -23,8 +23,10 @@
             </p>
 
             <p class="text-left s" *ngIf="person?.email">
-              {{ person?.email
-              }}<span class="icon"><mat-icon> email</mat-icon></span>
+              <a style="position: relative" href="mailto:{{ person?.email }}">{{
+                person?.email
+              }}</a>
+              <span class="icon"><mat-icon> email</mat-icon></span>
             </p>
             <p class="text-left s" *ngIf="person?.phone">
               {{ person?.phone }}
