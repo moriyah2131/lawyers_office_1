@@ -22,6 +22,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { BagNameComponent } from './bag-name/bag-name.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 const routes: Routes = [
   {
@@ -56,6 +57,7 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+    MatMenuModule,
   ],
   exports: [
     TasksListComponent,
@@ -81,6 +83,7 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+    MatMenuModule,
   ],
 })
 export class SharedModule {}

@@ -1,27 +1,91 @@
 <div class="body">
   <div class="row">
     <div class="col" id="right-col">
-      <h3 class="mrgin-left">משימותיך</h3>
+      <h3 class="mrgin-left" dir="rtl">
+        משימותיך
+        <button
+          mat-button
+          [matMenuTriggerFor]="filter"
+          matTooltip="סינון"
+          [matTooltipPosition]="'after'"
+        >
+          <mat-icon fontIcon="filter_list"></mat-icon>
+        </button>
+        <mat-menu #filter="matMenu">
+          <button
+            mat-menu-item
+            (click)="openFreeFilter = false; applyTasksFilter('createDate')"
+          >
+            <mat-icon>date_range</mat-icon>
+            לפי תאריך יצירה
+          </button>
+          <button
+            mat-menu-item
+            (click)="openFreeFilter = false; applyTasksFilter('deadline')"
+          >
+            <mat-icon>alarm_on</mat-icon>
+            לפי דדליין
+          </button>
+          <button
+            mat-menu-item
+            (click)="openFreeFilter = false; applyTasksFilter('uncompleted')"
+          >
+            <mat-icon>bookmark_border</mat-icon>
+            עוד לא הושלמו
+          </button>
+          <button
+            mat-menu-item
+            (click)="openFreeFilter = false; applyTasksFilter('completed')"
+          >
+            <mat-icon>done</mat-icon> הושלמו
+          </button>
+
+          <button mat-menu-item (click)="openFreeFilter = !openFreeFilter">
+            <mat-icon>search</mat-icon> חיפוש חופשי</button
+          ><button
+            mat-menu-item
+            (click)="openFreeFilter = false; applyTasksFilter('clearFilter')"
+          >
+            <mat-icon>grid_off</mat-icon> נקה
+          </button>
+        </mat-menu>
+        <mat-form-field
+          appearance="standard"
+          class="mrgin-left"
+          *ngIf="openFreeFilter"
+          style="font-size: 15px"
+        >
+          <mat-label>סנן רשימה</mat-label>
+          <input
+            matInput
+            (keyup)="applyTasksFilter($event)"
+            placeholder="Search"
+            #input
+          />
+        </mat-form-field>
+      </h3>
       <app-tasks-list
         [allowSensitiveActions]="allowSensitiveActions"
         [participants]="lawyersList"
         [bagId]="-1"
+        [filter]="filterTasksValue"
       ></app-tasks-list>
     </div>
     <mat-divider vertical></mat-divider>
     <div class="col" id="left-col">
-      <h3 class="mrgin-left">משימות לפי תיק</h3>
+      <div dir="rtl">
+        <h3 class="mrgin-left">משימות לפי תיק</h3>
 
-      <mat-form-field appearance="standard" class="mrgin-left">
-        <mat-label>סנן טבלה</mat-label>
-        <input
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="Search"
-          #input
-        />
-      </mat-form-field>
-
+        <mat-form-field appearance="standard" class="mrgin-left">
+          <mat-label>סנן טבלה</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Search"
+            #input
+          />
+        </mat-form-field>
+      </div>
       <div class="mat-elevation-z8 table">
         <mat-progress-bar
           mode="indeterminate"
