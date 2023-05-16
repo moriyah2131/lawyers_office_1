@@ -66,7 +66,7 @@ namespace webApi
             services.AddScoped(typeof(Iassets), typeof(AssetsFunc));
 
             //הוספת הגדרה למנהל התלויות על מסד הנתונים
-            services.AddDbContext<Layers_OfficeContext>(opt => opt.UseSqlServer("Server=localhost;Database=Layers_Office;Trusted_Connection=true"));
+            services.AddDbContext<Layers_OfficeContext>(opt => opt.UseSqlServer("Server=localhost\\SQL2019;Database=Layers_Office;Trusted_Connection=true"));
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", p =>

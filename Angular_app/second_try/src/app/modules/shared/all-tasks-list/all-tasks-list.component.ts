@@ -1,13 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   Output,
   QueryList,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { Operation } from 'src/app/models/operation';
-import { OperationService } from 'src/app/services/operation.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -52,12 +49,15 @@ export class AllTasksListComponent {
   dataSource!: MatTableDataSource<Bag>;
   lawyersList: NewUser[] = [];
   allowSensitiveActions: boolean = false;
+  openFreeFilter: boolean = false;
+  filterTasksValue: string = '';
 
   @Output() totalTasks: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChildren(TasksListComponent) tasksList!: QueryList<TasksListComponent>;
+
   // @ViewChild(TasksListComponent) mainTasksList!: TasksListComponent;
 
   constructor(
@@ -139,6 +139,13 @@ export class AllTasksListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  applyTasksFilter(event: Event | string) {
+    this.filterTasksValue = !(typeof event === 'string')
+      ? (event.target as HTMLInputElement).value
+      : event;
+    this.tasksList.forEach((tl) => tl.sortTasks());
   }
 
   pageChanged(event: PageEvent) {
